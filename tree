@@ -1,0 +1,3 @@
+// by_path_row_col might subsume this index entirely
+path	blob_oid
+lib/apply-extends.ts	d235ac9a732a20137167599390754289c81ad12e
