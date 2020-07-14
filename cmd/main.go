@@ -150,11 +150,9 @@ func deleteBucket(svc *s3.S3, bucket string) func() {
 func withTiming(op func(), opName string) {
 	start := time.Now()
 	defer func() {
-		fmt.Println("\n\n*********************")
 		fmt.Printf("%s duration: %v\n", opName, time.Since(start))
-		fmt.Println("*********************")
 	}()
-	fmt.Println("\n\n\n" + opName + ":")
+	fmt.Println("\n" + opName + ":")
 	op()
 }
 
