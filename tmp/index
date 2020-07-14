@@ -1,0 +1,3 @@
+path_hash-row-col	blob_oid	symbol_index
+3c0eafab7d732a7a44a111b3911492a0cd2cc4c0-9-10-33	d235ac9a732a20137167599390754289c81ad12e	0	// NB: Function definition
+3c0eafab7d732a7a44a111b3911492a0cd2cc4c0-56-5-28	d235ac9a732a20137167599390754289c81ad12e	10	// NB: Call

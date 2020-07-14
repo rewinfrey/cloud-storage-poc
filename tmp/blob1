@@ -1,0 +1,441 @@
+// NB: This will be in protobuf format
+// Note: Will include stack graphs nodes (symbols) and paths
+{
+	"path": "lib/apply-extends.ts",
+	"language": "TypeScript",
+	"version": "1.1",
+	"capabilities": ["fuzzy", "stackgraphs"],
+	"paths": [
+		// {
+		// 	"startingScopeStackSize":
+		// 	"StartingSymbolStack":
+		// 	"from":
+		// 	"edges":
+		// 	"to":
+		// 	"endingScopeStack":
+		// 	"endingSymbolStack":
+		// }
+	],
+	"symbols": [
+		{
+			"symbol": "checkForCircularExtends",
+			"kind": "Function",
+			"line": "function checkForCircularExtends (cfgPath: string) {",
+			"span": {
+				"start": {
+					"line": 9,
+					"column": 10
+				},
+				"end": {
+					"line": 9,
+					"column": 33
+				}
+			},
+			"nodeType": "DEFINITION"
+		},
+		{
+			"symbol": "indexOf",
+			"kind": "Call",
+			"line": "previouslyVisitedConfigs.indexOf(cfgPath)",
+			"span": {
+				"start": {
+					"line": 10,
+					"column": 32
+				},
+				"end": {
+					"line": 10,
+					"column": 39
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "getPathToDefaultConfig",
+			"kind": "Function",
+			"line": "function getPathToDefaultConfig (cwd: string, pathToExtend: string) {",
+			"span": {
+				"start": {
+					"line": 15,
+					"column": 10
+				},
+				"end": {
+					"line": 15,
+					"column": 32
+				}
+			},
+			"nodeType": "DEFINITION"
+		},
+		{
+			"symbol": "resolve",
+			"kind": "Call",
+			"line": "path.resolve(cwd, pathToExtend)",
+			"span": {
+				"start": {
+					"line": 16,
+					"column": 15
+				},
+				"end": {
+					"line": 16,
+					"column": 22
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "mergeDeep",
+			"kind": "Function",
+			"line": "function mergeDeep (config1: Dictionary, config2: Dictionary) {",
+			"span": {
+				"start": {
+					"line": 19,
+					"column": 10
+				},
+				"end": {
+					"line": 19,
+					"column": 19
+				}
+			},
+			"nodeType": "DEFINITION"
+		},
+		{
+			"symbol": "isObject",
+			"kind": "Function",
+			"line": "function isObject (obj: Dictionary | any): obj is Dictionary {",
+			"span": {
+				"start": {
+					"line": 21,
+					"column": 12
+				},
+				"end": {
+					"line": 21,
+					"column": 20
+				}
+			},
+			"nodeType": "DEFINITION"
+		},
+		{
+			"symbol": "isArray",
+			"kind": "Call",
+			"line": "Array.isArray(obj)",
+			"span": {
+				"start": {
+					"line": 22,
+					"column": 53
+				},
+				"end": {
+					"line": 22,
+					"column": 60
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "assign",
+			"kind": "Call",
+			"line": "Object.assign(target, config1)",
+			"span": {
+				"start": {
+					"line": 24,
+					"column": 10
+				},
+				"end": {
+					"line": 24,
+					"column": 16
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "mergeDeep",
+			"kind": "Call",
+			"line": "mergeDeep(config1[key], config2[key])",
+			"span": {
+				"start": {
+					"line": 27,
+					"column": 21
+				},
+				"end": {
+					"line": 27,
+					"column": 30
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "isObject",
+			"kind": "Call",
+			"line": "isObject(config2[key])",
+			"span": {
+				"start": {
+					"line": 26,
+					"column": 9
+				},
+				"end": {
+					"line": 26,
+					"column": 17
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "isObject",
+			"kind": "Call",
+			"line": "isObject(target[key])",
+			"span": {
+				"start": {
+					"line": 26,
+					"column": 35
+				},
+				"end": {
+					"line": 26,
+					"column": 43
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "keys",
+			"kind": "Call",
+			"line": "Object.keys(config2)",
+			"span": {
+				"start": {
+					"line": 25,
+					"column": 28
+				},
+				"end": {
+					"line": 25,
+					"column": 32
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "applyExtends",
+			"kind": "Function",
+			"line": "function applyExtends (config: Dictionary, cwd: string, mergeExtends: boolean) {",
+			"span": {
+				"start": {
+					"line": 35,
+					"column": 17
+				},
+				"end": {
+					"line": 35,
+					"column": 29
+				}
+			},
+			"nodeType": "DEFINITION"
+		},
+		{
+			"symbol": "test",
+			"kind": "Call",
+			"line": "/\\.json|\\..*rc$/.test(config.extends)",
+			"span": {
+				"start": {
+					"line": 40,
+					"column": 37
+				},
+				"end": {
+					"line": 40,
+					"column": 41
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "getPathToDefaultConfig",
+			"kind": "Call",
+			"line": "getPathToDefaultConfig(cwd, config.extends)",
+			"span": {
+				"start": {
+					"line": 49,
+					"column": 23
+				},
+				"end": {
+					"line": 49,
+					"column": 45
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "resolve",
+			"kind": "Call",
+			"line": "require.resolve(config.extends)",
+			"span": {
+				"start": {
+					"line": 44,
+					"column": 33
+				},
+				"end": {
+					"line": 44,
+					"column": 40
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "checkForCircularExtends",
+			"kind": "Call",
+			"line": "checkForCircularExtends(pathToDefault)",
+			"span": {
+				"start": {
+					"line": 56,
+					"column": 5
+				},
+				"end": {
+					"line": 56,
+					"column": 28
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "push",
+			"kind": "Call",
+			"line": "previouslyVisitedConfigs.push(pathToDefault)",
+			"span": {
+				"start": {
+					"line": 58,
+					"column": 30
+				},
+				"end": {
+					"line": 58,
+					"column": 34
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "parse",
+			"kind": "Call",
+			"line": "JSON.parse(fs.readFileSync(pathToDefault, 'utf8'))",
+			"span": {
+				"start": {
+					"line": 60,
+					"column": 35
+				},
+				"end": {
+					"line": 60,
+					"column": 40
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "readFileSync",
+			"kind": "Call",
+			"line": "fs.readFileSync(pathToDefault, 'utf8')",
+			"span": {
+				"start": {
+					"line": 60,
+					"column": 44
+				},
+				"end": {
+					"line": 60,
+					"column": 56
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "applyExtends",
+			"kind": "Call",
+			"line": "applyExtends(defaultConfig, path.dirname(pathToDefault), mergeExtends)",
+			"span": {
+				"start": {
+					"line": 62,
+					"column": 21
+				},
+				"end": {
+					"line": 62,
+					"column": 33
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "dirname",
+			"kind": "Call",
+			"line": "path.dirname(pathToDefault)",
+			"span": {
+				"start": {
+					"line": 62,
+					"column": 54
+				},
+				"end": {
+					"line": 62,
+					"column": 61
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "call",
+			"kind": "Call",
+			"line": "Object.prototype.hasOwnProperty.call(config, 'extends')",
+			"span": {
+				"start": {
+					"line": 38,
+					"column": 39
+				},
+				"end": {
+					"line": 38,
+					"column": 43
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "assign",
+			"kind": "Call",
+			"line": "Object.assign({}, defaultConfig, config)",
+			"span": {
+				"start": {
+					"line": 67,
+					"column": 67
+				},
+				"end": {
+					"line": 67,
+					"column": 73
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		},
+		{
+			"symbol": "mergeDeep",
+			"kind": "Call",
+			"line": "mergeDeep(defaultConfig, config)",
+			"span": {
+				"start": {
+					"line": 67,
+					"column": 25
+				},
+				"end": {
+					"line": 67,
+					"column": 34
+				}
+			},
+			"nodeType": "REFERENCE",
+			"syntaxType": "CALL"
+		}
+	]
+}
