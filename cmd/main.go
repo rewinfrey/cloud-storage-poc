@@ -60,7 +60,7 @@ func createBucket(svc *s3.S3, name string) func() {
 
 func writeBucket(uploader *s3manager.Uploader, bucket string, filename string) func() {
 	return func() {
-		file, err := os.Open(filename)
+		file, err := os.Open("data/" + filename)
 		if err != nil {
 			exitErrorf(true, "Unable to open file %q, %v", err)
 		}
