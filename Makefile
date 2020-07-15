@@ -1,5 +1,5 @@
 APPVERSION=$(or $(shell git rev-parse HEAD 2>/dev/null),"unknown")
-EXAMPLEBIN = bin/example
+AWSBIN = bin/aws
 
 GO = go
 V  = 0
@@ -12,23 +12,16 @@ all:
 
 all: build
 
-build: example
+build: aws
 
 BUILDFLAGS = GOFLAGS=-mod=vendor
-example:
+aws:
 	$Q $(BUILDFLAGS) $(GO) build \
 		-ldflags '-X main.BuildVersion=$(APPVERSION)' \
-		-o $(EXAMPLEBIN) ./cmd/
-
-# Tests
-TESTFLAGS = -race -v
-TESTSUITE = ./...
-.PHONY: test
-test:
-	$Q $(BUILDFLAGS) $(GO) test $(TESTFLAGS) `$(BUILDFLAGS) $(GO) list $(TESTSUITE)`
+		-o $(AWSBIN) ./cmd/aws
 
 # Misc
 .PHONY: clean
 clean: ; $(info $(M) cleaning...) @ ## Clean up everything
-	$Q rm -f $(EXAMPLEBIN)
+	$Q rm -f $(AWSBIN)
 	$Q rm -f bin/example
