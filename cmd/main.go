@@ -174,7 +174,7 @@ func main() {
 	// Create S3 file uploader and downloader.
 	uploader := s3manager.NewUploader(sess)
 	downloader := s3manager.NewDownloader(sess)
-	logfile, err := os.Create("tmp/log.txt")
+	logfile, err := os.Create("log.txt")
 	if err != nil {
 		panic(err)
 	}
