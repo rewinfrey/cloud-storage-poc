@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
-	"strconv"
+	"path/filepath"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -58,9 +57,9 @@ func createBucket(svc *s3.S3, name string) func() {
 	}
 }
 
-func writeBucket(uploader *s3manager.Uploader, bucket string, filename string) func() {
+func writeBucket(uploader *s3manager.Uploader, bucket string, filepath string, filename string) func() {
 	return func() {
-		file, err := os.Open("data/" + filename)
+		file, err := os.Open(filepath)
 		if err != nil {
 			exitErrorf(true, "Unable to open file %q, %v", err)
 		}
@@ -72,28 +71,28 @@ func writeBucket(uploader *s3manager.Uploader, bucket string, filename string) f
 		})
 		if err != nil {
 			// Print the error and exit.
-			exitErrorf(true, "Unable to upload %q to %q, %v", filename, bucket, err)
+			exitErrorf(true, "Unable to upload %q to %q, %v", filepath, bucket, err)
 		}
 
-		fmt.Printf("Successfully uploaded %q to %q\n", filename, bucket)
+		fmt.Printf("Successfully uploaded %q to %q\n", filepath, bucket)
 	}
 }
 
-func readBucket(downloader *s3manager.Downloader, bucket string, filename string) func() {
+func readBucket(downloader *s3manager.Downloader, bucket string, filepath string) func() {
 	return func() {
-		file, err := os.Create("tmp/" + filename)
+		file, err := os.Create("tmp/data" + filepath)
 		if err != nil {
-			exitErrorf(true, "Unable to open file %q, %v", filename, err)
+			exitErrorf(true, "Unable to open file %q, %v", filepath, err)
 		}
 		defer file.Close()
 
 		numBytes, err := downloader.Download(file,
 			&s3.GetObjectInput{
 				Bucket: aws.String(bucket),
-				Key:    aws.String(filename),
+				Key:    aws.String(filepath),
 			})
 		if err != nil {
-			exitErrorf(true, "Unable to download item %q, %v", filename, err)
+			exitErrorf(true, "Unable to download item %q, %v", filepath, err)
 		}
 
 		fmt.Println("Downloaded", file.Name(), numBytes, "bytes")
@@ -147,10 +146,13 @@ func deleteBucket(svc *s3.S3, bucket string) func() {
 	}
 }
 
-func withTiming(op func(), opName string) {
+func withTiming(op func(), opName string, logfile *os.File) {
 	start := time.Now()
 	defer func() {
-		fmt.Printf("%s duration: %v\n", opName, time.Since(start))
+		msg := fmt.Sprintf("%s duration: %v\n", opName, time.Since(start))
+		logfile.WriteString(msg)
+		logfile.Sync()
+		fmt.Println(msg)
 	}()
 	fmt.Println("\n" + opName + ":")
 	op()
@@ -172,32 +174,47 @@ func main() {
 	// Create S3 file uploader and downloader.
 	uploader := s3manager.NewUploader(sess)
 	downloader := s3manager.NewDownloader(sess)
+	logfile, err := os.Create("tmp/log.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer logfile.Close()
 
 	// Use a pseudo-randomly generated name.
-	name := "example." + strconv.Itoa(rand.Int())
+	name := "blob-storage"
 
 	// Clean up previous runs (if needed).
-	withTiming(deleteBucketItems(svc, name), "deleteBucketItems")
-	withTiming(deleteBucket(svc, name), "deleteBucket")
+	withTiming(deleteBucketItems(svc, name), "deleteBucketItems", logfile)
+	withTiming(deleteBucket(svc, name), "deleteBucket", logfile)
 
 	// Create the bucket.
-	withTiming(createBucket(svc, name), "createBucket")
+	withTiming(createBucket(svc, name), "createBucket", logfile)
 
 	// Write files to the bucket.
-	withTiming(writeBucket(uploader, name, "tree"), "writeFile")
-	withTiming(writeBucket(uploader, name, "blob1"), "writeFile")
-	withTiming(writeBucket(uploader, name, "blob2"), "writeFile")
-	withTiming(writeBucket(uploader, name, "index"), "writeFile")
+	files := make(map[string]string)
+	root := "data/"
+	err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		files[info.Name()] = path
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+	for filename, filepath := range files {
+		withTiming(writeBucket(uploader, name, filepath, filename), "writeFile", logfile)
+	}
 
 	// Read files from the bucket.
-	withTiming(readBucket(downloader, name, "tree"), "readFile")
-	withTiming(readBucket(downloader, name, "blob1"), "readFile")
-	withTiming(readBucket(downloader, name, "blob2"), "readFile")
-	withTiming(readBucket(downloader, name, "index"), "readFile")
+	for filename, _ := range files {
+		withTiming(readBucket(downloader, name, filename), "readFile", logfile)
+	}
 
 	// List all buckets.
-	withTiming(listAllBuckets(svc), "listAllBuckets")
+	withTiming(listAllBuckets(svc), "listAllBuckets", logfile)
 
 	// List all within a single bucket.
-	withTiming(listBucket(svc, name), "listBucket")
+	withTiming(listBucket(svc, name), "listBucket", logfile)
 }
