@@ -1,0 +1,145 @@
+
+(0a443c1019e5a3236e57dde318ffe518068edaec.app/controllers/discussions/base_controller.rbRuby"02xBaseController@class Discussions::BaseController < AbstractRepositoryController"
+"*
+!22@8@2uDiscussions@class Discussions::BaseController < AbstractRepositoryController"
+*
+2%08@2ÜAbstractRepositoryController@class Discussions::BaseController < AbstractRepositoryController"
+%A*
+$@2C_8@2Ubefore_actionbefore_action :require_feature"
+*
+2bo8@2Klayoutlayout :repository_layout"
+	*
+2Éâ8@2:privateprivate"
+
+*
+	2†ß8@2Nrequire_featuredef require_feature"
+		*
+2Øæ8@2Y
+render_404#render_404 unless show_discussions?"
+
+
+*
+		2√Õ8@2`show_discussions?#render_404 unless show_discussions?"
+
+
+(*
+		'2’Ê8@2z%require_discussion_categories_feature)def require_discussion_categories_feature"
+,*
++2Ùô8@2f
+render_4040render_404 unless discussion_categories_enabled?"
+*
+2û®8@2zdiscussion_categories_enabled?0render_404 unless discussion_categories_enabled?"
+5*
+42∞Œ8@2drequire_spotlights_featuredef require_spotlights_feature"
+!*
+ 2‹ˆ8@2f
+render_4040render_404 unless discussion_spotlights_enabled?"
+*
+2˚Ö8@2zdiscussion_spotlights_enabled?0render_404 unless discussion_spotlights_enabled?"
+5*
+42ç´8@2Trequire_discussiondef require_discussion"
+*
+2πÀ8@2{
+render_404Erender_404 unless discussion && discussion.readable_by?(current_user)"
+*
+2–⁄8@2{
+discussionErender_404 unless discussion && discussion.readable_by?(current_user)"
+!*
+ 2‚Ï8@2}readable_by?Erender_404 unless discussion && discussion.readable_by?(current_user)"
+0<*
+/;2˚á8@2}current_userErender_404 unless discussion && discussion.readable_by?(current_user)"
+=I*
+<H2àî8@2{
+discussionErender_404 unless discussion && discussion.readable_by?(current_user)"
+%/*
+$.2˙8@2t"require_ability_to_open_discussion&def require_ability_to_open_discussion"
+)*
+(2£≈8@2Äcan_create_discussion?>unless current_user.can_create_discussion?(current_repository)"
+/*
+.2ﬁÙ8@2|current_repository>unless current_user.can_create_discussion?(current_repository)"
+0B*
+/A2ıá8@2vcurrent_user>unless current_user.can_create_discussion?(current_repository)"
+*
+2—›8@2nflash=flash[:error] = "You can't perform that action at this time.""
+*
+2èî8@2Åredirect_toJredirect_to discussions_path(current_repository.owner, current_repository)"
+*
+2”ﬁ8@2Üdiscussions_pathJredirect_to discussions_path(current_repository.owner, current_repository)"
+#*
+"2ﬂÔ8@2{ownerJredirect_to discussions_path(current_repository.owner, current_repository)"
+7<*
+6;2Éà8@2àcurrent_repositoryJredirect_to discussions_path(current_repository.owner, current_repository)"
+$6*
+#52Ç8@2àcurrent_repositoryJredirect_to discussions_path(current_repository.owner, current_repository)"
+>P*
+=O2äú8@2D
+discussiondef discussion"
+  *
+2≥Ω8@2npresent?:discussion_number = if params[:discussion_number].present?"
+"9"A*
+!8!@2êò8@2lparams:discussion_number = if params[:discussion_number].present?"
+""$*
+!!#2ı˚8@2Lparamsparams[:discussion_number]"
+#	#*
+""2°ß8@2Aparamsparams[:number]"
+%	%*
+$$2œ’8@2Ufirst$with_number(discussion_number).first"
+*(*-*
+)'),2˝Ç	8@2[with_number$with_number(discussion_number).first"
+*	**
+))2ﬁÈ8@2]for_repository#for_repository(current_repository)."
+)	)*
+((2≤¿8@2acurrent_repository#for_repository(current_repository)."
+))**
+(()2¡”8@2tfilter_spam_for9@discussion ||= Discussion.filter_spam_for(current_user)."
+("(1*
+'!'02ãö8@2qcurrent_user9@discussion ||= Discussion.filter_spam_for(current_user)."
+(2(>*
+'1'=2õß8@2o
+Discussion9@discussion ||= Discussion.filter_spam_for(current_user)."
+((!*
+'' 2Ää8@2Ñrender_single_commentCdef render_single_comment(comment, status: :ok, error_message: nil)"
+..*
+--2ò	≠	8@2snewDrender_context = DiscussionTimeline::SingleCommentRenderContext.new("
+/E/H*
+.D.G2ú
+ü
+8@2A
+discussiondiscussion,"
+00*
+//2ß
+±
+8@2Mcurrent_userviewer: current_user,"
+22*
+112–
+‹
+8@2äSingleCommentRenderContextDrender_context = DiscussionTimeline::SingleCommentRenderContext.new("
+//D*
+..C2Ì	õ
+8@2ÇDiscussionTimelineDrender_context = DiscussionTimeline::SingleCommentRenderContext.new("
+//(*
+..'2Ì	ˇ	8@2pnewAtimeline = DiscussionTimeline.new(render_context: render_context)"
+4#4&*
+3"3%2Üâ8@2DiscussionTimelineAtimeline = DiscussionTimeline.new(render_context: render_context)"
+44"*
+33!2Û
+Ö8@2rrender@render partial: "discussions/comment", status: status, locals: {"
+66*
+55
+2Øµ8@2bcomment_dom_id(dom_id: helpers.comment_dom_id(comment),"
+77%*
+66$2Üî8@2[helpers(dom_id: helpers.comment_dom_id(comment),"
+77*
+662˛Ö8@2≠discussion_comment_pathjform_path: discussion_comment_path(timeline.repo_owner, timeline.repo_name, timeline.discussion, comment),"
+::)*
+99(2‚˘8@2†
+repo_ownerjform_path: discussion_comment_path(timeline.repo_owner, timeline.repo_name, timeline.discussion, comment),"
+:3:=*
+929<2Éç8@2ü	repo_namejform_path: discussion_comment_path(timeline.repo_owner, timeline.repo_name, timeline.discussion, comment),"
+:H:Q*
+9G9P2ò°8@2†
+discussionjform_path: discussion_comment_path(timeline.repo_owner, timeline.repo_name, timeline.discussion, comment),"
+:\:f*
+9[9e2¨∂8@2ianswer?6action_text: comment.answer? ? "answered" : "replied","
+;;#*
+::"2›‰8@

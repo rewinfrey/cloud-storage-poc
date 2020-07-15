@@ -1,0 +1,25 @@
+
+(0a4be08a46882a8fa3cdb8aae0167d0b8ec3bf63<vendor/bundler/spec/support/artifice/compact_index_no_gem.rbRuby"02G
+deactivateArtifice.deactivate"
+
+*
+	2JT8@2CArtificeArtifice.deactivate"
+	*
+
+2AI8@2dCompactIndexNoGem)class CompactIndexNoGem < CompactIndexAPI"
+*
+2\m8@2bCompactIndexAPI)class CompactIndexNoGem < CompactIndexAPI"
+**
+)2p8@2Agetget "/gems/:id" do"
+*
+2‚…8@28halthalt 500"
+			*
+2™8@2bactivate_with)Artifice.activate_with(CompactIndexNoGem)"
+
+*
+	2¶Ã8@2fCompactIndexNoGem)Artifice.activate_with(CompactIndexNoGem)"
+)*
+(2ÄÕ8@2[Artifice)Artifice.activate_with(CompactIndexNoGem)"
+	*
+
+2­µ8@

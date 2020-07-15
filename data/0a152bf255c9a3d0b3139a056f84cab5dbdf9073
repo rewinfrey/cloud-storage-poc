@@ -1,0 +1,27 @@
+
+(0a152bf255c9a3d0b3139a056f84cab5dbdf9073test/factories/tab_factories.rbRuby"02DdefineFactoryBot.define do"
+*
+2*08@2@factoryfactory :tab do"
+
+*
+	26=8@2>
+repository
+repository"
+*
+2JT8@2\url/url { "http://" + Faker::Internet.domain_name }"
+*
+2Y\8@2edomain_name/url { "http://" + Faker::Internet.domain_name }"
+'2*
+&12{Ü8@2aInternet/url { "http://" + Faker::Internet.domain_name }"
+&*
+%2kz8@2^Faker/url { "http://" + Faker::Internet.domain_name }"
+*
+2kp8@2Eanchoranchor { "GitHub" }"
+*
+
+2çì8@2F
+FactoryBotFactoryBot.define do"
+*
+
+
+2)8@

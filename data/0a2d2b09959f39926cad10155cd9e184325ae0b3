@@ -1,0 +1,27 @@
+
+(0a2d2b09959f39926cad10155cd9e184325ae0b3Sapp/view_models/edit_repositories/admin_screen/pages_visibility_select_item_view.rbRuby"02ÈPagesVisibilitySelectItemView€class EditRepositories::AdminScreen::PagesVisibilitySelectItemView < ViewModel # rubocop:todo ViewComponent/PreferViewComponents"
+&C*
+%B2Da8@2¶AdminScreen€class EditRepositories::AdminScreen::PagesVisibilitySelectItemView < ViewModel # rubocop:todo ViewComponent/PreferViewComponents"
+$*
+#2%B8@2»EditRepositories€class EditRepositories::AdminScreen::PagesVisibilitySelectItemView < ViewModel # rubocop:todo ViewComponent/PreferViewComponents"
+*
+2%58@2´	ViewModel€class EditRepositories::AdminScreen::PagesVisibilitySelectItemView < ViewModel # rubocop:todo ViewComponent/PreferViewComponents"
+FO*
+EN2dm8@2qattr_reader:attr_reader :repository, :render_button, :current_selected"
+*
+2¢­8@28namedef name"
+*
+
+2äè8@2drender_button+return "Public" if render_button == :public"
+%*
+$2€8@2frender_button-return "Private" if render_button == :private"
+&*
+%2±¾8@2Fdescriptiondef description"
+*
+
+
+2Øã8@2‡render_buttonNreturn "Anyone on the internet can see this page." if render_button == :public"
+;H*
+:G2ž«8@2œrender_buttoncreturn "Only people with access to this repository can see this page." if render_button == :private"
+O\*
+N[2…’8@

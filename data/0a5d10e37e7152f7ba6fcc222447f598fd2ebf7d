@@ -1,0 +1,79 @@
+
+(0a5d10e37e7152f7ba6fcc222447f598fd2ebf7d9app/models/repository_vulnerability_alert/query_parser.rbRuby"02hRepositoryVulnerabilityAlert"class RepositoryVulnerabilityAlert"
+#*
+"2%A8@2IQueryParsermodule QueryParser"
+
+*
+	2≥æ8@2GFIELDSFIELDS = [:is, :sort]"
+*
+
+2√…8@2QUNIQ_FIELDSUNIQ_FIELDS = [:sort, :is]"
+*
+2ª∆8@2HSORT_MAPPINGSORT_MAPPING = {"
+*
+2€Á8@2JSTATE_MAPPINGSTATE_MAPPING = {"
+*
+2¢Ø8@2`parse_and_normalize!def self.parse_and_normalize(str)"
+##!*
+"" 2˙ç8@2Z	normalize%arr = self.normalize(self.parse(str))"
+%%*
+$$2≥º8@2Vparse%arr = self.normalize(self.parse(str))"
+%!%&*
+$ $%2¬«8@2Heacharr.each do |(key, val)|"
+//*
+.
+.2ı˘8@2Qsanitizesane_val = sanitize(key, val)"
+11*
+002Æ∂8@2Osanitizedef self.sanitize(key, val)"
+99*
+882ñû8@2ISORT_MAPPINGSORT_MAPPING[val]"
+<	<*
+;;2—›8@2KSTATE_MAPPINGSTATE_MAPPING[val]"
+>	>*
+==2˙á8@2Dparsedef self.parse(str)"
+DD*
+CC2ƒ…8@2]parse,Search::ParsedQuery.parse(str, self::FIELDS)"
+EE *
+DD2ÈÓ8@2^FIELDS,Search::ParsedQuery.parse(str, self::FIELDS)"
+E&E2*
+D%D12ÙÄ8@2cParsedQuery,Search::ParsedQuery.parse(str, self::FIELDS)"
+EE*
+DD2’Ë8@2^Search,Search::ParsedQuery.parse(str, self::FIELDS)"
+EE*
+DD2’€8@2L	normalizedef self.normalize(ary)"
+II*
+HH2∏¡8@2=newseen = Set.new"
+JJ*
+II2ÿ€8@2=Setseen = Set.new"
+JJ*
+II2‘◊8@2mfilter_terms5Search::ParsedQuery.filter_terms(ary) do |key, value|"
+KK'*
+JJ&2ˆÇ8@2Rto_sym key = value.to_sym if key == :no"
+MM*
+LL2–÷8@2linclude?8if self::UNIQ_FIELDS.include?(key) && seen.include?(key)"
+OO&*
+NN%2Éã8@2oUNIQ_FIELDS8if self::UNIQ_FIELDS.include?(key) && seen.include?(key)"
+OO*
+NN2ÒÇ8@2linclude?8if self::UNIQ_FIELDS.include?(key) && seen.include?(key)"
+O4O<*
+N3N;2ô°8@2<addseen.add(key)"
+RR*
+QQ2”÷8@2lParsedQuery5Search::ParsedQuery.filter_terms(ary) do |key, value|"
+KK*
+JJ2‚ı8@2gSearch5Search::ParsedQuery.filter_terms(ary) do |key, value|"
+KK*
+JJ2‚Ë8@2Ocombinedef self.combine(str1, str2)"
+ZZ*
+YY2¥ª8@2Vparse%ary1, ary2 = parse(str1), parse(str2)"
+[[*
+ZZ2€‡8@2Vparse%ary1, ary2 = parse(str1), parse(str2)"
+[![&*
+Z Z%2ËÌ8@2j	stringify5Search::ParsedQuery.stringify(normalize(ary1 + ary2))"
+\\$*
+[[#2éó8@2j	normalize5Search::ParsedQuery.stringify(normalize(ary1 + ary2))"
+\%\.*
+[$[-2ò°8@2lParsedQuery5Search::ParsedQuery.stringify(normalize(ary1 + ary2))"
+\\*
+[[2˙ç8@2gSearch5Search::ParsedQuery.stringify(normalize(ary1 + ary2))"
+\\*
+[[2˙Ä8@

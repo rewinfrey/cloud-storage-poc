@@ -1,0 +1,83 @@
+
+(0a0c6d5284bb6bd9d468975a5b8e7e81d8f2daaf:test/view_models/stafftools/abilities/ability_view_test.rbRuby"02ˆ"StafftoolsAbilitiesAbilityViewTest;class StafftoolsAbilitiesAbilityViewTest < GitHub::TestCase"
+)*
+(2b„8@2oTestCase;class StafftoolsAbilitiesAbilityViewTest < GitHub::TestCase"
+,<*
++;2‡—8@2mGitHub;class StafftoolsAbilitiesAbilityViewTest < GitHub::TestCase"
+,2*
++12‡8@2?fixturesfixtures do"
+*
+
+2š¢8@2Lcreate@actor    = AnActor.create"
+*
+2¾Ä8@2MAnActor@actor    = AnActor.create"
+*
+2¶½8@2Vcreate$@cascader = AnActorAndSubject.create"
+	#	)*
+"(2çí8@2aAnActorAndSubject$@cascader = AnActorAndSubject.create"
+		"*
+!2Õæ8@2Mcreate@subject  = ASubject.create"
+
+
+ *
+		2‡8@2OASubject@subject  = ASubject.create"
+
+
+*
+		2þ†8@2Gcontextcontext "#parent" do"
+
+*
+	2—ž8@2Utest%test "returns an ability's parent" do"
+	*
+2°´8@2^grant-parent      = @subject.grant @cascader, :read"
+#*
+"2óø8@2\grant+grandparent = @cascader.grant @actor, :read"
+$*
+#2¨­8@2ªmost_capable_ability_betweenbability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
++G*
+*F2æ‚8@2•servicebability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
+#**
+")2Þå8@2›Authorizationbability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
+"*
+!2ÐÝ8@2knew<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+/2*
+.12ÓÖ8@2sAbilityView<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+.*
+-2°Ò8@2q	Abilities<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+!*
+ 2°Å8@2r
+Stafftools<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+*
+2°º8@2Vassert_equalassert_equal parent, vm.parent"
+*
+2îú8@2Pparentassert_equal parent, vm.parent"
+%*
+$2†Œ8@2Lcontextcontext "#grandparent" do"
+
+*
+	2ž¥8@2Utest%test "returns an ability's parent" do"
+	*
+2¼À8@2^grant-parent      = @subject.grant @cascader, :read"
+#*
+"2ÿ„8@2\grant+grandparent = @cascader.grant @actor, :read"
+$*
+#2´¹8@2ªmost_capable_ability_betweenbability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
++G*
+*F2òŽ8@2•servicebability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
+#**
+")2êñ8@2›Authorizationbability     = Authorization.service.most_capable_ability_between(actor: @actor, subject: @subject)"
+"*
+!2Üé8@2knew<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+/2*
+.12ßâ8@2sAbilityView<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+.*
+-2¼Þ8@2q	Abilities<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+!*
+ 2¼Ñ8@2r
+Stafftools<vm = Stafftools::Abilities::AbilityView.new ability: ability"
+*
+2¼Æ8@2`assert_equal(assert_equal grandparent, vm.grandparent"
+*
+2ú†8@2_grandparent(assert_equal grandparent, vm.grandparent"
+$/*
+#.2—¢8@

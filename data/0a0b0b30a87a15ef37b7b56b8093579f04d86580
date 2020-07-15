@@ -1,0 +1,223 @@
+
+(0a0b0b30a87a15ef37b7b56b8093579f04d86580:test/models/hook/payload/content_reference_payload_test.rbRuby"02&HookPayloadContentReferencePayloadTest?class HookPayloadContentReferencePayloadTest < GitHub::TestCase"
+-*
+,2<b8@2qTestCase?class HookPayloadContentReferencePayloadTest < GitHub::TestCase"
+0@*
+/?2eu8@2oGitHub?class HookPayloadContentReferencePayloadTest < GitHub::TestCase"
+06*
+/52ek8@2>fixturesfixtures do"
+*
+
+2x€8@2Xcreate&@user = create(:user, login: "steves")"
+*
+2–8@2[create)@repo = create(:repository, owner: @user)"
+*
+2»Á8@2`example_repo(example_repo :pull_request_source, @repo"
+		*
+2áí8@2Ucreate#@integration = create(:integration)"
+*
+
+
+2¤8@2Rtest"test "v3 with an issue_comment" do"
+*
+2æê8@2Rcreate comment = create(:issue_comment)"
+*
+2—8@2create[reference = create(:content_reference, reference: @test_url, content: comment, user: @user)"
+*
+2¾Ä8@2¸newˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+03*
+/22½À8@2·idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+TV*
+SU2áã8@2»idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+‰‹*
+ˆŠ2–˜8@2ÊContentReferenceEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+/*
+.2š¼8@2ºEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+*
+2š¥8@2¹Hookˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+*
+2š8@2jnew;payload = Hook::Payload::ContentReferencePayload.new(event)"
+69*
+582ĞÓ8@2~ContentReferencePayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+5*
+42©Ï8@2nPayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+*
+2©¶8@2kHook;payload = Hook::Payload::ContentReferencePayload.new(event)"
+*
+2©­8@2R
+to_versionv3 = payload.to_version(:v3)"
+*
+2í÷8@2Zassert_equal"assert_equal :created, v3[:action]"
+*
+28@2nassert_equal6assert_equal reference.id, v3[:content_reference][:id]"
+*
+2¨´8@2did6assert_equal reference.id, v3[:content_reference][:id]"
+*
+2¿Á8@2€assert_equalHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+*
+2ãï8@2ƒglobal_relay_idHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
++*
+*2ú‰8@2rassert_equal:assert_equal @test_url, v3[:content_reference][:reference]"
+*
+2°¼8@2_assert_equal'assert_equal @user.id, v3[:sender][:id]"
+*
+2ïû8@2Uid'assert_equal @user.id, v3[:sender][:id]"
+*
+2‚„8@2_test/test "v3 with a pull request review comment" do"
+*
+2 ¤8@2[create)other_user = create(:user, login: "acme")"
+*
+2áç8@2Xfork(fork, _ = @repo.fork(forker: other_user)"
+*
+2’	–	8@2]example_repo%example_repo :pull_request_fork, fork"
+  *
+2¯	»	8@2Vcreate$pull_request = create(:pull_request,"
+""*
+!!2é	ï	8@2[create)issue: create(:issue, repository: @repo),"
+##*
+""2Œ
+’
+8@2‰createWcomment = create(:pull_request_review_comment, pull_request: pull_request, user: @user)"
+,,*
+++2çí8@2create[reference = create(:content_reference, reference: @test_url, content: comment, user: @user)"
+--*
+,,2ÅË8@2¸newˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+.0.3*
+-/-22ÄÇ8@2·idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+.T.V*
+-S-U2èê8@2»idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+.‰.‹*
+-ˆ-Š2Ÿ8@2ÊContentReferenceEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+../*
+--.2¡Ã8@2ºEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+..*
+--2¡¬8@2¹Hookˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+..*
+--2¡¥8@2jnew;payload = Hook::Payload::ContentReferencePayload.new(event)"
+/6/9*
+.5.82×Ú8@2~ContentReferencePayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+//5*
+..42°Ö8@2nPayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+//*
+..2°½8@2kHook;payload = Hook::Payload::ContentReferencePayload.new(event)"
+//*
+..2°´8@2R
+to_versionv3 = payload.to_version(:v3)"
+11*
+002ôş8@2Zassert_equal"assert_equal :created, v3[:action]"
+22*
+112ˆ”8@2nassert_equal6assert_equal reference.id, v3[:content_reference][:id]"
+33*
+222¯»8@2did6assert_equal reference.id, v3[:content_reference][:id]"
+33*
+222ÆÈ8@2€assert_equalHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+44*
+332êö8@2ƒglobal_relay_idHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+44+*
+33*28@2rassert_equal:assert_equal @test_url, v3[:content_reference][:reference]"
+55*
+442·Ã8@2_assert_equal'assert_equal @user.id, v3[:sender][:id]"
+66*
+552ö‚8@2Uid'assert_equal @user.id, v3[:sender][:id]"
+66*
+552‰‹8@2Otesttest "v3 with an issue body" do"
+99*
+882§«8@2Hcreateissue = create(:issue)"
+::*
+992ÓÙ8@2‹createYreference = create(:content_reference, reference: @test_url, content: issue, user: @user)"
+;;*
+::2òø8@2¸newˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<0<3*
+;/;22ïò8@2·idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<T<V*
+;S;U2“•8@2»idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<‰<‹*
+;ˆ;Š2ÈÊ8@2ÊContentReferenceEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<</*
+;;.2Ìî8@2ºEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<<*
+;;2Ì×8@2¹Hookˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+<<*
+;;2ÌĞ8@2jnew;payload = Hook::Payload::ContentReferencePayload.new(event)"
+=6=9*
+<5<82‚…8@2~ContentReferencePayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+==5*
+<<42Û8@2nPayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+==*
+<<2Ûè8@2kHook;payload = Hook::Payload::ContentReferencePayload.new(event)"
+==*
+<<2Ûß8@2R
+to_versionv3 = payload.to_version(:v3)"
+??*
+>>2Ÿ©8@2Zassert_equal"assert_equal :created, v3[:action]"
+@@*
+??2³¿8@2nassert_equal6assert_equal reference.id, v3[:content_reference][:id]"
+AA*
+@@2Úæ8@2did6assert_equal reference.id, v3[:content_reference][:id]"
+AA*
+@@2ñó8@2€assert_equalHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+BB*
+AA2•¡8@2ƒglobal_relay_idHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+BB+*
+AA*2¬»8@2rassert_equal:assert_equal @test_url, v3[:content_reference][:reference]"
+CC*
+BB2âî8@2_assert_equal'assert_equal @user.id, v3[:sender][:id]"
+DD*
+CC2¡­8@2Uid'assert_equal @user.id, v3[:sender][:id]"
+DD*
+CC2´¶8@2Utest%test "v3 with a pull request body" do"
+GG*
+FF2ÒÖ8@2[create)other_user = create(:user, login: "acme")"
+HH*
+GG2‰8@2Xfork(fork, _ = @repo.fork(forker: other_user)"
+II*
+HH2º¾8@2]example_repo%example_repo :pull_request_fork, fork"
+JJ*
+II2×ã8@2Vcreate$pull_request = create(:pull_request,"
+LL*
+KK2‘—8@2[create)issue: create(:issue, repository: @repo),"
+MM*
+LL2´º8@2˜createfreference = create(:content_reference, reference: @test_url, content: pull_request.issue, user: @user)"
+VV*
+UU2‘—8@2—issuefreference = create(:content_reference, reference: @test_url, content: pull_request.issue, user: @user)"
+VXV]*
+UWU\2Øİ8@2¸newˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+W0W3*
+V/V22›8@2·idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+WTWV*
+VSVU2¿Á8@2»idˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+W‰W‹*
+VˆVŠ2ôö8@2ÊContentReferenceEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+WW/*
+VV.2øš8@2ºEventˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+WW*
+VV2øƒ8@2¹Hookˆevent = Hook::Event::ContentReferenceEvent.new(content_reference_id: reference.id, action: :created, integration_ids: [@integration.id])"
+WW*
+VV2øü8@2jnew;payload = Hook::Payload::ContentReferencePayload.new(event)"
+X6X9*
+W5W82®±8@2~ContentReferencePayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+XX5*
+WW42‡­8@2nPayload;payload = Hook::Payload::ContentReferencePayload.new(event)"
+XX*
+WW2‡”8@2kHook;payload = Hook::Payload::ContentReferencePayload.new(event)"
+XX*
+WW2‡‹8@2R
+to_versionv3 = payload.to_version(:v3)"
+ZZ*
+YY2ËÕ8@2Zassert_equal"assert_equal :created, v3[:action]"
+[[*
+ZZ2ßë8@2nassert_equal6assert_equal reference.id, v3[:content_reference][:id]"
+\\*
+[[2†’8@2did6assert_equal reference.id, v3[:content_reference][:id]"
+\\*
+[[2Ÿ8@2€assert_equalHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+]]*
+\\2ÁÍ8@2ƒglobal_relay_idHassert_equal reference.global_relay_id, v3[:content_reference][:node_id]"
+]]+*
+\\*2Øç8@2rassert_equal:assert_equal @test_url, v3[:content_reference][:reference]"
+^^*
+]]2š8@2_assert_equal'assert_equal @user.id, v3[:sender][:id]"
+__*
+^^2ÍÙ8@2Uid'assert_equal @user.id, v3[:sender][:id]"
+__*
+^^2àâ8@

@@ -1,0 +1,24 @@
+
+(0a5f330df072bb1cb2d0d7b2ae27d29689174ff1*app/components/mail/container_component.rbRuby"02sContainerComponent5class Mail::ContainerComponent < ApplicationComponent"
+*
+2ò„8@2eMail5class Mail::ContainerComponent < ApplicationComponent"
+*
+
+2ìð8@2uApplicationComponent5class Mail::ContainerComponent < ApplicationComponent"
+"6*
+!52‡›8@2Jincludeinclude ClassNameHelper"
+
+*
+	2ž¥8@2RClassNameHelperinclude ClassNameHelper"
+*
+
+2¦µ8@2Kattr_readerattr_reader :classes"
+		*
+2¸Ã8@2R
+initializedef initialize(classes: nil)"
+*
+
+
+2ÔÞ8@2dclass_names-@classes = class_names("width-full", classes)"
+*
+2ü‡8@

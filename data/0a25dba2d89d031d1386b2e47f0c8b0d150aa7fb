@@ -1,0 +1,157 @@
+
+(0a25dba2d89d031d1386b2e47f0c8b0d150aa7fb:test/jobs/billing_cleanup_transaction_attempts_job_test.rbRuby"02“(BillingCleanupTransactionAttemptsJobTestAclass BillingCleanupTransactionAttemptsJobTest < GitHub::TestCase"
+/*
+.2<d8@2sTestCaseAclass BillingCleanupTransactionAttemptsJobTest < GitHub::TestCase"
+2B*
+1A2gw8@2qGitHubAclass BillingCleanupTransactionAttemptsJobTest < GitHub::TestCase"
+28*
+172gm8@2Winclude%include BillingTransactionsTestHelper"
+
+*
+	2z8@2nBillingTransactionsTestHelper%include BillingTransactionsTestHelper"
+(*
+
+'2‚Ÿ8@2?fixturesfixtures do"
+*
+
+2£«8@2Tcreate"@user_1 = create :credit_card_user"
+		*
+2½Ã8@2bupdate0@user_1.update braintree_customer_id: "39510703""
+
+
+*
+		2âè8@2Tcreate"@user_2 = create :credit_card_user"
+*
+
+
+2™Ÿ8@2bupdate0@user_2.update braintree_customer_id: "38874203""
+*
+2¾Ä8@29setupsetup do"
+*
+2ðõ8@2‰insert_cassetteNVCR.insert_cassette "braintree/customer_settled", allow_playback_repeats: true"
+	*
+28@2}VCRNVCR.insert_cassette "braintree/customer_settled", allow_playback_repeats: true"
+*
+2ý€8@2Šinsert_cassetteOVCR.insert_cassette "braintree/customer_38874203", allow_playback_repeats: true"
+	*
+2Ôã8@2~VCROVCR.insert_cassette "braintree/customer_38874203", allow_playback_repeats: true"
+*
+2ÐÓ8@2xsetup_attempted_transactions0setup_attempted_transactions @user_1, ["4pdwhg"]"
+!*
+ 2¥Á8@2‚setup_attempted_transactions:setup_attempted_transactions @user_2, ["gw28vr", "8qqtgb"]"
+!*
+ 2Úö8@2?teardownteardown do"
+*
+
+2ž¦8@2Otimes2.times { VCR.eject_cassette }"
+*
+2°µ8@2Xeject_cassette2.times { VCR.eject_cassette }"
+!*
+ 2¼Ê8@2MVCR2.times { VCR.eject_cassette }"
+*
+2¸»8@2\test,test "updates all attempted transactions" do"
+*
+2ÖÚ8@2gperform_now0BillingCleanupTransactionAttemptsJob.perform_now"
+*5*
+)42¬·8@2€$BillingCleanupTransactionAttemptsJob0BillingCleanupTransactionAttemptsJob.perform_now"
+)*
+(2‡«8@2jassert_equal2assert_equal 4, @user_1.billing_transactions.count"
+*
+2½É8@2ccount2assert_equal 4, @user_1.billing_transactions.count"
+27*
+162êï8@2rbilling_transactions2assert_equal 4, @user_1.billing_transactions.count"
+1*
+02Õé8@2qassert?assert @user_1.billing_transactions.all? { |t| !t.incomplete? }"
+*
+
+2ôú8@2oall??assert @user_1.billing_transactions.all? { |t| !t.incomplete? }"
+)-*
+(,2˜œ8@2vincomplete??assert @user_1.billing_transactions.all? { |t| !t.incomplete? }"
+7B*
+6A2¦±8@2billing_transactions?assert @user_1.billing_transactions.all? { |t| !t.incomplete? }"
+(*
+'2ƒ—8@2jassert_equal2assert_equal 4, @user_2.billing_transactions.count"
+!!*
+  2¹Å8@2ccount2assert_equal 4, @user_2.billing_transactions.count"
+!2!7*
+ 1 62æë8@2rbilling_transactions2assert_equal 4, @user_2.billing_transactions.count"
+!!1*
+  02Ñå8@2qassert?assert @user_2.billing_transactions.all? { |t| !t.incomplete? }"
+""*
+!!
+2ðö8@2oall??assert @user_2.billing_transactions.all? { |t| !t.incomplete? }"
+")"-*
+!(!,2”˜8@2vincomplete??assert @user_2.billing_transactions.all? { |t| !t.incomplete? }"
+"7"B*
+!6!A2¢­8@2billing_transactions?assert @user_2.billing_transactions.all? { |t| !t.incomplete? }"
+""(*
+!!'2ÿ“8@2tassertBassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$$*
+##
+2µ»8@2rall?Bassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$,$0*
+#+#/2Üà8@2yincomplete?Bassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$:$E*
+#9#D2êõ8@2qallBassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$($+*
+#'#*2ØÛ8@2€BillingTransactionBassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$$'*
+##&2¼×8@2uBillingBassert Billing::BillingTransaction.all.all? { |t| !t.incomplete? }"
+$$*
+##2¼Ã8@2Otesttest "handles deleted users" do"
+''*
+&&2	…	8@2Bdestroy@user_1.destroy"
+((*
+''2­	´	8@2gperform_now0BillingCleanupTransactionAttemptsJob.perform_now"
+)*)5*
+()(42Þ	é	8@2€$BillingCleanupTransactionAttemptsJob0BillingCleanupTransactionAttemptsJob.perform_now"
+)))*
+(((2¹	Ý	8@2jassert_equal2assert_equal 4, @user_2.billing_transactions.count"
+***
+))2î	ú	8@2ccount2assert_equal 4, @user_2.billing_transactions.count"
+*2*7*
+)1)62›
+ 
+8@2rbilling_transactions2assert_equal 4, @user_2.billing_transactions.count"
+**1*
+))02†
+š
+8@2ktest;test "does not run simultaneously with conflicting jobs" do"
+--*
+,,2ª
+®
+8@2†raisesTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+.2.8*
+-1-72—8@2ŒUnableToLockTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+.9.X*
+-8-W2ž½8@2‰	RestraintTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+.9.J*
+-8-I2ž¯8@2†GitHubTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+.9.?*
+-8->2ž¤8@2…stubsTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+.$.)*
+-#-(2‰Ž8@2Œany_instanceTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+..#*
+--"2ü
+ˆ8@2‰	RestraintTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+..*
+--2ê
+û
+8@2†GitHubTGitHub::Restraint.any_instance.stubs(:lock!).raises(GitHub::Restraint::UnableToLock)"
+..*
+--
+2ê
+ð
+8@2gperform_now0BillingCleanupTransactionAttemptsJob.perform_now"
+0*05*
+/)/42éô8@2€$BillingCleanupTransactionAttemptsJob0BillingCleanupTransactionAttemptsJob.perform_now"
+00)*
+//(2Äè8@2ƒassert_enqueued_jobsCassert_enqueued_jobs(1, only: BillingCleanupTransactionAttemptsJob)"
+22*
+112úŽ8@2“$BillingCleanupTransactionAttemptsJobCassert_enqueued_jobs(1, only: BillingCleanupTransactionAttemptsJob)"
+2#2G*
+1"1F2˜¼8@2Zbilling_enabled?end if GitHub.billing_enabled?"
+44*
+332Òâ8@2PGitHubend if GitHub.billing_enabled?"
+44*
+332ËÑ8@

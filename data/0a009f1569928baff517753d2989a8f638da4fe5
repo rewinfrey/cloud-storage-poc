@@ -1,0 +1,352 @@
+
+(0a009f1569928baff517753d2989a8f638da4fe5&test/models/user_feature_flags_test.rbRuby"02kUserFeatureFlagsTest-class UserFeatureFlagsTest < GitHub::TestCase"
+*
+2<P8@2_TestCase-class UserFeatureFlagsTest < GitHub::TestCase"
+.*
+-2Sc8@2]GitHub-class UserFeatureFlagsTest < GitHub::TestCase"
+$*
+#2SY8@2Jincludeinclude FakeBraintreeStub"
+
+*
+	2fm8@2TFakeBraintreeStubinclude FakeBraintreeStub"
+*
+
+2n8@2?fixturesfixtures do"
+*
+
+2ƒ‹8@2Rpreview_user@employee   = preview_user"
+		*
+2¡­8@2Ycreate'@site_admin = create(:staff_admin_user)"
+
+
+*
+		2ÀÆ8@2P
+github_org@github       = github_org"
+*
+2ğú8@2{createI@early_access = create :team, organization: @github, name: "early-access""
+*
+2•8@2S	add_admin@github.add_admin(@site_admin)"
+*
+2™8@2Q	add_admin@github.add_admin(@employee)"
+*
+2³¼8@2X
+add_member"@early_access.add_member @employee"
+*
+2Úä8@2Pcreate@security_peep = create(:user)"
+*
+2…‹8@2ˆcreateV@security_org  = create(:organization, admin: @security_peep, login: "GitHubSecurity")"
+*
+2¨®8@2createM@security_team = create(:team, organization: @security_org, name: "Matasano")"
+*
+2ƒ‰8@2\	add_admin'@security_org.add_admin(@security_peep)"
+*
+2ÒÛ8@2Icreate@tester = create(:user)"
+*
+2ú€8@2W
+add_member!@security_team.add_member @tester"
+*
+2›¥8@29setupsetup do"
+*
+2·¼8@2Uclear$GitHub::FeatureFlag.team_cache.clear"
+$)*
+#(2ãè8@2Z
+team_cache$GitHub::FeatureFlag.team_cache.clear"
+#*
+"2Øâ8@2[FeatureFlag$GitHub::FeatureFlag.team_cache.clear"
+*
+2Ä×8@2VGitHub$GitHub::FeatureFlag.team_cache.clear"
+*
+
+2ÄÊ8@2yFeaturesVsEmployeeModeTest3class FeaturesVsEmployeeModeTest < GitHub::TestCase"
+!!!*
+   2ú”8@2gTestCase3class FeaturesVsEmployeeModeTest < GitHub::TestCase"
+!$!4*
+ # 32—§8@2eGitHub3class FeaturesVsEmployeeModeTest < GitHub::TestCase"
+!$!**
+ # )2—8@2?fixturesfixtures do"
+""*
+!!
+2ª²8@2Ppreview_user@employee = preview_user"
+##*
+""2ÆÒ8@2\register(Flipper.register(:open_source_mavens) {}"
+$$*
+##2ßç8@2[Flipper(Flipper.register(:open_source_mavens) {}"
+$$*
+##2×Ş8@29setupsetup do"
+''*
+&&2‰8@2aenable/GitHub.flipper[:team_shipped].enable(@employee)"
+(#()*
+'"'(2´º8@2bflipper/GitHub.flipper[:team_shipped].enable(@employee)"
+((*
+''2¤8@2aGitHub/GitHub.flipper[:team_shipped].enable(@employee)"
+((*
+''
+2–œ8@2venable_group>GitHub.flipper[:staff_shipped].enable_group(:preview_features)"
+)$)0*
+(#(/2éõ8@2qflipper>GitHub.flipper[:staff_shipped].enable_group(:preview_features)"
+))*
+((2ÑØ8@2pGitHub>GitHub.flipper[:staff_shipped].enable_group(:preview_features)"
+))*
+((
+2ÊĞ8@2kenable9GitHub.flipper[:team_and_staff_shipped].enable(@employee)"
+*-*3*
+),)22µ	»	8@2lflipper9GitHub.flipper[:team_and_staff_shipped].enable(@employee)"
+***
+))2”	›	8@2kGitHub9GitHub.flipper[:team_and_staff_shipped].enable(@employee)"
+***
+))
+2	“	8@2enable_groupGGitHub.flipper[:team_and_staff_shipped].enable_group(:preview_features)"
++-+9*
+*,*82ó	ÿ	8@2zflipperGGitHub.flipper[:team_and_staff_shipped].enable_group(:preview_features)"
+++*
+**2Ò	Ù	8@2yGitHubGGitHub.flipper[:team_and_staff_shipped].enable_group(:preview_features)"
+++*
+**
+2Ë	Ñ	8@2ztestJtest "features are enabled in employee mode for the relevant employees" do"
+..*
+--2œ
+ 
+8@2jassert_predicate.assert_predicate @employee, :preview_features?"
+//*
+..2ë
+û
+8@2assert[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+00*
+//
+2¤8@2enabled?[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+0*02*
+/)/12ÃË8@2flipper[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+00*
+//2¬³8@2GitHub[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+00*
+//2¥«8@2assert]assert GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should be enabled""
+11*
+00
+2ş„8@2‘enabled?]assert GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should be enabled""
+1+13*
+0*022¤¬8@2flipper]assert GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should be enabled""
+11*
+002Œ“8@2GitHub]assert GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should be enabled""
+11*
+002…‹8@2¡assertoassert GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+22*
+11
+2àæ8@2£enabled?oassert GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+242<*
+131;2—8@2¢flipperoassert GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+22*
+112îõ8@2¡GitHuboassert GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+22*
+112çí8@2Penterprise?unless GitHub.enterprise?"
+66*
+552±¼8@2KGitHubunless GitHub.enterprise?"
+6
+6*
+5	52ª°8@2“testctest "team- or staff-shipped features are disabled for employees when employee mode is disabled" do"
+77	*
+662ÁÅ8@2`disable_employee_mode@employee.disable_employee_mode"
+88&*
+77%2µÊ8@2jrefute_predicate.refute_predicate @employee, :preview_features?"
+99*
+882Ñá8@2‘refute_refute GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should not be enabled""
+::*
+992†Œ8@2“enabled?_refute GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should not be enabled""
+:,:4*
+9+932«³8@2’flipper_refute GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should not be enabled""
+::*
+992”›8@2‘GitHub_refute GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should not be enabled""
+::*
+992“8@2“refutearefute GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should not be enabled""
+;;*
+::2ìò8@2•enabled?arefute GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should not be enabled""
+;-;5*
+:,:42’š8@2”flipperarefute GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should not be enabled""
+;;*
+::2ú8@2“GitHubarefute GitHub.flipper[:staff_shipped].enabled?(@employee), ":staff_shipped should not be enabled""
+;;*
+::2óù8@2¥refutesrefute GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should not be enabled""
+<<*
+;;2ÔÚ8@2§enabled?srefute GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should not be enabled""
+<6<>*
+;5;=2ƒ‹8@2¦flippersrefute GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should not be enabled""
+<<*
+;;2âé8@2¥GitHubsrefute GitHub.flipper[:team_and_staff_shipped].enabled?(@employee), ":team_and_staff_shipped should not be enabled""
+<<*
+;;2Ûá8@2¥testutest "team-shipped features are enabled when employee mode is disabled if the feature is enabled for N% of actors" do"
+??	*
+>>2ÕÙ8@2`disable_employee_mode@employee.disable_employee_mode"
+@@&*
+??%2Ûğ8@2jrefute_predicate.refute_predicate @employee, :preview_features?"
+AA*
+@@2÷‡8@2ƒenable_percentage_of_actors<GitHub.flipper[:team_shipped].enable_percentage_of_actors(1)"
+C%C@*
+B$B?2ò8@2oflipper<GitHub.flipper[:team_shipped].enable_percentage_of_actors(1)"
+CC*
+BB2Ûâ8@2nGitHub<GitHub.flipper[:team_shipped].enable_percentage_of_actors(1)"
+CC*
+BB2ÔÚ8@2enable_percentage_of_actorsFGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_actors(1)"
+D/DJ*
+C.CI2¿Ú8@2yflipperFGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_actors(1)"
+DD*
+CC2¥8@2xGitHubFGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_actors(1)"
+DD*
+CC2—8@2assert[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+EE*
+DD2äê8@2enabled?[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+E,E4*
+D+D32‰‘8@2flipper[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+EE*
+DD2òù8@2GitHub[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+EE*
+DD2ëñ8@2—asserteassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+FF*
+EE2ÆÌ8@2™enabled?eassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+F,F4*
+E+E32ëó8@2˜flippereassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+FF*
+EE2ÔÛ8@2—GitHubeassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+FF*
+EE2ÍÓ8@2¤testttest "team-shipped features are enabled when employee mode is disabled if the feature is enabled for N% of calls" do"
+II	*
+HH2¹½8@2`disable_employee_mode@employee.disable_employee_mode"
+JJ&*
+II%2¾Ó8@2jrefute_predicate.refute_predicate @employee, :preview_features?"
+KK*
+JJ2Úê8@2enable_percentage_of_time:GitHub.flipper[:team_shipped].enable_percentage_of_time(1)"
+M%M>*
+L$L=2Õî8@2mflipper:GitHub.flipper[:team_shipped].enable_percentage_of_time(1)"
+MM*
+LL2¾Å8@2lGitHub:GitHub.flipper[:team_shipped].enable_percentage_of_time(1)"
+MM*
+LL2·½8@2‰enable_percentage_of_timeDGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_time(1)"
+N/NH*
+M.MG2 ¹8@2wflipperDGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_time(1)"
+NN*
+MM2ÿ†8@2vGitHubDGitHub.flipper[:team_and_staff_shipped].enable_percentage_of_time(1)"
+NN*
+MM2øş8@2assert[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+OO*
+NN2ÃÉ8@2enabled?[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+O,O4*
+N+N32èğ8@2flipper[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+OO*
+NN2ÑØ8@2GitHub[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+OO*
+NN2ÊĞ8@2—asserteassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+PP*
+OO2¥«8@2™enabled?eassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+P,P4*
+O+O32ÊÒ8@2˜flippereassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+PP*
+OO2³º8@2—GitHubeassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+PP*
+OO2¬²8@2¼test‹test "team-shipped features are enabled when employee mode is disabled if the feature is enabled for groups other than preview_features" do"
+SS	*
+RR2˜œ8@2`disable_employee_mode@employee.disable_employee_mode"
+TT&*
+SS%2´É8@2jrefute_predicate.refute_predicate @employee, :preview_features?"
+UU*
+TT2Ğà8@2wenable_group?GitHub.flipper[:team_shipped].enable_group(:open_source_mavens)"
+W%W1*
+V$V02Ë×8@2rflipper?GitHub.flipper[:team_shipped].enable_group(:open_source_mavens)"
+WW*
+VV2´»8@2qGitHub?GitHub.flipper[:team_shipped].enable_group(:open_source_mavens)"
+WW*
+VV2­³8@2enable_groupIGitHub.flipper[:team_and_staff_shipped].enable_group(:open_source_mavens)"
+X/X;*
+W.W:2›§8@2|flipperIGitHub.flipper[:team_and_staff_shipped].enable_group(:open_source_mavens)"
+XX*
+WW2ú8@2{GitHubIGitHub.flipper[:team_and_staff_shipped].enable_group(:open_source_mavens)"
+XX*
+WW2óù8@2assert[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+YY*
+XX2ÃÉ8@2enabled?[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+Y,Y4*
+X+X32èğ8@2flipper[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+YY*
+XX2ÑØ8@2GitHub[assert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_shipped should be enabled""
+YY*
+XX2ÊĞ8@2—asserteassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+ZZ*
+YY2¥ « 8@2™enabled?eassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+Z,Z4*
+Y+Y32Ê Ò 8@2˜flippereassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+ZZ*
+YY2³ º 8@2—GitHubeassert GitHub.flipper[:team_shipped].enabled?(@employee), ":team_and_staff_shipped should be enabled""
+ZZ*
+YY2¬ ² 8@2kPrereleaseBadgeTest,class PrereleaseBadgeTest < GitHub::TestCase"
+__*
+^^2¤!·!8@2`TestCase,class PrereleaseBadgeTest < GitHub::TestCase"
+__-*
+^^,2º!Ê!8@2^GitHub,class PrereleaseBadgeTest < GitHub::TestCase"
+__#*
+^^"2º!À!8@2?fixturesfixtures do"
+``*
+__
+2Í!Õ!8@2Gcreate@user = create(:user)"
+aa*
+``2å!ë!8@2Mpreview_user@staff = preview_user"
+bb*
+aa2€"Œ"8@2Mcreate@maintainer = create(:user)"
+cc*
+bb2Ÿ"¥"8@29setupsetup do"
+ff*
+ee2¶"»"8@2ccreate1@org = create :organization, login: "maintainers""
+gg*
+ff2Ê"Ğ"8@2pcreate>@team = create :team, organization: @org, name: "Early access""
+hh*
+gg2#‡#8@2R
+add_member@team.add_member @maintainer"
+ii*
+h
+h2Â#Ì#8@2Uclear$GitHub::FeatureFlag.team_cache.clear"
+j$j)*
+i#i(2ü#$8@2Z
+team_cache$GitHub::FeatureFlag.team_cache.clear"
+jj#*
+ii"2ñ#û#8@2[FeatureFlag$GitHub::FeatureFlag.team_cache.clear"
+jj*
+ii2İ#ğ#8@2VGitHub$GitHub::FeatureFlag.team_cache.clear"
+jj*
+ii
+2İ#ã#8@2Lenterprise?if GitHub.enterprise?"
+mm*
+ll2•$ $8@2GGitHubif GitHub.enterprise?"
+mm*
+ll2$”$8@2Ytest)test "doesn't display badges to staff" do"
+nn	*
+mm2¥$©$8@2Rrefute refute @staff.prerelease_badges?"
+oo*
+nn2Õ$Û$8@2^prerelease_badges? refute @staff.prerelease_badges?"
+oo'*
+nn&2ã$õ$8@2_test/test "doesn't display badges to maintainers" do"
+rr	*
+qq2ƒ%‡%8@2Wrefute%refute @maintainer.prerelease_badges?"
+ss*
+rr2¹%¿%8@2cprerelease_badges?%refute @maintainer.prerelease_badges?"
+ss,*
+rr+2Ì%Ş%8@2_test/test "doesn't display badges to other users" do"
+vv	*
+uu2ì%ğ%8@2Qrefuterefute @user.prerelease_badges?"
+ww*
+vv2¢&¨&8@2]prerelease_badges?refute @user.prerelease_badges?"
+ww&*
+vv%2¯&Á&8@2Rtest"test "displays badges to staff" do"
+zz	*
+yy2Õ&Ù&8@2Rassert assert @staff.prerelease_badges?"
+{{*
+zz2ş&„'8@2^prerelease_badges? assert @staff.prerelease_badges?"
+{{'*
+zz&2Œ''8@2Xtest(test "displays badges to maintainers" do"
+~~	*
+}}2¬'°'8@2Wassert%assert @maintainer.prerelease_badges?"
+*
+~~2Û'á'8@2cprerelease_badges?%assert @maintainer.prerelease_badges?"
+,*
+~~+2î'€(8@2ctest/test "doesn't display badges to other users" do"
+‚‚	*
+2(’(8@2Urefuterefute @user.prerelease_badges?"
+ƒƒ*
+‚‚2Ä(Ê(8@2aprerelease_badges?refute @user.prerelease_badges?"
+ƒƒ&*
+‚‚%2Ñ(ã(8@

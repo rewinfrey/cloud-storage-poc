@@ -1,0 +1,37 @@
+
+(0a9abcbd637dd842e271b37ec61062d86a5a9e66$test/routes/repository_hooks_test.rbRuby"02~RoutesForRepositoryHooksTest8class RoutesForRepositoryHooksTest < GitHub::RoutingTest"
+#*
+"2<X8@2mRoutingTest8class RoutesForRepositoryHooksTest < GitHub::RoutingTest"
+&9*
+%82[n8@2hGitHub8class RoutesForRepositoryHooksTest < GitHub::RoutingTest"
+&,*
+%+2[a8@2Wtest)test "RepositoryHooksController#index" do"
+*
+2qu8@2Iassert_routingassert_routing("
+*
+2Ÿ­8@2Wtest'test "RepositoryHooksController#new" do"
+*
+2ó÷8@2Iassert_routingassert_routing("
+*
+2Ÿ­8@2Xtest(test "RepositoryHooksController#show" do"
+*
+2åé8@2Iassert_routingassert_routing("
+*
+2’ 8@2Ztest*test "RepositoryHooksController#update" do"
+*
+2îò8@2Iassert_routingassert_routing("
+*
+2«8@2Ztest*test "RepositoryHooksController#create" do"
+""*
+!!2…	‰	8@2Iassert_routingassert_routing("
+##*
+""2´	Â	8@2Xtest(test "RepositoryHooksController#test" do"
+))*
+((2ü
+€8@2Iassert_routingassert_routing("
+***
+))2©·8@2[test+test "RepositoryHooksController#destroy" do"
+00*
+//2Œ8@2Iassert_routingassert_routing("
+11*
+002¼Ê8@

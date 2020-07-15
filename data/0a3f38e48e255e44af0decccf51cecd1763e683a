@@ -1,0 +1,228 @@
+
+(0a3f38e48e255e44af0decccf51cecd1763e683a2test/models/hook/event/registry_dependency_test.rbRuby"02HookEventRegistryDependencyTest8class HookEventRegistryDependencyTest < GitHub::TestCase"
+&*
+%2<[8@2jTestCase8class HookEventRegistryDependencyTest < GitHub::TestCase"
+)9*
+(82^n8@2hGitHub8class HookEventRegistryDependencyTest < GitHub::TestCase"
+)/*
+(.2^d8@2kEventRegistryTestEvent*class EventRegistryTestEvent < Hook::Event"
+	*
+2w8@2[Event*class EventRegistryTestEvent < Hook::Event"
+"-*
+!,2›8@2ZHook*class EventRegistryTestEvent < Hook::Event"
+"&*
+!%2”8@2esupports_targets)supports_targets Repository, Organization"
+*
+2 °8@2_
+Repository)supports_targets Repository, Organization"
+ *
+2±»8@2aOrganization)supports_targets Repository, Organization"
+".*
+!-2½É8@2Ldisplay_namedisplay_name "event""
+*
+2ÎÚ8@2cdescription,description "Sample event for testing only.""
+		*
+2çò8@2nEventRegistryTest2Event+class EventRegistryTest2Event < Hook::Event"
+	 *
+2£º8@2\Event+class EventRegistryTest2Event < Hook::Event"
+#.*
+"-2½È8@2[Hook+class EventRegistryTest2Event < Hook::Event"
+#'*
+"&2½Á8@2esupports_targets)supports_targets Repository, Organization"
+*
+2Íİ8@2_
+Repository)supports_targets Repository, Organization"
+ *
+2Şè8@2aOrganization)supports_targets Repository, Organization"
+".*
+!-2êö8@2kdescription4description "Another sample event for testing only.""
+*
+2û†8@2ˆ$FeatureFlaggedEventRegistryTestEvent8class FeatureFlaggedEventRegistryTestEvent < Hook::Event"
+	-*
+,2¿ã8@2iEvent8class FeatureFlaggedEventRegistryTestEvent < Hook::Event"
+0;*
+/:2æñ8@2hHook8class FeatureFlaggedEventRegistryTestEvent < Hook::Event"
+04*
+/32æê8@2esupports_targets)supports_targets Repository, Organization"
+*
+2ö†8@2_
+Repository)supports_targets Repository, Organization"
+ *
+2‡‘8@2aOrganization)supports_targets Repository, Organization"
+".*
+!-2“Ÿ8@2sdescription<description "Feature Flagged Sample event for testing only.""
+*
+2¤¯8@2Wfeature_flagfeature_flag :preview_features?"
+*
+2åñ8@2|BusinessEventRegistryTestEvent2class BusinessEventRegistryTestEvent < Hook::Event"
+	'*
+&2”²8@2cEvent2class BusinessEventRegistryTestEvent < Hook::Event"
+*5*
+)42µÀ8@2bHook2class BusinessEventRegistryTestEvent < Hook::Event"
+*.*
+)-2µ¹8@2Usupports_targetssupports_targets Business"
+*
+2ÅÕ8@2MBusinesssupports_targets Business"
+*
+2ÖŞ8@2ldescription5description "Business Sample event for testing only.""
+*
+2ãî8@2Kcontextcontext ".event_type" do"
+
+*
+	2¢©8@2ctest3test "parses the event type from the class name" do"
+	*
+2¿Ã8@2}assert_equalEassert_equal "event_registry_test", EventRegistryTestEvent.event_type"
+*
+2ù…8@2{
+event_typeEassert_equal "event_registry_test", EventRegistryTestEvent.event_type"
+BL*
+AK2´¾8@2‡EventRegistryTestEventEassert_equal "event_registry_test", EventRegistryTestEvent.event_type"
++A*
+*@2³8@2Qcontextcontext ".supports_target?" do"
+""
+*
+!!	2Ğ×8@2ptest@test "returns true if the event supports the target instance" do"
+##	*
+""2ó÷8@2passert>assert EventRegistryTestEvent.supports_target?(Repository.new)"
+$$*
+##2ºÀ8@2zsupports_target?>assert EventRegistryTestEvent.supports_target?(Repository.new)"
+$%$5*
+#$#42Øè8@2mnew>assert EventRegistryTestEvent.supports_target?(Repository.new)"
+$A$D*
+#@#C2ô÷8@2t
+Repository>assert EventRegistryTestEvent.supports_target?(Repository.new)"
+$6$@*
+#5#?2éó8@2€EventRegistryTestEvent>assert EventRegistryTestEvent.supports_target?(Repository.new)"
+$$$*
+###2Á×8@2rassert@assert EventRegistryTestEvent.supports_target?(Organization.new)"
+%%*
+$$2ÿ…	8@2|supports_target?@assert EventRegistryTestEvent.supports_target?(Organization.new)"
+%%%5*
+$$$42	­	8@2onew@assert EventRegistryTestEvent.supports_target?(Organization.new)"
+%C%F*
+$B$E2»	¾	8@2xOrganization@assert EventRegistryTestEvent.supports_target?(Organization.new)"
+%6%B*
+$5$A2®	º	8@2‚EventRegistryTestEvent@assert EventRegistryTestEvent.supports_target?(Organization.new)"
+%%$*
+$$#2†	œ	8@2vassertDassert BusinessEventRegistryTestEvent.supports_target?(Business.new)"
+&&*
+%%2Æ	Ì	8@2€supports_target?Dassert BusinessEventRegistryTestEvent.supports_target?(Business.new)"
+&-&=*
+%,%<2ì	ü	8@2snewDassert BusinessEventRegistryTestEvent.supports_target?(Business.new)"
+&G&J*
+%F%I2†
+‰
+8@2xBusinessDassert BusinessEventRegistryTestEvent.supports_target?(Business.new)"
+&>&F*
+%=%E2ı	…
+8@2BusinessEventRegistryTestEventDassert BusinessEventRegistryTestEvent.supports_target?(Business.new)"
+&&,*
+%%+2Í	ë	8@2xtestHtest "returns false if the event doesn't support the target instance" do"
+))	*
+((2˜
+œ
+8@2nrefute<refute EventRegistryTestEvent.supports_target?(Business.new)"
+***
+))2ç
+í
+8@2xsupports_target?<refute EventRegistryTestEvent.supports_target?(Business.new)"
+*%*5*
+)$)42…•8@2knew<refute EventRegistryTestEvent.supports_target?(Business.new)"
+*?*B*
+)>)A2Ÿ¢8@2pBusiness<refute EventRegistryTestEvent.supports_target?(Business.new)"
+*6*>*
+)5)=2–8@2~EventRegistryTestEvent<refute EventRegistryTestEvent.supports_target?(Business.new)"
+**$*
+))#2î
+„8@2xrefuteFrefute BusinessEventRegistryTestEvent.supports_target?(Repository.new)"
+++*
+**2ª°8@2‚supports_target?Frefute BusinessEventRegistryTestEvent.supports_target?(Repository.new)"
++-+=*
+*,*<2Ğà8@2unewFrefute BusinessEventRegistryTestEvent.supports_target?(Repository.new)"
++I+L*
+*H*K2ìï8@2|
+RepositoryFrefute BusinessEventRegistryTestEvent.supports_target?(Repository.new)"
++>+H*
+*=*G2áë8@2BusinessEventRegistryTestEventFrefute BusinessEventRegistryTestEvent.supports_target?(Repository.new)"
+++,*
+**+2±Ï8@2Jcontextcontext ".inherited" do"
+//
+*
+..	2‚‰8@2Stest#test "registers the event class" do"
+00	*
+//2¢8@2„assert_includesIassert_includes Hook::EventRegistry.event_classes, EventRegistryTestEvent"
+11*
+002È×8@2‚event_classesIassert_includes Hook::EventRegistry.event_classes, EventRegistryTestEvent"
+1+18*
+0*072ìù8@2‚EventRegistryIassert_includes Hook::EventRegistry.event_classes, EventRegistryTestEvent"
+11**
+00)2Øë8@2yHookIassert_includes Hook::EventRegistry.event_classes, EventRegistryTestEvent"
+11*
+002ØÜ8@2‹EventRegistryTestEventIassert_includes Hook::EventRegistry.event_classes, EventRegistryTestEvent"
+1:1P*
+090O2û‘8@2Mcontextcontext ".display_name" do"
+55
+*
+44	2£ª8@2\test,test "returns the specified display name" do"
+66	*
+552ÂÆ8@2qassert_equal9assert_equal "event", EventRegistryTestEvent.display_name"
+77*
+662õ8@2qdisplay_name9assert_equal "event", EventRegistryTestEvent.display_name"
+747@*
+636?2¢®8@2{EventRegistryTestEvent9assert_equal "event", EventRegistryTestEvent.display_name"
+773*
+6622‹¡8@2Ztest*test "defaults to humanized event_type" do"
+::	*
+992¼À8@2‚assert_equalJassert_equal "event registry test2s", EventRegistryTest2Event.display_name"
+;;*
+::2íù8@2‚display_nameJassert_equal "event registry test2s", EventRegistryTest2Event.display_name"
+;E;Q*
+:D:P2«·8@2EventRegistryTest2EventJassert_equal "event registry test2s", EventRegistryTest2Event.display_name"
+;-;D*
+:,:C2“ª8@2Lcontextcontext ".description" do"
+??
+*
+>>	2ÉĞ8@2[test+test "returns the specified description" do"
+@@	*
+??2çë8@2‰assert_equalQassert_equal "Sample event for testing only.", EventRegistryTestEvent.description"
+AA*
+@@2™¥8@2ˆdescriptionQassert_equal "Sample event for testing only.", EventRegistryTestEvent.description"
+AMAX*
+@L@W2ßê8@2“EventRegistryTestEventQassert_equal "Sample event for testing only.", EventRegistryTestEvent.description"
+A6AL*
+@5@K2ÈŞ8@2Mcontextcontext ".feature_flag" do"
+EE
+*
+DD	2üƒ8@2\test,test "returns the specified feature flag" do"
+FF	*
+EE2›Ÿ8@2d
+assert_nil.assert_nil EventRegistryTestEvent.feature_flag"
+GG*
+FF2ÎØ8@2ffeature_flag.assert_nil EventRegistryTestEvent.feature_flag"
+G)G5*
+F(F42ğü8@2pEventRegistryTestEvent.assert_nil EventRegistryTestEvent.feature_flag"
+GG(*
+FF'2Ùï8@2Šassert_equalRassert_equal :preview_features?, FeatureFlaggedEventRegistryTestEvent.feature_flag"
+HH*
+GG2ƒ8@2Šfeature_flagRassert_equal :preview_features?, FeatureFlaggedEventRegistryTestEvent.feature_flag"
+HMHY*
+GLGX2ÉÕ8@2¢$FeatureFlaggedEventRegistryTestEventRassert_equal :preview_features?, FeatureFlaggedEventRegistryTestEvent.feature_flag"
+H(HL*
+G'GK2¤È8@2Qcontextcontext ".feature_flagged?" do"
+LL
+*
+KK	2çî8@2mtest=test "returns whether or not the event has a feature flag" do"
+MM	*
+LL2Š8@2nassert<assert FeatureFlaggedEventRegistryTestEvent.feature_flagged?"
+NN*
+MM2ÎÔ8@2xfeature_flagged?<assert FeatureFlaggedEventRegistryTestEvent.feature_flagged?"
+N3NC*
+M2MB2úŠ8@2Œ$FeatureFlaggedEventRegistryTestEvent<assert FeatureFlaggedEventRegistryTestEvent.feature_flagged?"
+NN2*
+MM12Õù8@2`refute.refute EventRegistryTestEvent.feature_flagged?"
+OO*
+NN2‘—8@2jfeature_flagged?.refute EventRegistryTestEvent.feature_flagged?"
+O%O5*
+N$N42¯¿8@2pEventRegistryTestEvent.refute EventRegistryTestEvent.feature_flagged?"
+OO$*
+NN#2˜®8@

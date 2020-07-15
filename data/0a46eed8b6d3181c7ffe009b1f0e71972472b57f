@@ -1,0 +1,40 @@
+
+(0a46eed8b6d3181c7ffe009b1f0e71972472b57f)test/fast/lib/ruby19_date_marshal_test.rbRuby"02iMarshalCompatTest.class MarshalCompatTest < Test::Fast::TestCase"
+*
+2CT8@2`TestCase.class MarshalCompatTest < Test::Fast::TestCase"
+/*
+.2Wk8@2\Fast.class MarshalCompatTest < Test::Fast::TestCase"
+%*
+$2Wa8@2\Test.class MarshalCompatTest < Test::Fast::TestCase"
+*
+2W[8@28setup	def setup"
+*
+2rw8@2Uparse$@date_obj = Date.parse("2013-02-05")"
+		*
+2¶»8@2TDate$@date_obj = Date.parse("2013-02-05")"
+		*
+2±µ8@2vparseE@datetime_obj = DateTime.parse("2013-02-05T19:33:03.123456789-08:00")"
+#*
+"2ÑÖ8@2yDateTimeE@datetime_obj = DateTime.parse("2013-02-05T19:33:03.123456789-08:00")"
+*
+2ÈĞ8@2Ptest_decode_datedef test_decode_date"
+*
+2ºÊ8@2fassert_equal.assert_equal @date_obj, Marshal.load(@date_18)"
+*
+2ÏÛ8@2aMarshal.assert_equal @date_obj, Marshal.load(@date_18)"
+$*
+#2çî8@2fassert_equal.assert_equal @date_obj, Marshal.load(@date_19)"
+*
+2‚8@2aMarshal.assert_equal @date_obj, Marshal.load(@date_19)"
+$*
+#2š¡8@2Ztest_decode_date_timedef test_decode_date_time"
+*
+2¾Ó8@2nassert_equal6assert_equal @datetime_obj, Marshal.load(@datetime_18)"
+*
+2Øä8@2iMarshal6assert_equal @datetime_obj, Marshal.load(@datetime_18)"
+!(*
+ '2ôû8@2nassert_equal6assert_equal @datetime_obj, Marshal.load(@datetime_19)"
+*
+2“Ÿ8@2iMarshal6assert_equal @datetime_obj, Marshal.load(@datetime_19)"
+!(*
+ '2¯¶8@

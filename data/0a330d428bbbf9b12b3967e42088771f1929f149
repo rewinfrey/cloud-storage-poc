@@ -1,0 +1,13 @@
+
+(0a330d428bbbf9b12b3967e42088771f1929f149&lib/application_record/stratocaster.rbRuby"02SApplicationRecordmodule ApplicationRecord"
+*
+2?P8@2OStratocasterclass Stratocaster < Base"
+	*
+2Ye8@2GBaseclass Stratocaster < Base"
+*
+2hl8@2Sabstract_classself.abstract_class = true"
+
+*
+	2v„8@2connects_toYconnects_to database: { writing: :stratocaster_primary, reading: :stratocaster_readonly }"
+		*
+2‘œ8@

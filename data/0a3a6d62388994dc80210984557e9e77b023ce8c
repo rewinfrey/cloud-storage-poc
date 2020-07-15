@@ -1,0 +1,1020 @@
+
+(0a3a6d62388994dc80210984557e9e77b023ce8c*test/integration/labels_controller_test.rbRuby"02~LabelsControllerHttpTest<class LabelsControllerHttpTest < GitHub::IntegrationTestCase"
+*
+2<T8@2yIntegrationTestCase<class LabelsControllerHttpTest < GitHub::IntegrationTestCase"
+"=*
+!<2Wr8@2lGitHub<class LabelsControllerHttpTest < GitHub::IntegrationTestCase"
+"(*
+!'2W]8@2=fixturesfixtures do"
+*
+
+2u}8@2]preview_user%@owner = preview_user(:verified_user)"
+*
+2š8@2Icreate@member = create(:user)"
+*
+2¹¿8@2Lcreate@nonmember = create(:user)"
+		*
+2ØŞ8@2screateA@repo = create(:repository, owner: @owner, has_discussions: true)"
+*
+
+
+2óù8@2^
+add_member(@repo.add_member(@member, @owner, false)"
+*
+
+2·Á8@2`create.@label = @repo.labels.create(name: "Features")"
+!*
+ 2õû8@2`labels.@label = @repo.labels.create(name: "Features")"
+*
+2îô8@2Ttest$test "renders label preview HTML" do"
+*
+2—›8@27as	as @owner"
+*
+2ÀÂ8@2Uget&get "/#{@repo.name_with_owner}/labels""
+*
+2ÎÑ8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+"*
+!2Üë8@2Zassert_select!assert_select ".js-label-preview""
+*
+2ú‡8@2dassert_select+assert_select ".js-label-preview-container""
+*
+2 ­8@2ntest>test "does not render non-g-emoji HTML tags in label names" do"
+*
+2ÕÙ8@2ocreate=label = @repo.labels.create(name: "hey :grinning: <u>hi</u>")"
+ *
+2­³8@2olabels=label = @repo.labels.create(name: "hey :grinning: <u>hi</u>")"
+*
+2¦¬8@2»
+GRIN_EMOJI„g_emoji = %Q(<g-emoji class="g-emoji" alias="grinning" fallback-src="/images/icons/emoji/unicode/1f600.png">#{GRIN_EMOJI}</g-emoji>)"
+s}*
+r|2ÈÒ8@27as	as @owner"
+*
+2äæ8@2Uget&get "/#{@repo.name_with_owner}/labels""
+*
+2òõ8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+"*
+!2€8@2Nassert_responseassert_response :ok"
+  *
+2­8@2„assert_selectKassert_select "[data-test-selector='label-link'] g-emoji[alias='grinning']""
+!!*
+  2¶Ã8@2sassert_select:assert_select "[data-test-selector='label-link'] u", false"
+""*
+!!2†“8@2€assert_includesEassert_includes response.body, "hey #{g_emoji} &lt;u&gt;hi&lt;/u&gt;""
+##*
+""2ÅÔ8@2ubodyEassert_includes response.body, "hey #{g_emoji} &lt;u&gt;hi&lt;/u&gt;""
+##"*
+""!2Şâ8@2yresponseEassert_includes response.body, "hey #{g_emoji} &lt;u&gt;hi&lt;/u&gt;""
+##*
+""2Õİ8@2Itesttest "searches labels" do"
+&&*
+%%2”	˜	8@2\create*label2 = @repo.labels.create(name: "Bugs")"
+''!*
+&& 2È	Î	8@2\labels*label2 = @repo.labels.create(name: "Bugs")"
+''*
+&&2Á	Ç	8@2Ymake_searchablemake_searchable @label, label2"
+((*
+''2á	ğ	8@27as	as @owner"
+***
+))2…
+‡
+8@2lget=get "/#{@repo.name_with_owner}/labels", params: { q: "Bugs" }"
+++*
+**2“
+–
+8@2xname_with_owner=get "/#{@repo.name_with_owner}/labels", params: { q: "Bugs" }"
+++"*
+**!2¡
+°
+8@2Nassert_responseassert_response :ok"
+--*
+,,2Ö
+å
+8@2}assert_selectDassert_select "[data-test-selector='label-link']", text: label2.name"
+..*
+--2î
+û
+8@2tnameDassert_select "[data-test-selector='label-link']", text: label2.name"
+.E.I*
+-D-H2®²8@2‡assert_selectNassert_select "[data-test-selector='label-link']", text: @label.name, count: 0"
+//*
+..2·Ä8@2~nameNassert_select "[data-test-selector='label-link']", text: @label.name, count: 0"
+/E/I*
+.D.H2÷û8@2zassert_selectAassert_select ".issues-reset-query", text: "Clear current search""
+00*
+//2Š—8@2`test0test "searches labels with colon-style emoji" do"
+33*
+222ÕÙ8@2xcreateFlabel2 = @repo.labels.create(name: ":rainbow: :ice_skate: onboarding")"
+44!*
+33 2 ¦8@2xlabelsFlabel2 = @repo.labels.create(name: ":rainbow: :ice_skate: onboarding")"
+44*
+332™Ÿ8@2Ymake_searchablemake_searchable @label, label2"
+55*
+442Õä8@27as	as @owner"
+77*
+662ùû8@2qgetBget "/#{@repo.name_with_owner}/labels", params: { q: ":rainbow:" }"
+88*
+772‡Š8@2}name_with_ownerBget "/#{@repo.name_with_owner}/labels", params: { q: ":rainbow:" }"
+88"*
+77!2•¤8@2Nassert_responseassert_response :ok"
+::*
+992ÏŞ8@2‡assert_selectNassert_select "[data-test-selector='label-name']", text: @label.name, count: 0"
+;;*
+::2çô8@2~nameNassert_select "[data-test-selector='label-name']", text: @label.name, count: 0"
+;E;I*
+:D:H2§«8@2zassert_selectAassert_select ".issues-reset-query", text: "Clear current search""
+<<*
+;;2ºÇ8@2„assert_selectKassert_select "[data-test-selector='label-link'] .g-emoji[alias='rainbow']""
+==*
+<<2€8@2†assert_selectMassert_select "[data-test-selector='label-link'] .g-emoji[alias='ice_skate']""
+>>*
+==2Ğİ8@2‰testYtest "shows 'Convert issues' button when discussions feature on and issues have label" do"
+AA*
+@@2§«8@2denable2GitHub.flipper[:discussions_for_repo_users].enable"
+B1B7*
+A0A62±·8@2eflipper2GitHub.flipper[:discussions_for_repo_users].enable"
+BB*
+AA2Œ“8@2dGitHub2GitHub.flipper[:discussions_for_repo_users].enable"
+BB*
+AA
+2…‹8@2ecreate3create(:issue, repository: @repo, labels: [@label])"
+CC*
+BB
+2¼Â8@27as	as @owner"
+EE*
+DD2õ÷8@2Uget&get "/#{@repo.name_with_owner}/labels""
+FF*
+EE2ƒ†8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+FF"*
+EE!2‘ 8@2ƒassert_selectJassert_select "[data-test-selector='convert_issues_to_discussions_modal']""
+HH*
+GG2¯¼8@2testOtest "does not show 'Convert issues' button when discussions feature is off" do"
+KK*
+JJ2ƒ‡8@2fdisable3GitHub.flipper[:discussions_for_repo_users].disable"
+L1L8*
+K0K72ƒŠ8@2fflipper3GitHub.flipper[:discussions_for_repo_users].disable"
+LL*
+KK2Şå8@2eGitHub3GitHub.flipper[:discussions_for_repo_users].disable"
+LL*
+KK
+2×İ8@2ecreate3create(:issue, repository: @repo, labels: [@label])"
+MM*
+LL
+2•8@27as	as @owner"
+OO*
+NN2ÈÊ8@2Uget&get "/#{@repo.name_with_owner}/labels""
+PP*
+OO2ÖÙ8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+PP"*
+OO!2äó8@2assert_selectTassert_select "[data-test-selector='convert_issues_to_discussions_modal']", count: 0"
+RR*
+QQ2‚8@2ytestItest "does not show 'Convert issues' button when no issues have label" do"
+UU*
+TT2àä8@2denable2GitHub.flipper[:discussions_for_repo_users].enable"
+V1V7*
+U0U62Úà8@2eflipper2GitHub.flipper[:discussions_for_repo_users].enable"
+VV*
+UU2µ¼8@2dGitHub2GitHub.flipper[:discussions_for_repo_users].enable"
+VV*
+UU
+2®´8@27as	as @owner"
+XX*
+WW2æè8@2Uget&get "/#{@repo.name_with_owner}/labels""
+YY*
+XX2ô÷8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+YY"*
+XX!2‚‘8@2assert_selectTassert_select "[data-test-selector='convert_issues_to_discussions_modal']", count: 0"
+[[*
+ZZ2 ­8@2xtestHtest "does not show 'Convert issues' button when only PRs have label" do"
+^^*
+]]2ş‚8@2denable2GitHub.flipper[:discussions_for_repo_users].enable"
+_1_7*
+^0^62÷ı8@2eflipper2GitHub.flipper[:discussions_for_repo_users].enable"
+__*
+^^2ÒÙ8@2dGitHub2GitHub.flipper[:discussions_for_repo_users].enable"
+__*
+^^
+2ËÑ8@2pcreate>pr_issue = create(:issue, repository: @repo, labels: [@label])"
+``*
+__2“8@2createOcreate(:pull_request, :disable_disk_access, repository: @repo, issue: pr_issue)"
+aa*
+``
+2ÅË8@27as	as @owner"
+cc*
+bb2šœ8@2Uget&get "/#{@repo.name_with_owner}/labels""
+dd*
+cc2¨«8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+dd"*
+cc!2¶Å8@2assert_selectTassert_select "[data-test-selector='convert_issues_to_discussions_modal']", count: 0"
+ff*
+ee2Ôá8@2Jtesttest "paginates labels" do"
+ii*
+hh2²¶8@2]create+label2 = @repo.labels.create(name: "zebra")"
+jj!*
+ii 2çí8@2]labels+label2 = @repo.labels.create(name: "zebra")"
+jj*
+ii2àæ8@2i
+stub_const3LabelsController.stub_const(:LABELS_PER_PAGE, 1) do"
+ll *
+kk2“8@27as	as @owner"
+mm	*
+ll2¼¾8@2Uget&get "/#{@repo.name_with_owner}/labels""
+nn
+*
+mm	2ÌÏ8@2aname_with_owner&get "/#{@repo.name_with_owner}/labels""
+nn$*
+mm#2Úé8@2Nassert_responseassert_response :ok"
+pp*
+oo2ú‰8@2}assert_selectDassert_select "[data-test-selector='label-link']", text: @label.name"
+qq*
+pp2”¡8@2tnameDassert_select "[data-test-selector='label-link']", text: @label.name"
+qGqK*
+pFpJ2ÔØ8@2‡assert_selectNassert_select "[data-test-selector='label-link']", text: label2.name, count: 0"
+rr*
+qq2ßì8@2~nameNassert_select "[data-test-selector='label-link']", text: label2.name, count: 0"
+rGrK*
+qFqJ2Ÿ£8@27as	as @owner"
+tt	*
+ss2µ·8@2jget;get "/#{@repo.name_with_owner}/labels", params: { page: 2 }"
+uu
+*
+tt	2ÅÈ8@2vname_with_owner;get "/#{@repo.name_with_owner}/labels", params: { page: 2 }"
+uu$*
+tt#2Óâ8@2Nassert_responseassert_response :ok"
+ww*
+vv2ˆ — 8@2‡assert_selectNassert_select "[data-test-selector='label-link']", text: @label.name, count: 0"
+xx*
+ww2¢ ¯ 8@2~nameNassert_select "[data-test-selector='label-link']", text: @label.name, count: 0"
+xGxK*
+wFwJ2â æ 8@2}assert_selectDassert_select "[data-test-selector='label-link']", text: label2.name"
+yy*
+xx2÷ „!8@2tnameDassert_select "[data-test-selector='label-link']", text: label2.name"
+yGyK*
+xFxJ2·!»!8@2oLabelsController3LabelsController.stub_const(:LABELS_PER_PAGE, 1) do"
+ll*
+kk2‚’8@2Rtest"test "shows label descriptions" do"
+}}*
+||2Í!Ñ!8@2ccreate1label = @repo.labels.create(name: "sample label","
+~~ *
+}}2‰""8@2clabels1label = @repo.labels.create(name: "sample label","
+~~*
+}}2‚"ˆ"8@2;as	as @owner"
+*
+€€2ü"ş"8@2Yget&get "/#{@repo.name_with_owner}/labels""
+‚‚*
+2Š##8@2ename_with_owner&get "/#{@repo.name_with_owner}/labels""
+‚‚"*
+!2˜#§#8@2Rassert_responseassert_response :ok"
+„„*
+ƒƒ2¶#Å#8@2‰assert_selectLassert_select "[data-test-selector='label-detail']", text: label.description"
+……*
+„„2Î#Û#8@2‡descriptionLassert_select "[data-test-selector='label-detail']", text: label.description"
+…F…Q*
+„E„P2$š$8@2Otesttest "renders the index" do"
+ˆˆ*
+‡‡2¤$¨$8@2;as	as @owner"
+‰‰*
+ˆˆ2Ä$Æ$8@2Yget&get "/#{@repo.name_with_owner}/labels""
+ŠŠ*
+‰‰2Ò$Õ$8@2ename_with_owner&get "/#{@repo.name_with_owner}/labels""
+ŠŠ"*
+‰‰!2à$ï$8@2Wassert_responseassert_response :success"
+ŒŒ*
+‹‹2ş$%8@2_assert_equal#assert_equal [@label], @repo.labels"
+*
+ŒŒ2›%§%8@2Ylabels#assert_equal [@label], @repo.labels"
+"(*
+Œ!Œ'2¸%¾%8@2otest;test "returns errors as JSON when label updated via XHR" do"
+*
+2È%Ì%8@2oname;label_data = { name: @label.name, description: GRIN_EMOJI }"
+‘!‘%*
+ $2¤&¨&8@2u
+GRIN_EMOJI;label_data = { name: @label.name, description: GRIN_EMOJI }"
+‘4‘>*
+3=2·&Á&8@2;as	as @owner"
+““*
+’’2É&Ë&8@2put]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+””*
+““2×&Ú&8@2œname_with_owner]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+””"*
+““!2å&ô&8@2id]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+”4”6*
+“3“52†'ˆ'8@2dassert_response%assert_response :unprocessable_entity"
+––*
+••2º'É'8@2Uparse json = JSON.parse(response.body)"
+˜˜*
+——2ñ'ö'8@2Tbody json = JSON.parse(response.body)"
+˜ ˜$*
+——#2€(„(8@2Xresponse json = JSON.parse(response.body)"
+˜˜*
+——2÷'ÿ'8@2TJSON json = JSON.parse(response.body)"
+˜˜*
+——2ì'ğ'8@2–assert_equalZassert_equal ["Description contains unicode characters above 0xffff"], json["description"]"
+™™*
+˜˜2Š(–(8@2assert_equalTassert_equal "Description contains unicode characters above 0xffff", json["message"]"
+šš*
+™™2é(õ(8@2Utest!test "updates a label via XHR" do"
+*
+œœ2Ç)Ë)8@2;as	as @owner"
+  *
+ŸŸ2Å*Ç*8@2put]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+¡¡*
+  2Ó*Ö*8@2œname_with_owner]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+¡¡"*
+  !2á*ğ*8@2id]put "/#{@repo.name_with_owner}/labels/#{@label.id}", params: { label: label_data }, xhr: true"
+¡4¡6*
+ 3 52‚+„+8@2Rassert_responseassert_response :ok"
+££*
+¢¢2¶+Å+8@2nassert_equal2assert_equal label_data[:name], @label.reload.name"
+¤¤*
+££2Î+Ú+8@2fname2assert_equal label_data[:name], @label.reload.name"
+¤3¤7*
+£2£62ü+€,8@2hreload2assert_equal label_data[:name], @label.reload.name"
+¤,¤2*
+£+£12õ+û+8@2uassert_equal9assert_equal label_data[:description], @label.description"
+¥¥*
+¤¤2…,‘,8@2tdescription9assert_equal label_data[:description], @label.description"
+¥3¥>*
+¤2¤=2³,¾,8@2iassert_equal-assert_equal label_data[:color], @label.color"
+¦¦*
+¥¥2Ã,Ï,8@2bcolor-assert_equal label_data[:color], @label.color"
+¦-¦2*
+¥,¥12ë,ğ,8@2otest;test "returns errors as JSON when label created via XHR" do"
+©©*
+¨¨2ú,ş,8@2Vname"label_data = { name: @label.name }"
+ª!ª%*
+© ©$2Ö-Ú-8@2;as	as @owner"
+¬¬*
+««2â-ä-8@2…postQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+­­	*
+¬¬2ğ-ô-8@2name_with_ownerQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+­­#*
+¬¬"2ÿ-.8@2dassert_response%assert_response :unprocessable_entity"
+¯¯*
+®®2Ç.Ö.8@2Uparse json = JSON.parse(response.body)"
+±±*
+°°2ş.ƒ/8@2Tbody json = JSON.parse(response.body)"
+± ±$*
+°°#2/‘/8@2Xresponse json = JSON.parse(response.body)"
+±±*
+°°2„/Œ/8@2TJSON json = JSON.parse(response.body)"
+±±*
+°°2ù.ı.8@2vassert_equal:assert_equal ["Name has already been taken"], json["name"]"
+²²*
+±±2—/£/8@2wassert_equal;assert_equal "Name has already been taken", json["message"]"
+³³*
+²²2Ö/â/8@2Utest!test "creates a label via XHR" do"
+¶¶*
+µµ2›0Ÿ08@2jassert_difference)assert_difference "@repo.labels.count" do"
+¹¹*
+¸¸2—1¨18@2;as	as @owner"
+ºº	*
+¹¹2Ç1É18@2…postQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+»»*
+ºº
+2×1Û18@2name_with_ownerQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+»»%*
+ºº$2æ1õ18@2Rassert_responseassert_response :ok"
+½½*
+¼¼2°2¿28@2Mlastlabel = @repo.labels.last"
+ÀÀ*
+¿¿2æ2ê28@2Olabelslabel = @repo.labels.last"
+ÀÀ*
+¿¿2ß2å28@2fassert_equal*assert_equal label_data[:name], label.name"
+ÁÁ*
+ÀÀ2ï2û28@2^name*assert_equal label_data[:name], label.name"
+Á+Á/*
+À*À.2•3™38@2tassert_equal8assert_equal label_data[:description], label.description"
+ÂÂ*
+ÁÁ23ª38@2sdescription8assert_equal label_data[:description], label.description"
+Â2Â=*
+Á1Á<2Ë3Ö38@2hassert_equal,assert_equal label_data[:color], label.color"
+ÃÃ*
+ÂÂ2Û3ç38@2acolor,assert_equal label_data[:color], label.color"
+Ã,Ã1*
+Â+Â02‚4‡48@2Utest!test "sorts the index by name" do"
+ÆÆ*
+ÅÅ2‘4•48@2Rcreaterepo   = create(:repository)"
+ÇÇ*
+ÆÆ2À4Æ48@2acreate+label1 = repo.labels.create(name: "label1")"
+ÉÉ *
+ÈÈ2î4ô48@2alabels+label1 = repo.labels.create(name: "label1")"
+ÉÉ*
+ÈÈ2ç4í48@2acreate+label2 = repo.labels.create(name: "label2")"
+ÊÊ *
+ÉÉ25¤58@2alabels+label2 = repo.labels.create(name: "label2")"
+ÊÊ*
+ÉÉ2—558@2acreate+label3 = repo.labels.create(name: "label3")"
+ËË *
+ÊÊ2Î5Ô58@2alabels+label3 = repo.labels.create(name: "label3")"
+ËË*
+ÊÊ2Ç5Í58@2?asas repo.owner"
+ÍÍ*
+ÌÌ2ê5ì58@2Bowneras repo.owner"
+ÍÍ*
+ÌÌ2ò5÷58@2vgetCget "/#{repo.name_with_owner}/labels", params: { sort: "name-asc" }"
+ÎÎ*
+ÍÍ2ü5ÿ58@2‚name_with_ownerCget "/#{repo.name_with_owner}/labels", params: { sort: "name-asc" }"
+ÎÎ!*
+ÍÍ 2‰6˜68@2Wassert_responseassert_response :success"
+ĞĞ*
+ÏÏ2Å6Ô68@2sassert_equal7assert_equal [label1, label2, label3], assigns(:labels)"
+ÑÑ*
+ĞĞ2â6î68@2nassigns7assert_equal [label1, label2, label3], assigns(:labels)"
+Ñ,Ñ3*
+Ğ+Ğ22‰778@2Vtest"test "sorts the index by count" do"
+ÔÔ*
+ÓÓ2£7§78@2Rcreaterepo   = create(:repository)"
+ÕÕ*
+ÔÔ2Ó7Ù78@2acreate+label1 = repo.labels.create(name: "label1")"
+×× *
+ÖÖ28‡88@2alabels+label1 = repo.labels.create(name: "label1")"
+××*
+ÖÖ2ú7€88@2]returns&label1.stubs(:issues_count).returns(1)"
+Ø!Ø(*
+× ×'2¸8¿88@2[stubs&label1.stubs(:issues_count).returns(1)"
+ØØ*
+××2£8¨88@2acreate+label2 = repo.labels.create(name: "label2")"
+ÙÙ *
+ØØ2Ü8â88@2alabels+label2 = repo.labels.create(name: "label2")"
+ÙÙ*
+ØØ2Õ8Û88@2acreate+label3 = repo.labels.create(name: "label3")"
+ÚÚ *
+ÙÙ2Œ9’98@2alabels+label3 = repo.labels.create(name: "label3")"
+ÚÚ*
+ÙÙ2…9‹98@2]returns&label3.stubs(:issues_count).returns(3)"
+Û!Û(*
+Ú Ú'2Ã9Ê98@2[stubs&label3.stubs(:issues_count).returns(3)"
+ÛÛ*
+ÚÚ2®9³98@2†returnsORepository.any_instance.stubs(:sorted_labels).returns([label1, label2, label3])"
+İ3İ:*
+Ü2Ü92:ˆ:8@2„stubsORepository.any_instance.stubs(:sorted_labels).returns([label1, label2, label3])"
+İİ"*
+ÜÜ!2ë9ğ98@2‹any_instanceORepository.any_instance.stubs(:sorted_labels).returns([label1, label2, label3])"
+İİ*
+ÜÜ2Ş9ê98@2‰
+RepositoryORepository.any_instance.stubs(:sorted_labels).returns([label1, label2, label3])"
+İİ*
+ÜÜ2Ó9İ98@2?asas repo.owner"
+ßß*
+ŞŞ2¨:ª:8@2Bowneras repo.owner"
+ßß*
+ŞŞ2°:µ:8@2xgetEget "/#{repo.name_with_owner}/labels", params: { sort: "count-desc" }"
+àà*
+ßß2º:½:8@2„name_with_ownerEget "/#{repo.name_with_owner}/labels", params: { sort: "count-desc" }"
+àà!*
+ßß 2Ç:Ö:8@2Wassert_responseassert_response :success"
+ââ*
+áá2…;”;8@2sassert_equal7assert_equal [label3, label1, label2], assigns(:labels)"
+ãã*
+ââ2¢;®;8@2nassigns7assert_equal [label3, label1, label2], assigns(:labels)"
+ã,ã3*
+â+â22É;Ğ;8@2Vtest"test "can be added by a member" do"
+ææ*
+åå2ã;ç;8@2;as	as @owner"
+çç*
+ææ2Š<Œ<8@2€postLpost "/#{@repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+èè	*
+çç2˜<œ<8@2‹name_with_ownerLpost "/#{@repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+èè#*
+çç"2§<¶<8@2{assert_redirected_to7assert_redirected_to "/#{@repo.name_with_owner}/labels""
+êê*
+éé2ê<ş<8@2vname_with_owner7assert_redirected_to "/#{@repo.name_with_owner}/labels""
+ê$ê3*
+é#é22‰=˜=8@2gassert_equal+assert_equal "Bugs", @repo.labels.last.name"
+ëë*
+êê2¦=²=8@2_name+assert_equal "Bugs", @repo.labels.last.name"
+ë,ë0*
+ê+ê/2Í=Ñ=8@2_last+assert_equal "Bugs", @repo.labels.last.name"
+ë'ë+*
+ê&ê*2È=Ì=8@2alabels+assert_equal "Bugs", @repo.labels.last.name"
+ë ë&*
+êê%2Á=Ç=8@2_test+test "logs an event upon label creation" do"
+îî*
+íí2Û=ß=8@2;as	as @owner"
+ïï*
+îî2‹>>8@2°post|post "/#{@repo.name_with_owner}/labels", params: { label: { name: "fun stuff" }, context: "issue sidebar", issue_id: "123" }"
+ğğ	*
+ïï2™>>8@2»name_with_owner|post "/#{@repo.name_with_owner}/labels", params: { label: { name: "fun stuff" }, context: "issue sidebar", issue_id: "123" }"
+ğğ#*
+ïï"2¨>·>8@2{assert_redirected_to7assert_redirected_to "/#{@repo.name_with_owner}/labels""
+òò*
+ññ2›?¯?8@2vname_with_owner7assert_redirected_to "/#{@repo.name_with_owner}/labels""
+ò$ò3*
+ñ#ñ22º?É?8@2`first+label = @repo.labels.order("id DESC").first"
+ô+ô0*
+ó*ó/2ş?ƒ@8@2`order+label = @repo.labels.order("id DESC").first"
+ôô*
+óó2í?ò?8@2alabels+label = @repo.labels.order("id DESC").first"
+ôô*
+óó2æ?ì?8@2Jidrepository_id: @repo.id,"
+öö*
+õõ2»@½@8@2Eiduser_id: @owner.id,"
+÷÷*
+öö2Õ@×@8@2Fidactor_id: @owner.id,"
+øø*
+÷÷2ğ@ò@8@2Eidlabel_id: label.id,"
+ùù*
+øø2ŠAŒA8@2pdetect:analytics_event = GitHub.analytics_queue.detect do |event|"
+.4*
+€-€32æBìB8@2yanalytics_queue:analytics_event = GitHub.analytics_queue.detect do |event|"
+-*
+€€,2ÖBåB8@2pGitHub:analytics_event = GitHub.analytics_queue.detect do |event|"
+*
+€€2ÏBÕB8@2Massertassert analytics_event,"
+……*
+„„
+2öCüC8@2ŒinspectU"no label.create event with expected dimensions in #{GitHub.analytics_queue.inspect}""
+†S†Z*
+…R…Y2àDçD8@2”analytics_queueU"no label.create event with expected dimensions in #{GitHub.analytics_queue.inspect}""
+†C†R*
+…B…Q2ĞDßD8@2‹GitHubU"no label.create event with expected dimensions in #{GitHub.analytics_queue.inspect}""
+†<†B*
+…;…A2ÉDÏD8@2\test(test "can't be added by a non-member" do"
+‰‰*
+ˆˆ2óD÷D8@2?asas @nonmember"
+ŠŠ*
+‰‰2 E¢E8@2}postIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+‹‹	*
+ŠŠ2²E¶E8@2ˆname_with_ownerIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+‹‹#*
+ŠŠ"2ÁEĞE8@2\assert_redirected_toassert_redirected_to "/""
+*
+ŒŒ2F•F8@2lassert_equal0assert_equal @label.name, @repo.labels.last.name"
+*
+2FªF8@2dname0assert_equal @label.name, @repo.labels.last.name"
+*
+2²F¶F8@2dname0assert_equal @label.name, @repo.labels.last.name"
+15*
+042ÊFÎF8@2dlast0assert_equal @label.name, @repo.labels.last.name"
+,0*
++/2ÅFÉF8@2flabels0assert_equal @label.name, @repo.labels.last.name"
+%+*
+$*2¾FÄF8@2^test*test "can't be deleted by a non-member" do"
+‘‘*
+2ØFÜF8@2?asas @nonmember"
+’’*
+‘‘2‡G‰G8@2sdelete=delete "/#{@repo.name_with_owner}/issues/labels/#{@label.id}""
+““*
+’’
+2™GŸG8@2|name_with_owner=delete "/#{@repo.name_with_owner}/issues/labels/#{@label.id}""
+““%*
+’’$2ªG¹G8@2oid=delete "/#{@repo.name_with_owner}/issues/labels/#{@label.id}""
+“>“@*
+’=’?2ÒGÔG8@2\assert_redirected_toassert_redirected_to "/""
+••*
+””2ÜGğG8@2lassert_equal0assert_equal @label.name, @repo.labels.last.name"
+––*
+••2ùG…H8@2dname0assert_equal @label.name, @repo.labels.last.name"
+––*
+••2H‘H8@2dname0assert_equal @label.name, @repo.labels.last.name"
+–1–5*
+•0•42¥H©H8@2dlast0assert_equal @label.name, @repo.labels.last.name"
+–,–0*
+•+•/2 H¤H8@2flabels0assert_equal @label.name, @repo.labels.last.name"
+–%–+*
+•$•*2™HŸH8@2Ttest test "404 for unknown labels" do"
+™™*
+˜˜2³H·H8@2cget0get "/#{@repo.name_with_owner}/issues/labels/42""
+šš*
+™™2ØHÛH8@2oname_with_owner0get "/#{@repo.name_with_owner}/issues/labels/42""
+šš"*
+™™!2æHõH8@2Rassert_responseassert_response 404"
+››*
+šš2IœI8@2tcontext=context "current_repository_locked_for_migration? is true" do"
+
+*
+	2ªI±I8@2dtest0test "POST :create returns status :forbidden" do"
+ŸŸ	*
+2ìIğI8@2Zlock_for_migration@repo.lock_for_migration"
+  *
+ŸŸ2©J»J8@2;as	as @owner"
+¢¢	*
+¡¡2ÃJÅJ8@2}postIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+££*
+¢¢
+2ÓJ×J8@2ˆname_with_ownerIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+££%*
+¢¢$2âJñJ8@2Yassert_responseassert_response :forbidden"
+¥¥*
+¤¤2¤K³K8@2itest5test "PUT (xhr) :update returns status :forbidden" do"
+¨¨	*
+§§2ÌKĞK8@2lcreate6label = create(:label, repository: @repo, name: "foo")"
+©©*
+¨¨2L–L8@2Zlock_for_migration@repo.lock_for_migration"
+««*
+ªª2ÌLŞL8@2;as	as @owner"
+­­	*
+¬¬2æLèL8@2”putaput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+®®
+*
+­­	2öLùL8@2 name_with_owneraput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+®®$*
+­­#2„M“M8@2“idaput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+®5®7*
+­4­62¤M¦M8@2Yassert_responseassert_response :forbidden"
+°°*
+¯¯2ßMîM8@2gtest3test "DELETE :destroy returns status :forbidden" do"
+³³	*
+²²2‡N‹N8@2lcreate6label = create(:label, repository: @repo, name: "foo")"
+´´*
+³³2ÉNÏN8@2Zlock_for_migration@repo.lock_for_migration"
+¶¶*
+µµ2…O—O8@2;as	as @owner"
+¸¸	*
+··2ŸO¡O8@2kdelete5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+¹¹*
+¸¸2¯OµO8@2tname_with_owner5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+¹¹'*
+¸¸&2ÀOÏO8@2gid5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+¹8¹:*
+¸7¸92àOâO8@2Yassert_responseassert_response :forbidden"
+»»*
+ºº2ìOûO8@2Ocontextcontext "GET preview" do"
+¿¿
+*
+¾¾	2˜PŸP8@2ŠtestVtest "loads successfully when valid parameters are given for user with repo access" do"
+ÀÀ	*
+¿¿2µP¹P8@2;as	as @owner"
+ÄÄ	*
+ÃÃ2ïQñQ8@2“get`get "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color }, xhr: true"
+ÅÅ
+*
+ÄÄ	2ÿQ‚R8@2Ÿname_with_owner`get "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color }, xhr: true"
+ÅÅ$*
+ÄÄ#2RœR8@2Rassert_responseassert_response :ok"
+ÇÇ*
+ÆÆ2çRöR8@2”assert_selectWassert_select "span[style='#{expected_style}'][title='some label']", text: "some label""
+ÈÈ*
+ÇÇ2SS8@2†testRtest "loads successfully when a different value is given for an existing label" do"
+ËË	*
+ÊÊ2æSêS8@2;as	as @owner"
+ÏÏ	*
+ÎÎ2œUU8@2Âgetget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", params: { color: color, description: "", id: @label.id }, xhr: true"
+ĞĞ
+*
+ÏÏ	2¬U¯U8@2Îname_with_ownerget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", params: { color: color, description: "", id: @label.id }, xhr: true"
+ĞĞ$*
+ÏÏ#2ºUÉU8@2Ïto_escaped_paramget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", params: { color: color, description: "", id: @label.id }, xhr: true"
+Ğ>ĞN*
+Ï=ÏM2ãUóU8@2Åidget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", params: { color: color, description: "", id: @label.id }, xhr: true"
+Ğ†Ğˆ*
+Ï…Ï‡2«V­V8@2Rassert_responseassert_response :ok"
+ÒÒ*
+ÑÑ2ÂVÑV8@2—assert_selectZassert_select "span[style='#{expected_style}'][title='#{@label.name}']", text: @label.name"
+ÓÓ*
+ÒÒ2ÜVéV8@2nameZassert_select "span[style='#{expected_style}'][title='#{@label.name}']", text: @label.name"
+ÓFÓJ*
+ÒEÒI2›WŸW8@2nameZassert_select "span[style='#{expected_style}'][title='#{@label.name}']", text: @label.name"
+Ó]Óa*
+Ò\Ò`2²W¶W8@2itest5test "loads successfully when invalid id is given" do"
+ÖÖ	*
+ÕÕ2ÄWÈW8@2;as	as @owner"
+ÚÚ	*
+ÙÙ2İXßX8@2ªgetwget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color, id: Label.last.id + 1 }, xhr: true"
+ÛÛ
+*
+ÚÚ	2íXğX8@2¶name_with_ownerwget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color, id: Label.last.id + 1 }, xhr: true"
+ÛÛ$*
+ÚÚ#2ûXŠY8@2©idwget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color, id: Label.last.id + 1 }, xhr: true"
+ÛkÛm*
+ÚjÚl2ÑYÓY8@2«lastwget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color, id: Label.last.id + 1 }, xhr: true"
+ÛfÛj*
+ÚeÚi2ÌYĞY8@2¬Labelwget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: color, id: Label.last.id + 1 }, xhr: true"
+Û`Ûe*
+Ú_Úd2ÆYËY8@2Rassert_responseassert_response :ok"
+İİ*
+ÜÜ2ìYûY8@2”assert_selectWassert_select "span[style='#{expected_style}'][title='some label']", text: "some label""
+ŞŞ*
+İİ2†Z“Z8@2ztestFtest "does not load successfully when invalid parameters are given" do"
+áá	*
+àà2ëZïZ8@2;as	as @owner"
+ââ	*
+áá2¸[º[8@2”getaget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: "fafa" }, xhr: true"
+ãã
+*
+ââ	2È[Ë[8@2 name_with_owneraget "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: "fafa" }, xhr: true"
+ãã$*
+ââ#2Ö[å[8@2dassert_response%assert_response :unprocessable_entity"
+åå*
+ää2±\À\8@2Uparse json = JSON.parse(response.body)"
+çç*
+ææ2ê\ï\8@2Tbody json = JSON.parse(response.body)"
+ç"ç&*
+æ!æ%2ù\ı\8@2Xresponse json = JSON.parse(response.body)"
+çç!*
+ææ 2ğ\ø\8@2TJSON json = JSON.parse(response.body)"
+çç*
+ææ2å\é\8@2lassert_equal0assert_equal ["Color is invalid"], json["color"]"
+èè*
+çç2…]‘]8@2ctest/test "indicates a duplicate name is invalid" do"
+ëë	*
+êê2Ã]Ç]8@2;as	as @owner"
+ìì	*
+ëë2ù]û]8@2‡getTget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", xhr: true"
+íí
+*
+ìì	2‰^Œ^8@2“name_with_ownerTget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", xhr: true"
+íí$*
+ìì#2—^¦^8@2”to_escaped_paramTget "/#{@repo.name_with_owner}/labels/preview/#{@label.to_escaped_param}", xhr: true"
+í>íN*
+ì=ìM2À^Ğ^8@2dassert_response%assert_response :unprocessable_entity"
+ïï*
+îî2å^ô^8@2Uparse json = JSON.parse(response.body)"
+ññ*
+ğğ2_£_8@2Tbody json = JSON.parse(response.body)"
+ñ"ñ&*
+ğ!ğ%2­_±_8@2Xresponse json = JSON.parse(response.body)"
+ññ!*
+ğğ 2¤_¬_8@2TJSON json = JSON.parse(response.body)"
+ññ*
+ğğ2™__8@2vassert_equal:assert_equal ["Name has already been taken"], json["name"]"
+òò*
+ññ2¹_Å_8@2btest.test "redirects when user is not signed in" do"
+õõ	*
+ôô2`…`8@2®get{get "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: "EFEFEF", description: "hey now" }, xhr: true"
+öö
+*
+õõ	2¶`¹`8@2ºname_with_owner{get "/#{@repo.name_with_owner}/labels/preview/some%20label", params: { color: "EFEFEF", description: "hey now" }, xhr: true"
+öö$*
+õõ#2Ä`Ó`8@2Xassert_responseassert_response :redirect"
+øø*
+÷÷2¹aÈa8@2ƒassert_matchGassert_match /http:\/\/github.com\/login/, response.headers["Location"]"
+ùù*
+øø2Ùaåa8@2~headersGassert_match /http:\/\/github.com\/login/, response.headers["Location"]"
+ù;ùB*
+ø:øA2b”b8@2responseGassert_match /http:\/\/github.com\/login/, response.headers["Location"]"
+ù2ù:*
+ø1ø92„bŒb8@2bcontext+context "current_repository is archived" do"
+ıı
+*
+üü	2²b¹b8@2dtest0test "POST :create returns status :forbidden" do"
+şş	*
+ıı2âbæb8@2Nset_archived@repo.set_archived"
+ÿÿ*
+şş2Ÿc«c8@2;as	as @owner"
+	*
+€€2³cµc8@2}postIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+‚‚*
+
+2ÃcÇc8@2ˆname_with_ownerIpost "/#{@repo.name_with_owner}/issues/labels", params: { label: "Bugs" }"
+‚‚%*
+$2Òcác8@2Rassert_responseassert_response 302"
+„„*
+ƒƒ2”d£d8@2itest5test "PUT (xhr) :update returns status :forbidden" do"
+‡‡	*
+††2µd¹d8@2lcreate6label = create(:label, repository: @repo, name: "foo")"
+ˆˆ*
+‡‡2ùdÿd8@2Nset_archived@repo.set_archived"
+ŠŠ*
+‰‰2µeÁe8@2;as	as @owner"
+ŒŒ	*
+‹‹2ÉeËe8@2”putaput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+
+*
+ŒŒ	2ÙeÜe8@2 name_with_owneraput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+$*
+ŒŒ#2çeöe8@2“idaput "/#{@repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+57*
+Œ4Œ62‡f‰f8@2Rassert_responseassert_response 302"
+*
+2ÂfÑf8@2gtest3test "DELETE :destroy returns status :forbidden" do"
+’’	*
+‘‘2ãfçf8@2lcreate6label = create(:label, repository: @repo, name: "foo")"
+““*
+’’2¥g«g8@2Nset_archived@repo.set_archived"
+••*
+””2ágíg8@2;as	as @owner"
+——	*
+––2õg÷g8@2kdelete5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+˜˜*
+——2…h‹h8@2tname_with_owner5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+˜˜'*
+——&2–h¥h8@2gid5delete "/#{@repo.name_with_owner}/labels/#{label.id}""
+˜8˜:*
+—7—92¶h¸h8@2Rassert_responseassert_response 302"
+šš*
+™™2ÂhÑh8@2Tenterprise?unless GitHub.enterprise?"
+*
+2õh€i8@2OGitHubunless GitHub.enterprise?"
+
+*
+	2îhôh8@2Ycontext"context "Hydro Instrumentation" do"
+ŸŸ*
+2…iŒi8@2Oincludeinclude HydroTestHelpers"
+  *
+ŸŸ2®iµi8@2XHydroTestHelpersinclude HydroTestHelpers"
+  *
+ŸŸ2¶iÆi8@2ftest2test "label create event is published to hydro" do"
+¢¢*
+¡¡
+2ÎiÒi8@2jassert_difference)assert_difference "@repo.labels.count" do"
+¥	¥*
+¤¤2ãjôj8@2;as	as @owner"
+¦¦*
+¥
+¥2—k™k8@2…postQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+§§*
+¦
+¦2«k¯k8@2name_with_ownerQpost "/#{@repo.name_with_owner}/labels", params: { label: label_data }, xhr: true"
+§§)*
+¦¦(2ºkÉk8@2Rassert_responseassert_response :ok"
+©©*
+¨
+¨2ˆl—l8@2Mlastlabel = @repo.labels.last"
+¬¬"*
+««!2ÆlÊl8@2Olabelslabel = @repo.labels.last"
+¬¬*
+««2¿lÅl8@2alabel,label: Hydro::EntitySerializer.label(label),"
+¯*¯/*
+®)®.2‰mm8@2lEntitySerializer,label: Hydro::EntitySerializer.label(label),"
+¯¯)*
+®®(2ñlˆm8@2aHydro,label: Hydro::EntitySerializer.label(label),"
+¯¯*
+®®2ñlöl8@2`user,actor: Hydro::EntitySerializer.user(@owner),"
+°*°.*
+¯)¯-2ÀmÄm8@2lEntitySerializer,actor: Hydro::EntitySerializer.user(@owner),"
+°°)*
+¯¯(2¨m¿m8@2aHydro,actor: Hydro::EntitySerializer.user(@owner),"
+°°*
+¯¯2¨m­m8@2†assert_hydro_published@assert_hydro_published(message, schema: "github.v1.LabelCreate")"
+³	³*
+²²2ám÷m8@2–.external_identity_session_enforcement_enabled?8if GitHub.external_identity_session_enforcement_enabled?"
+¹¹9*
+¸
+¸82Én÷n8@2nGitHub8if GitHub.external_identity_session_enforcement_enabled?"
+¹¹
+*
+¸¸	2ÂnÈn8@2ŠLabelControllerSamlHttpTest?class LabelControllerSamlHttpTest < GitHub::IntegrationTestCase"
+º	º$*
+¹¹#2€o›o8@2‚IntegrationTestCase?class LabelControllerSamlHttpTest < GitHub::IntegrationTestCase"
+º'ºB*
+¹&¹A2o¹o8@2uGitHub?class LabelControllerSamlHttpTest < GitHub::IntegrationTestCase"
+º'º-*
+¹&¹,2o¤o8@2Zinclude#include AuthenticationHelpers::SAML"
+»»*
+ºº2¾oÅo8@2WSAML#include AuthenticationHelpers::SAML"
+»»(*
+ºº'2Æoáo8@2hAuthenticationHelpers#include AuthenticationHelpers::SAML"
+»»"*
+ºº!2ÆoÛo8@2Cfixturesfixtures do"
+¼¼*
+»»2æoîo8@2dcreate.@external_identity = create :external_identity"
+½½"*
+¼¼!2p“p8@2Xuser$@saml_user = @external_identity.user"
+¾'¾+*
+½&½*2ÍpÑp8@2\target&@saml_org  = @external_identity.target"
+¿'¿-*
+¾&¾,2øpşp8@2kcreate5@public_repo  = create(:repository, owner: @saml_org)"
+ÀÀ*
+¿¿2•q›q8@2rcreate<@private_repo = create :private_repository, owner: @saml_org"
+ÁÁ*
+ÀÀ2Ñq×q8@2mcreate7@label4 = @public_repo.labels.create(name: "Features4")"
+Â%Â+*
+Á$Á*2¢r¨r8@2mlabels7@label4 = @public_repo.labels.create(name: "Features4")"
+ÂÂ$*
+ÁÁ#2›r¡r8@2mcreate7@label2 = @public_repo.labels.create(name: "Features1")"
+Ã%Ã+*
+Â$Â*2àrær8@2mlabels7@label2 = @public_repo.labels.create(name: "Features1")"
+ÃÃ$*
+ÂÂ#2Ùrßr8@2ncreate8@label1 = @private_repo.labels.create(name: "Features2")"
+Ä&Ä,*
+Ã%Ã+2Ÿs¥s8@2nlabels8@label1 = @private_repo.labels.create(name: "Features2")"
+ÄÄ%*
+ÃÃ$2˜ss8@2Wcontext context "private repo labels" do"
+ÇÇ*
+ÆÆ2ÆsÍs8@2€testLtest "labels added by a member requires active external identity session" do"
+ÈÈ*
+ÇÇ
+2ísñs8@2?asas @saml_user"
+É	É*
+ÈÈ
+2ÂtÄt8@2ˆpostTpost "/#{@private_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+Ê	Ê*
+ÉÉ2ØtÜt8@2“name_with_ownerTpost "/#{@private_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+Ê Ê/*
+ÉÉ.2ïtşt8@2`assert_saml_sso_requiredassert_saml_sso_required"
+Ë	Ë!*
+ÊÊ 2µuÍu8@2wtestCtest "deleting labels requires active external identity session" do"
+ÎÎ*
+ÍÍ
+2ßuãu8@2?asas @saml_user"
+Ï	Ï*
+ÎÎ
+2«v­v8@2|deleteFdelete "/#{@private_repo.name_with_owner}/issues/labels/#{@label1.id}""
+Ğ	Ğ*
+ÏÏ2ÁvÇv8@2…name_with_ownerFdelete "/#{@private_repo.name_with_owner}/issues/labels/#{@label1.id}""
+Ğ"Ğ1*
+Ï!Ï02Úvév8@2xidFdelete "/#{@private_repo.name_with_owner}/issues/labels/#{@label1.id}""
+ĞKĞM*
+ÏJÏL2ƒw…w8@2`assert_saml_sso_requiredassert_saml_sso_required"
+Ñ	Ñ!*
+ĞĞ 2w¨w8@2~testJtest "labels added by a member with external identity session give 302" do"
+ÔÔ
+*
+ÓÓ	2¹w½w8@2has6as @saml_user, external_identities: @external_identity"
+ÕÕ
+*
+ÔÔ	2‹xx8@2ˆpostTpost "/#{@private_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+ÖÖ*
+ÕÕ2ÉxÍx8@2“name_with_ownerTpost "/#{@private_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+ÖÖ.*
+ÕÕ-2àxïx8@2Rassert_responseassert_response 302"
+××*
+ÖÖ2¥y´y8@2Vcontextcontext "public repo labels" do"
+ÛÛ*
+ÚÚ2ÏyÖy8@2€testLtest "labels added by a member requires active external identity session" do"
+ÜÜ*
+ÛÛ
+2õyùy8@2?asas @saml_user"
+İ	İ*
+ÜÜ
+2ÊzÌz8@2‡postSpost "/#{@public_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+Ş	Ş*
+İİ2àzäz8@2’name_with_ownerSpost "/#{@public_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+ŞŞ.*
+İİ-2öz…{8@2`assert_saml_sso_requiredassert_saml_sso_required"
+ß	ß!*
+ŞŞ 2¼{Ô{8@2wtestCtest "deleting labels requires active external identity session" do"
+ââ*
+áá
+2æ{ê{8@2?asas @saml_user"
+ã	ã*
+ââ
+2²|´|8@2{deleteEdelete "/#{@public_repo.name_with_owner}/issues/labels/#{@label2.id}""
+ä	ä*
+ãã2È|Î|8@2„name_with_ownerEdelete "/#{@public_repo.name_with_owner}/issues/labels/#{@label2.id}""
+ä!ä0*
+ã ã/2à|ï|8@2widEdelete "/#{@public_repo.name_with_owner}/issues/labels/#{@label2.id}""
+äJäL*
+ãIãK2‰}‹}8@2`assert_saml_sso_requiredassert_saml_sso_required"
+å	å!*
+ää 2–}®}8@2~testJtest "labels added by a member with external identity session give 302" do"
+èè*
+çç
+2À}Ä}8@2has6as @saml_user, external_identities: @external_identity"
+é	é*
+èè
+2“~•~8@2‡postSpost "/#{@public_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+ê	ê*
+éé2Ò~Ö~8@2’name_with_ownerSpost "/#{@public_repo.name_with_owner}/labels", params: { label: { name: "Bugs" } }"
+êê.*
+éé-2è~÷~8@2Rassert_responseassert_response 302"
+ë	ë*
+êê2®½8@2wtestCtest "updating labels requires active external identity session" do"
+îî*
+íí
+2Ó×8@2ucreate=label = create(:label, repository: @public_repo, name: "foo")"
+ïï*
+îî2§€­€8@2Aasas @saml_user"
+ğ	ğ*
+ïï
+2å€ç€8@2puthput "/#{@public_repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+ñ	ñ*
+ğğ2û€ş€8@2©name_with_ownerhput "/#{@public_repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+ññ-*
+ğğ,2Ÿ8@2œidhput "/#{@public_repo.name_with_owner}/labels/#{label.id}", params: { label: { name: "bar" } }, xhr: true"
+ñ>ñ@*
+ğ=ğ?2°²8@2^assert_responseassert_response :unauthorized"
+ò	ò*
+ññ2ìû8@2{testEtest "renders the index requires active external identity session" do"
+õõ*
+ôô
+2›‚Ÿ‚8@2Aasas @saml_user"
+ö	ö*
+õõ
+2é‚ë‚8@2bget-get "/#{@public_repo.name_with_owner}/labels""
+÷	÷*
+öö2ÿ‚‚ƒ8@2nname_with_owner-get "/#{@public_repo.name_with_owner}/labels""
+÷÷-*
+öö,2”ƒ£ƒ8@2bassert_saml_sso_requiredassert_saml_sso_required"
+ø	ø!*
+÷÷ 2µƒÍƒ8@2Xtest"test "sorts the index by count" do"
+ûû*
+úú
+2ßƒãƒ8@2`returns'@label2.stubs(:issues_count).returns(1)"
+ü&ü-*
+û%û,2§„®„8@2^stubs'@label2.stubs(:issues_count).returns(1)"
+üü*
+ûû2’„—„8@2`returns'@label4.stubs(:issues_count).returns(3)"
+ı&ı-*
+ü%ü,2×„Ş„8@2^stubs'@label4.stubs(:issues_count).returns(3)"
+ıı*
+üü2Â„Ç„8@2‹returnsRRepository.any_instance.stubs(:sorted_labels).returns([@label2, @label3, @label4])"
+ş7ş>*
+ı6ı=2˜…Ÿ…8@2‰stubsRRepository.any_instance.stubs(:sorted_labels).returns([@label2, @label3, @label4])"
+ş!ş&*
+ı ı%2‚…‡…8@2any_instanceRRepository.any_instance.stubs(:sorted_labels).returns([@label2, @label3, @label4])"
+şş *
+ıı2õ„…8@2
+RepositoryRRepository.any_instance.stubs(:sorted_labels).returns([@label2, @label3, @label4])"
+ş	ş*
+ıı2ê„ô„8@2Aasas @saml_user"
+ÿ	ÿ*
+şş
+2Å…Ç…8@2‚getMget "/#{@public_repo.name_with_owner}/labels", params: { sort: "count-desc" }"
+€	€*
+ÿÿ2Û…Ş…8@2name_with_ownerMget "/#{@public_repo.name_with_owner}/labels", params: { sort: "count-desc" }"
+€€-*
+ÿÿ,2ğ…ÿ…8@2bassert_saml_sso_requiredassert_saml_sso_required"
+	!*
+€€ 2±†É†8@

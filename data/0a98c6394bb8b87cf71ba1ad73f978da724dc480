@@ -1,0 +1,665 @@
+
+(0a98c6394bb8b87cf71ba1ad73f978da724dc4809test/lib/github/githooks/pre_receive_custom_hooks_test.rbRuby"02ƒGitHubPreReceiveCustomHooksTest8class GitHubPreReceiveCustomHooksTest < GitHub::TestCase"
+&*
+%2ºÙ8@2lTestCase8class GitHubPreReceiveCustomHooksTest < GitHub::TestCase"
+)9*
+(82Üì8@2jGitHub8class GitHubPreReceiveCustomHooksTest < GitHub::TestCase"
+)/*
+(.2Üâ8@2?fixturesfixtures do"
+		*
+
+2ï÷8@2Mcreate@repo = create(:repository)"
+
+
+*
+		2‡8@2Ycreate'@user = create :user, login: "someuser""
+*
+
+
+2§­8@2`example_repo(example_repo :pull_request_source, @repo"
+*
+2Ë×8@29setupsetup do"
+*
+2ı‚8@2fupdate_default_branch%@repo.update_default_branch("master")"
+ *
+
+2¥8@2iset!9@repo.config.set!("git.hooktimeout", 1.to_s, @repo.owner)"
+*
+2ÁÅ8@2ito_s9@repo.config.set!("git.hooktimeout", 1.to_s, @repo.owner)"
+,0*
++/2Ûß8@2jowner9@repo.config.set!("git.hooktimeout", 1.to_s, @repo.owner)"
+8=*
+7<2çì8@2kconfig9@repo.config.set!("git.hooktimeout", 1.to_s, @repo.owner)"
+*
+
+2ºÀ8@2„createR@hook_env = create :pre_receive_environment, name: "testenv", checksum: "deadbeef""
+*
+2ÿ…8@2˜createf@hook = create(:pre_receive_hook, environment: @hook_env, repository: @repo, script: "demo-script.rb")"
+*
+2ÒØ8@2­create{@target = create(:pre_receive_hook_target, hook: @hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+*
+2¿Å8@2®ENABLED{@target = create(:pre_receive_hook_target, hook: @hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+[*
+Z~2‹¯8@2ºPreReceiveHookEntry{@target = create(:pre_receive_hook_target, hook: @hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+[v*
+Zu2‹¦8@2­GitHub{@target = create(:pre_receive_hook_target, hook: @hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+[a*
+Z`2‹‘8@2lreturns9GitHub.stubs(:enterprise_only_api_enabled?).returns(true)"
+18*
+072âé8@2jstubs9GitHub.stubs(:enterprise_only_api_enabled?).returns(true)"
+*
+2½Â8@2kGitHub9GitHub.stubs(:enterprise_only_api_enabled?).returns(true)"
+*
+
+2¶¼8@2Rnew#app = GitHub::Routers::Api.new(nil)"
+ #*
+"2’8@2RApi#app = GitHub::Routers::Api.new(nil)"
+*
+
+2ú8@2VRouters#app = GitHub::Routers::Api.new(nil)"
+*
+
+2ú‰8@2UGitHub#app = GitHub::Routers::Api.new(nil)"
+*
+
+2ú€8@2Anew@mutex = Mutex.new"
+*
+2¬¯8@2CMutex@mutex = Mutex.new"
+*
+2¦«8@2Jnew@cv = ConditionVariable.new"
+ *
+2ÌÏ8@2XConditionVariable@cv = ConditionVariable.new"
+*
+
+2ºË8@2Snew$@server = ::WEBrick::HTTPServer.new("
+%(*
+$'2Š8@2tpostrx_internal_api_port0Port: TestServicePorts.postrx_internal_api_port,"
+ 8*
+72®Æ8@2lTestServicePorts0Port: TestServicePorts.postrx_internal_api_port,"
+*
+2­8@2Ksynchronize@mutex.synchronize {"
+!!*
+  2õ€	8@2B	broadcast@cv.broadcast"
+##*
+""2¯	¸	8@2Z
+HTTPServer$@server = ::WEBrick::HTTPServer.new("
+$*
+#2ô‰8@2WWEBrick$@server = ::WEBrick::HTTPServer.new("
+*
+2ôı8@2_mount.@server.mount "/", Rack::Handler::WEBrick, app"
+''*
+&&2ä	é	8@2aWEBrick.@server.mount "/", Rack::Handler::WEBrick, app"
+''.*
+&&-2ï	…
+8@2aHandler.@server.mount "/", Rack::Handler::WEBrick, app"
+''%*
+&&$2ï	ü	8@2^Rack.@server.mount "/", Rack::Handler::WEBrick, app"
+''*
+&&2ï	ó	8@2Rnew#@thr = Thread.new { @server.start }"
+))*
+((2
+¡
+8@2Tstart#@thr = Thread.new { @server.start }"
+)!)&*
+( (%2¬
+±
+8@2UThread#@thr = Thread.new { @server.start }"
+))*
+((2—
+
+8@2Ksynchronize@mutex.synchronize {"
+++*
+**2À
+Ë
+8@2Mwait@cv.wait(@mutex, timeout = 1)"
+--*
+,,2ğ
+ô
+8@2?teardownteardown do"
+22*
+11
+2£«8@2Oshutdown@server.shutdown if @server"
+33*
+222»Ã8@2arun_pre_receive&def run_pre_receive(repo, pushed_refs)"
+66*
+552Üë8@2<pwdcwd = Dir.pwd"
+77*
+6628@2<Dircwd = Dir.pwd"
+77*
+6
+62‰Œ8@2KchdirDir.chdir @repo.shard_path"
+8	8*
+772™8@2P
+shard_pathDir.chdir @repo.shard_path"
+88*
+772¥¯8@2IDirDir.chdir @repo.shard_path"
+88*
+772•˜8@2CENVENV["GIT_DIR"] = ".""
+99*
+882´·8@2EENVENV["GIT_PREFIX"] = """
+::*
+992ÍĞ8@2QENV"ENV["REPO_PATH"] = repo.shard_path"
+;;*
+::2èë8@2X
+shard_path"ENV["REPO_PATH"] = repo.shard_path"
+;;'*
+::&2€Š8@2Ntryrepo_config = repo.try(:config)"
+==*
+<<2£¦8@2^ENV/ENV["GIT_SOCKSTAT_VAR_real_ip"] = "10.10.10.10""
+>>*
+==2´·8@2^ENV/ENV["GIT_SOCKSTAT_VAR_user_login"] = "someuser""
+??*
+>>2èë8@2ENVPENV["GIT_SOCKSTAT_VAR_repo_config"] = repo_config.to_hash.to_json if repo_config"
+@@*
+??2œŸ8@2ƒto_jsonPENV["GIT_SOCKSTAT_VAR_repo_config"] = repo_config.to_hash.to_json if repo_config"
+@?@F*
+?>?E2Öİ8@2ƒto_hashPENV["GIT_SOCKSTAT_VAR_repo_config"] = repo_config.to_hash.to_json if repo_config"
+@7@>*
+?6?=2ÎÕ8@2Xto_json%data = repo.pre_receive_hooks.to_json"
+A#A**
+@"@)2–8@2bpre_receive_hooks%data = repo.pre_receive_hooks.to_json"
+AA"*
+@@!2ı8@2tbytesize@if data.bytesize > GitHub::PreReceiveHookEntry::HOOK_STATS_LIMIT"
+BB*
+AA2£«8@2|HOOK_STATS_LIMIT@if data.bytesize > GitHub::PreReceiveHookEntry::HOOK_STATS_LIMIT"
+BBE*
+AAD2®Û8@2PreReceiveHookEntry@if data.bytesize > GitHub::PreReceiveHookEntry::HOOK_STATS_LIMIT"
+BB3*
+AA22®É8@2rGitHub@if data.bytesize > GitHub::PreReceiveHookEntry::HOOK_STATS_LIMIT"
+BB*
+AA2®´8@2…ENVVENV["GIT_SOCKSTAT_VAR_repo_pre_receive_hooks"] = GitHub::PreReceiveHookEntry::OVERFLOW"
+CC
+*
+BB	2âå8@2ŠOVERFLOWVENV["GIT_SOCKSTAT_VAR_repo_pre_receive_hooks"] = GitHub::PreReceiveHookEntry::OVERFLOW"
+C8C]*
+B7B\2“¸8@2•PreReceiveHookEntryVENV["GIT_SOCKSTAT_VAR_repo_pre_receive_hooks"] = GitHub::PreReceiveHookEntry::OVERFLOW"
+C8CS*
+B7BR2“®8@2ˆGitHubVENV["GIT_SOCKSTAT_VAR_repo_pre_receive_hooks"] = GitHub::PreReceiveHookEntry::OVERFLOW"
+C8C>*
+B7B=2“™8@2dENV5ENV["GIT_SOCKSTAT_VAR_repo_pre_receive_hooks"] = data"
+EE
+*
+DD	2ÈË8@2ENV^ENV["TEST_GITHOOKS_API_URL"] = "http://localhost:#{TestServicePorts.postrx_internal_api_port}""
+GG*
+FF2Š8@2¢postrx_internal_api_port^ENV["TEST_GITHOOKS_API_URL"] = "http://localhost:#{TestServicePorts.postrx_internal_api_port}""
+GIGa*
+FHF`2Îæ8@2šTestServicePorts^ENV["TEST_GITHOOKS_API_URL"] = "http://localhost:#{TestServicePorts.postrx_internal_api_port}""
+G8GH*
+F7FG2½Í8@2ojoin?input   = pushed_refs.map { |line|  line.join(" ") }.join("\n")"
+I:I>*
+H9H=2£§8@2nmap?input   = pushed_refs.map { |line|  line.join(" ") }.join("\n")"
+II*
+HH2„‡8@2ojoin?input   = pushed_refs.map { |line|  line.join(" ") }.join("\n")"
+I.I2*
+H-H12—›8@2Wnew(context = GitHub::PushContext.new(input)"
+J#J&*
+I"I%2ĞÓ8@2_PushContext(context = GitHub::PushContext.new(input)"
+JJ"*
+II!2¼Ï8@2ZGitHub(context = GitHub::PushContext.new(input)"
+JJ*
+II2¼Â8@2tcheckCwarnings, errors = GitHub::PreReceiveCustomHooks.new(context).check"
+LCLH*
+KBKG2£8@2rnewCwarnings, errors = GitHub::PreReceiveCustomHooks.new(context).check"
+L6L9*
+K5K82‘”8@2„PreReceiveCustomHooksCwarnings, errors = GitHub::PreReceiveCustomHooks.new(context).check"
+LL5*
+KK42ó8@2uGitHubCwarnings, errors = GitHub::PreReceiveCustomHooks.new(context).check"
+LL*
+KK2óù8@2>chdirDir.chdir cwd"
+N	N*
+MM2­²8@2<DirDir.chdir cwd"
+NN*
+MM2©¬8@2\delete*ENV.delete("GIT_SOCKSTAT_VAR_repo_config")"
+R	R*
+QQ2àæ8@2YENV*ENV.delete("GIT_SOCKSTAT_VAR_repo_config")"
+RR*
+QQ2Üß8@2gdelete5ENV.delete("GIT_SOCKSTAT_VAR_repo_pre_receive_hooks")"
+S	S*
+RR2•8@2dENV5ENV.delete("GIT_SOCKSTAT_VAR_repo_pre_receive_hooks")"
+SS*
+RR2‹8@2GdeleteENV.delete("GIT_DIR")"
+T	T*
+SS2ÉÏ8@2DENVENV.delete("GIT_DIR")"
+TT*
+SS2ÅÈ8@2JdeleteENV.delete("GIT_PREFIX")"
+U	U*
+TT2ãé8@2GENVENV.delete("GIT_PREFIX")"
+UU*
+TT2ßâ8@2IdeleteENV.delete("REPO_PATH")"
+V	V*
+UU2€†8@2FENVENV.delete("REPO_PATH")"
+VV*
+UU2üÿ8@2Udelete#ENV.delete("TEST_GITHOOKS_API_URL")"
+W	W*
+VV2œ¢8@2RENV#ENV.delete("TEST_GITHOOKS_API_URL")"
+WW*
+VV2˜›8@2atest1test "returns no errors on a succeeded script" do"
+ZZ*
+YY2ÅÉ8@2Sfind#master = @repo.heads.find("master")"
+[[*
+ZZ2”8@2Theads#master = @repo.heads.find("master")"
+[[*
+ZZ2Š8@2]find-ahead  = @repo.heads.find("master-forward-2")"
+\\*
+[[2¸¼8@2^heads-ahead  = @repo.heads.find("master-forward-2")"
+\\*
+[[2²·8@2X
+target_oid"pushed_refs = [[master.target_oid,"
+^^&*
+]]%2í÷8@2G
+target_oidahead.target_oid,"
+__%*
+^^$2“8@2Qqualified_namemaster.qualified_name]]"
+``**
+__)2ºÈ8@2qrun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+cc'*
+bb&2ş8@2]assert_equal%assert_equal ["All good\n"], warnings"
+ee*
+dd2§³8@2Oassert_equalassert_equal [], errors"
+ff*
+ee2Ñİ8@2jtest:test "succeeds on a failing but in testing mode script" do"
+ii*
+hh2òö8@2ˆupdate_attributeL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+jj*
+ii2¹É8@2TESTINGL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+j,jP*
+i+iO2Øü8@2‹PreReceiveHookEntryL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+j,jG*
+i+iF2Øó8@2~GitHubL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+j,j2*
+i+i12ØŞ8@2f	subscribe1events = subscribe "pre_receive_hook.warned_push""
+kk*
+jj2‹”8@2Sfind#master = @repo.heads.find("master")"
+mm*
+ll2ÎÒ8@2Theads#master = @repo.heads.find("master")"
+mm*
+ll2ÈÍ8@2X
+target_oid"pushed_refs = [[master.target_oid,"
+oo&*
+nn%2ùƒ8@2ENULL_OIDGitHub::NULL_OID,"
+pp%*
+oo$2™©8@2CGitHubGitHub::NULL_OID,"
+pp*
+oo2™Ÿ8@2Qqualified_namemaster.qualified_name]]"
+qq**
+pp)2ÆÔ8@2zperform_enqueued_jobs9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+tt*
+ss2÷Œ8@2|RepositoryPreReceiveJob9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+t"t9*
+s!s82”«8@2qrun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+uu)*
+tt(2ÊÙ8@2assert_equalfassert_equal ["demo-script.rb: failed with exit status 1\nNot allowed to delete branches\n"], warnings"
+xx*
+ww2û‡8@2Oassert_equalassert_equal [], errors"
+yy*
+xx2æò8@2s
+target_oid=refs: "#{master.target_oid} #{"0" * 40} refs/heads/master\n","
+~~!*
+}} 2âì8@2Wid)pre_receive_environment_id: @hook_env.id,"
+-/*
+~,~.2¼¾8@2kchecksum5pre_receive_environment_checksum: @hook_env.checksum,"
+€3€;*
+2:2òú8@2Pidpre_receive_hook_id: @hook.id,"
+"$*
+€!€#2 Ÿ 8@2Cnworepo: @repo.nwo,"
+‚‚*
+2³ ¶ 8@2Didrepo_id: @repo.id,"
+ƒƒ*
+‚‚2Í Ï 8@2Hloginactor: @user.login,"
+„„*
+ƒƒ2ä é 8@2Eidactor_id: @user.id,"
+……*
+„„2!ƒ!8@2aassert+assert event = events.pop, "expected event""
+‰‰*
+ˆˆ
+2ş!„"8@2^pop+assert event = events.pop, "expected event""
+‰‰*
+ˆˆ2”"—"8@2hassert_equal,assert_equal expected_payload, event.payload"
+ŠŠ*
+‰‰2®"º"8@2cpayload,assert_equal expected_payload, event.payload"
+Š*Š1*
+‰)‰02Ó"Ú"8@2`test,test "succeeds on a testing mode timeout" do"
+*
+ŒŒ2ä"è"8@2Œupdate_attributeL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+*
+2#­#8@2ƒTESTINGL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+,P*
++O2¼#à#8@2PreReceiveHookEntryL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+,G*
++F2¼#×#8@2‚GitHubL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::TESTING)"
+,2*
++12¼#Â#8@2j	subscribe1events = subscribe "pre_receive_hook.warned_push""
+*
+2ï#ø#8@2Wfind#master = @repo.heads.find("master")"
+‘‘*
+2²$¶$8@2Xheads#master = @repo.heads.find("master")"
+‘‘*
+2¬$±$8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+““&*
+’’%2İ$ç$8@2Uqualified_namemaster.qualified_name]]"
+••**
+””)2¢%°%8@2~perform_enqueued_jobs9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+˜˜*
+——2Ó%è%8@2€RepositoryPreReceiveJob9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+˜"˜9*
+—!—82ğ%‡&8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+™™)*
+˜˜(2¦&µ&8@2†assert_equalJassert_equal ["demo-script.rb: execution exceeded 1s timeout\n"], warnings"
+œœ*
+››2×&ã&8@2Sassert_equalassert_equal [], errors"
+*
+œœ2¦'²'8@2w
+target_oid=refs: "#{master.target_oid} #{"1" * 40} refs/heads/master\n","
+¢¢!*
+¡¡ 2¢(¬(8@2[id)pre_receive_environment_id: @hook_env.id,"
+¥-¥/*
+¤,¤.2Ï)Ñ)8@2mchecksum5pre_receive_environment_checksum: @hook_env.checksum,"
+¦3¦;*
+¥2¥:2…**8@2Pidpre_receive_hook_id: @hook.id,"
+§"§$*
+¦!¦#2°*²*8@2Cnworepo: @repo.nwo,"
+¨¨*
+§§2Æ*É*8@2Didrepo_id: @repo.id,"
+©©*
+¨¨2à*â*8@2Hloginactor: @user.login,"
+ªª*
+©©2÷*ü*8@2Eidactor_id: @user.id,"
+««*
+ªª2”+–+8@2aassert+assert event = events.pop, "expected event""
+­­*
+¬¬
+2¢+¨+8@2^pop+assert event = events.pop, "expected event""
+­­*
+¬¬2¸+»+8@2hassert_equal,assert_equal expected_payload, event.payload"
+®®*
+­­2Ò+Ş+8@2cpayload,assert_equal expected_payload, event.payload"
+®*®1*
+­)­02÷+ş+8@2btest.test "returns an error on too many scripts" do"
+±±*
+°°2ˆ,Œ,8@2Etimes300.times do |i|"
+²	²*
+±±2¿,Ä,8@2³create}hook = create(:pre_receive_hook, environment: @hook_env, repository: @repo, script: "demo-script-#{i}.rb", name: "hook #{i}")"
+³³*
+²²2Ù,ß,8@2¦createpcreate(:pre_receive_hook_target, hook: hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+´´*
+³³2Ö-Ü-8@2§ENABLEDpcreate(:pre_receive_hook_target, hook: hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+´R´v*
+³Q³u2¡.Å.8@2³PreReceiveHookEntrypcreate(:pre_receive_hook_target, hook: hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+´R´m*
+³Q³l2¡.¼.8@2¦GitHubpcreate(:pre_receive_hook_target, hook: hook, hookable: @repo, enforcement: GitHub::PreReceiveHookEntry::ENABLED)"
+´R´X*
+³Q³W2¡.§.8@2Wfind#master = @repo.heads.find("master")"
+··*
+¶¶2é.í.8@2Xheads#master = @repo.heads.find("master")"
+··*
+¶¶2ã.è.8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+¹¹&*
+¸¸%2”//8@2INULL_OIDGitHub::NULL_OID,"
+ºº%*
+¹¹$2´/Ä/8@2GGitHubGitHub::NULL_OID,"
+ºº*
+¹¹2´/º/8@2Uqualified_namemaster.qualified_name]]"
+»»**
+ºº)2á/ï/8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+½½'*
+¼¼&2Š0™08@2Uassert_equalassert_equal [], warnings"
+¿¿*
+¾¾2³0¿08@2}assert_equalAassert_equal ["Too many hooks configured for repository"], errors"
+ÀÀ*
+¿¿2Ñ0İ08@2atest-test "returns an error on a failed script" do"
+ÃÃ*
+ÂÂ2œ1 18@2Œupdate_attributeL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+ÄÄ*
+ÃÃ2Ö1æ18@2ƒENABLEDL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+Ä,ÄP*
+Ã+ÃO2õ1™28@2PreReceiveHookEntryL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+Ä,ÄG*
+Ã+ÃF2õ128@2‚GitHubL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+Ä,Ä2*
+Ã+Ã12õ1û18@2l	subscribe3events = subscribe "pre_receive_hook.rejected_push""
+ÅÅ*
+ÄÄ2¨2±28@2Wfind#master = @repo.heads.find("master")"
+ÇÇ*
+ÆÆ2í2ñ28@2Xheads#master = @repo.heads.find("master")"
+ÇÇ*
+ÆÆ2ç2ì28@2\
+target_oid"pushed_refs = [[master.target_oid,"
+ÉÉ&*
+ÈÈ%2˜3¢38@2INULL_OIDGitHub::NULL_OID,"
+ÊÊ%*
+ÉÉ$2¸3È38@2GGitHubGitHub::NULL_OID,"
+ÊÊ*
+ÉÉ2¸3¾38@2Uqualified_namemaster.qualified_name]]"
+ËË**
+ÊÊ)2å3ó38@2~perform_enqueued_jobs9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+ÎÎ*
+ÍÍ2–4«48@2€RepositoryPreReceiveJob9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+Î"Î9*
+Í!Í82³4Ê48@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+ÏÏ)*
+ÎÎ(2é4ø48@2Uassert_equalassert_equal [], warnings"
+ÒÒ*
+ÑÑ2š5¦58@2 assert_equaldassert_equal ["demo-script.rb: failed with exit status 1\nNot allowed to delete branches\n"], errors"
+ÓÓ*
+ÒÒ2¸5Ä58@2w
+target_oid=refs: "#{master.target_oid} #{"0" * 40} refs/heads/master\n","
+ØØ!*
+×× 27‹78@2[id)pre_receive_environment_id: @hook_env.id,"
+Û-Û/*
+Ú,Ú.2Ê8Ì88@2mchecksum5pre_receive_environment_checksum: @hook_env.checksum,"
+Ü3Ü;*
+Û2Û:2€9ˆ98@2Pidpre_receive_hook_id: @hook.id,"
+İ"İ$*
+Ü!Ü#2«9­98@2Cnworepo: @repo.nwo,"
+ŞŞ*
+İİ2Á9Ä98@2Didrepo_id: @repo.id,"
+ßß*
+ŞŞ2Û9İ98@2Hloginactor: @user.login,"
+àà*
+ßß2ò9÷98@2Eidactor_id: @user.id,"
+áá*
+àà2:‘:8@2aassert+assert event = events.pop, "expected event""
+ää*
+ãã
+2:¤:8@2^pop+assert event = events.pop, "expected event""
+ää*
+ãã2´:·:8@2hassert_equal,assert_equal expected_payload, event.payload"
+åå*
+ää2Î:Ú:8@2cpayload,assert_equal expected_payload, event.payload"
+å*å1*
+ä)ä02ó:ú:8@2atest-test "times out after appropriate timeout" do"
+èè*
+çç2„;ˆ;8@2Œupdate_attributeL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+éé*
+èè2¾;Î;8@2ƒENABLEDL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+é,éP*
+è+èO2İ;<8@2PreReceiveHookEntryL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+é,éG*
+è+èF2İ;ø;8@2‚GitHubL@target.update_attribute(:enforcement, GitHub::PreReceiveHookEntry::ENABLED)"
+é,é2*
+è+è12İ;ã;8@2l	subscribe3events = subscribe "pre_receive_hook.rejected_push""
+êê*
+éé2<™<8@2Wfind#master = @repo.heads.find("master")"
+ìì*
+ëë2Õ<Ù<8@2Xheads#master = @repo.heads.find("master")"
+ìì*
+ëë2Ï<Ô<8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+îî&*
+íí%2€=Š=8@2Uqualified_namemaster.qualified_name]]"
+ğğ**
+ïï)2Å=Ó=8@2~perform_enqueued_jobs9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+óó*
+òò2ö=‹>8@2€RepositoryPreReceiveJob9perform_enqueued_jobs(only: [RepositoryPreReceiveJob]) do"
+ó"ó9*
+ò!ò82“>ª>8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+ôô)*
+óó(2É>Ø>8@2Uassert_equalassert_equal [], warnings"
+÷÷*
+öö2ú>†?8@2„assert_equalHassert_equal ["demo-script.rb: execution exceeded 1s timeout\n"], errors"
+øø*
+÷÷2˜?¤?8@2w
+target_oid=refs: "#{master.target_oid} #{"1" * 40} refs/heads/master\n","
+ıı!*
+üü 2Å@Ï@8@2[id)pre_receive_environment_id: @hook_env.id,"
+€-€/*
+ÿ,ÿ.2òAôA8@2mchecksum5pre_receive_environment_checksum: @hook_env.checksum,"
+3;*
+€2€:2¨B°B8@2Pidpre_receive_hook_id: @hook.id,"
+‚"‚$*
+!#2ÓBÕB8@2Cnworepo: @repo.nwo,"
+ƒƒ*
+‚‚2éBìB8@2Didrepo_id: @repo.id,"
+„„*
+ƒƒ2ƒC…C8@2Hloginactor: @user.login,"
+……*
+„„2šCŸC8@2Eidactor_id: @user.id,"
+††*
+……2·C¹C8@2aassert+assert event = events.pop, "expected event""
+ˆˆ*
+‡‡
+2ÅCËC8@2^pop+assert event = events.pop, "expected event""
+ˆˆ*
+‡‡2ÛCŞC8@2hassert_equal,assert_equal expected_payload, event.payload"
+‰‰*
+ˆˆ2õCD8@2cpayload,assert_equal expected_payload, event.payload"
+‰*‰1*
+ˆ)ˆ02šD¡D8@2btest.test "does not check internal or temp refs" do"
+ŒŒ*
+‹‹2«D¯D8@2Wfind#master = @repo.heads.find("master")"
+*
+ŒŒ2óD÷D8@2Xheads#master = @repo.heads.find("master")"
+*
+ŒŒ2íDòD8@2afind-ahead  = @repo.heads.find("master-forward-2")"
+*
+2›EŸE8@2bheads-ahead  = @repo.heads.find("master-forward-2")"
+*
+2•EšE8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+’’&*
+‘‘%2œF¦F8@2INULL_OIDGitHub::NULL_OID,"
+““%*
+’’$2¼FÌF8@2GGitHubGitHub::NULL_OID,"
+““*
+’’2¼FÂF8@2M
+target_oid[master.target_oid,"
+••&*
+””%2‹G•G8@2INULL_OIDGitHub::NULL_OID,"
+––%*
+••$2«G»G8@2GGitHubGitHub::NULL_OID,"
+––*
+••2«G±G8@2M
+target_oid[master.target_oid,"
+˜˜&*
+——%2öG€H8@2K
+target_oidahead.target_oid,"
+™™%*
+˜˜$2œH¦H8@2Uqualified_namemaster.qualified_name]]"
+šš**
+™™)2ÃHÑH8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+'*
+œœ&2‡I–I8@2aassert_equal%assert_equal ["All good\n"], warnings"
+ŸŸ*
+2°I¼I8@2Sassert_equalassert_equal [], errors"
+  *
+ŸŸ2ÚIæI8@2utestAtest "skips running the script when all refs are filtered out" do"
+££*
+¢¢2ûIÿI8@2Wfind#master = @repo.heads.find("master")"
+¤¤*
+££2ÖJÚJ8@2Xheads#master = @repo.heads.find("master")"
+¤¤*
+££2ĞJÕJ8@2afind-ahead  = @repo.heads.find("master-forward-2")"
+¥¥*
+¤¤2şJ‚K8@2bheads-ahead  = @repo.heads.find("master-forward-2")"
+¥¥*
+¤¤2øJıJ8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+©©&*
+¨¨%2ÿK‰L8@2INULL_OIDGitHub::NULL_OID,"
+ªª%*
+©©$2ŸL¯L8@2GGitHubGitHub::NULL_OID,"
+ªª*
+©©2ŸL¥L8@2M
+target_oid[master.target_oid,"
+¬¬&*
+««%2îLøL8@2INULL_OIDGitHub::NULL_OID,"
+­­%*
+¬¬$2MM8@2GGitHubGitHub::NULL_OID,"
+­­*
+¬¬2M”M8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+±±'*
+°°&2ñM€N8@2Uassert_equalassert_equal [], warnings"
+³³*
+²²2šN¦N8@2Sassert_equalassert_equal [], errors"
+´´*
+³³2¸NÄN8@2Wtest#test "allows valid UTF-8 output" do"
+··*
+¶¶2ÙNİN8@2Wfind#master = @repo.heads.find("master")"
+¸¸*
+··2–OšO8@2Xheads#master = @repo.heads.find("master")"
+¸¸*
+··2O•O8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+¹¹&*
+¸¸%2ÀOÊO8@2Uqualified_namemaster.qualified_name]]"
+»»**
+ºº)2…P“P8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+¾¾'*
+½½&2ÉPØP8@2œassertfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ÁÁ*
+ÀÀ
+2 Q¦Q8@2encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ÁÁ#*
+ÀÀ"2¶Q¾Q8@2›firstfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ÁÁ*
+ÀÀ2°QµQ8@2›UTF_8fassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Á'Á6*
+À&À52ÂQÑQ8@2Encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Á'Á/*
+À&À.2ÂQÊQ8@2šnamefassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ÁeÁi*
+ÀdÀh2€R„R8@2encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Á\Ád*
+À[Àc2÷QÿQ8@2›firstfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ÁVÁ[*
+ÀUÀZ2ñQöQ8@2eassert_equal)assert_equal ["\xE2\x98\xA0\n"], warnings"
+ÂÂ*
+ÁÁ2‹R—R8@2Sassert_equalassert_equal [], errors"
+ÃÃ*
+ÂÂ2¹RÅR8@2Ytest%test "scrubs invalid UTF-8 output" do"
+ÆÆ*
+ÅÅ2ÚRŞR8@2Wfind#master = @repo.heads.find("master")"
+ÇÇ*
+ÆÆ2™SS8@2Xheads#master = @repo.heads.find("master")"
+ÇÇ*
+ÆÆ2“S˜S8@2\
+target_oid"pushed_refs = [[master.target_oid,"
+ÈÈ&*
+ÇÇ%2ÃSÍS8@2Uqualified_namemaster.qualified_name]]"
+ÊÊ**
+ÉÉ)2ˆT–T8@2urun_pre_receive6warnings, errors = run_pre_receive(@repo, pushed_refs)"
+ÍÍ'*
+ÌÌ&2ÌTÛT8@2œassertfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ĞĞ*
+ÏÏ
+2¤UªU8@2encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ĞĞ#*
+ÏÏ"2ºUÂU8@2›firstfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ĞĞ*
+ÏÏ2´U¹U8@2›UTF_8fassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Ğ'Ğ6*
+Ï&Ï52ÆUÕU8@2Encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Ğ'Ğ/*
+Ï&Ï.2ÆUÎU8@2šnamefassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ĞeĞi*
+ÏdÏh2„VˆV8@2encodingfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+Ğ\Ğd*
+Ï[Ïc2ûUƒV8@2›firstfassert warnings.first.encoding == Encoding::UTF_8, "wanted UTF-8, got #{warnings.first.encoding.name}""
+ĞVĞ[*
+ÏUÏZ2õUúU8@2eassert_equal)assert_equal ["\xEF\xBF\xBD\n"], warnings"
+ÑÑ*
+ĞĞ2V›V8@2Sassert_equalassert_equal [], errors"
+ÒÒ*
+ÑÑ2½VÉV8@

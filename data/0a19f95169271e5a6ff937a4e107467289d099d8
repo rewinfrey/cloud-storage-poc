@@ -1,0 +1,151 @@
+
+(0a19f95169271e5a6ff937a4e107467289d099d8#app/assets/modules/github/topics.ts
+TypeScript"02ZflashNotice%function flashNotice(form: Element) {"
+
+*
+	2äï82uclosestBconst container = closest(form, '.js-topic-save-notice-container')"
+*
+2ª¬8@2oquery>const notice = query(container, '.js-repo-topics-save-notice')"
+		*
+2˝Ç8@2Sremove!notice.classList.remove('d-none')"
+*
+
+
+2Ú¯8@2eadd6notice.classList.add('d-inline-block', 'anim-fade-in')"
+*
+2ñô8@2H
+setTimeoutsetTimeout(() => {"
+*
+2ø…8@2[remove)notice.classList.remove('d-inline-block')"
+*
+2ÁÌ8@2Maddnotice.classList.add('d-none')"
+*
+2…Ã8@2zremoveEmptySuggestionList7function removeEmptySuggestionList(formArea: Element) {"
+
+#*
+	"2Óá82iquery8const box = query(formArea, '.js-topic-suggestions-box')"
+*
+2´∞8@2vquerySelector=const suggestions = box.querySelector('.js-topic-suggestion')"
+(*
+'2Úˇ8@2>removebox.remove()"
+	*
+2∂º8@2rrefreshSuggestions6async function refreshSuggestions(formArea: Element) {"
+"*
+!2’Á82ÑquerySelectorKconst container = formArea.querySelector('.js-topic-suggestions-container')"
++*
+*2öß8@2ggetAttribute/const url = getAttribute(container, 'data-url')"
+!!*
+  2Ûˇ8@2ÄfetchSafeDocumentFragment;const html = await fetchSafeDocumentFragment(document, url)"
+""/*
+!!.2¨	≈	8@2RappendChildcontainer.appendChild(html)"
+$$*
+##2¸	á
+8@2v
+remoteFormBremoteForm('.js-accept-topic-form', async function (form, wants) {"
+''*
+
+&&
+2ë
+õ
+8@2Bhtmlawait wants.html()"
+((*
+''2‚
+Ê
+8@2iclosest6const container = closest(form, '.js-topic-form-area')"
+***
+))2˛
+Ö8@2tclosestAconst suggestionContainer = closest(form, '.js-topic-suggestion')"
+++&*
+**%2¡»8@2bquery1const template = query(container, '.js-template')"
+..*
+--2À–8@2squeryBconst selections = query(container, '.js-tag-input-selected-tags')"
+//*
+..2ÅÜ8@2g	cloneNode2const el = template.cloneNode(true) as HTMLElement"
+00 *
+//2«–8@2équery]const topic = query(suggestionContainer, 'input[name="input[name]"]', HTMLInputElement).value"
+22*
+112˜¸8@2cquery2query(el, 'input', HTMLInputElement).value = topic"
+33*
+222…Œ8@2oreplaceWith8query(el, '.js-placeholder-tag-name').replaceWith(topic)"
+4)44*
+3(332§Ø8@2iquery8query(el, '.js-placeholder-tag-name').replaceWith(topic)"
+44*
+332˛É8@2^remove,el.classList.remove('d-none', 'js-template')"
+66*
+552¯˛8@2QappendChildselections.appendChild(el)"
+77*
+662•∞8@2NremovesuggestionContainer.remove()"
+::*
+992¸Ç8@2[refreshSuggestionsrefreshSuggestions(container)"
+<<*
+;;2àö8@2iremoveEmptySuggestionList$removeEmptySuggestionList(container)"
+==*
+<<2®¡8@2HflashNoticeflashNotice(form)"
+>>*
+==2œ⁄8@2w
+remoteFormCremoteForm('.js-decline-topic-form', async function (form, wants) {"
+AA*
+
+@@
+2ÂÔ8@2Bhtmlawait wants.html()"
+BB*
+AA2∑ª8@2HflashNoticeflashNotice(form)"
+DD*
+CC2¡Ã8@2iclosest6const container = closest(form, '.js-topic-form-area')"
+FF*
+EE2ËÔ8@2tclosestAconst suggestionContainer = closest(form, '.js-topic-suggestion')"
+II&*
+HH%2‹„8@2NremovesuggestionContainer.remove()"
+JJ*
+II2òû8@2[refreshSuggestionsrefreshSuggestions(container)"
+LL*
+KK2§∂8@2iremoveEmptySuggestionList$removeEmptySuggestionList(container)"
+MM*
+LL2ƒ›8@2z
+remoteFormFremoteForm('.js-repo-topics-edit-form', async function (form, wants) {"
+PP*
+
+OO
+2Ì˜8@2iclosest6const container = closest(form, '.js-topic-form-area')"
+QQ*
+PP2»œ8@2Wremove%container.classList.remove('errored')"
+TT*
+SS2¬»8@2equery4query(container, '.js-topic-error').textContent = ''"
+UU*
+TT2÷€8@2Vremove$el.classList.remove('invalid-topic')"
+WW*
+VV2ˆ8@2çquerySelectorAllQfor (const el of container.querySelectorAll('.js-tag-input-tag.invalid-topic')) {"
+VV.*
+UU-2®∏8@2Bjsonawait wants.json()"
+[[*
+ZZ2•©8@2HflashNoticeflashNotice(form)"
+\\*
+[[2∞ª8@2[refreshSuggestionsrefreshSuggestions(container)"
+]]*
+\\2∆ÿ8@2Qadd"container.classList.add('errored')"
+bb*
+aa2–”8@2oquery>query(container, '.js-topic-error').textContent = data.message"
+cc*
+bb2ÂÍ8@2ÜquerySelectorAllJconst inputs = querySelectorAll(form, '.js-topic-input', HTMLInputElement)"
+hh&*
+gg%2çù8@2bclosest/const tag = closest(input, '.js-tag-input-tag')"
+ll *
+kk2ﬁÂ8@2Qadd"tag.classList.add('invalid-topic')"
+mm*
+ll2úü8@2uonIon('tags:changed', '.js-repo-topics-edit-form', function (event: Event) {"
+vv*
+
+uu2û†8@2NrequestSubmitrequestSubmit(target)"
+xx*
+ww2õ®8@2fon:on('click', '.js-reveal-hidden-topics', function (event) {"
+{{*
+
+zz2µ∑8@2sclosest@const container = closest(button, '.js-hidden-topics-container')"
+}}*
+||2± ∏ 8@2zquerySelectorAconst hiddenTopics = container.querySelector('.js-hidden-topics')"
+~"~/*
+}!}.2Å!é!8@2]remove'hiddenTopics.classList.remove('d-none')"
+ÇÇ"*
+ÅÅ!2ä"ê"8@2Eremovebutton.remove()"
+ÉÉ*
+ÇÇ2¶"¨"8@

@@ -1,0 +1,134 @@
+
+(0a8a3febd71c1a2e2a03fdc71652977cf9aa7c4bapp/models/reaction/subject.rbRuby"02KSubjectmodule Reaction::Subject"
+*
+2¢©8@2LReactionmodule Reaction::Subject"
+*
+2ò†8@2Oextendextend ActiveSupport::Concern"
+	*
+2¨≤8@2PConcernextend ActiveSupport::Concern"
+
+ *
+	2≥…8@2VActiveSupportextend ActiveSupport::Concern"
+
+*
+	2≥¿8@2D
+reactable?def reactable?"
+*
+2—€8@2Lreaction_admindef reaction_admin"
+*
+2π«8@2Lnot_implemented!not_implemented!"
+*
+2Ã‹8@2Xasync_reaction_admindef async_reaction_admin"
+*
+2£∑8@2Lnot_implemented!not_implemented!"
+  *
+2ºÃ8@2Jreaction_pathdef reaction_path"
+***
+))2êù8@2Lnot_implemented!not_implemented!"
+++*
+**2¢≤8@2Vasync_reaction_pathdef async_reaction_path"
+55*
+442˘å	8@2Lnot_implemented!not_implemented!"
+66*
+552ë	°	8@2Nreadable_by?def readable_by?(user)"
+??*
+>>2≥ø8@2Lnot_implemented!not_implemented!"
+@@*
+??2 ⁄8@2bnotify_socket_subscribersdef notify_socket_subscribers"
+HH *
+GG2ô≤8@2Rgrouped_reactionsdef grouped_reactions"
+WW*
+VV2ö´8@2üsort_bylreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+XHXO*
+WGWN2Û˙8@2ûmin_bylreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+X[Xa*
+WZW`2Üå8@2ûrejectlreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+X#X)*
+W"W(2Œ‘8@2únil?lreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+XAXE*
+W@WD2Ï8@2†group_bylreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+XX*
+WW2∫¬8@2°	reactionslreactions.group_by(&:emotion).reject { |emotion, _| emotion.nil? }.sort_by { |_, r| r.min_by(&:created_at) }"
+XX*
+WW2∞π8@2Nreactions_countdef reactions_count"
+ee*
+dd2Ã€8@2êto_h`@reactions_count ||= grouped_reactions.map { |k, reactions| [k.content, reactions.length] }.to_h"
+fafe*
+e`ed2º¿8@2èmap`@reactions_count ||= grouped_reactions.map { |k, reactions| [k.content, reactions.length] }.to_h"
+f,f/*
+e+e.2áä8@2ìcontent`@reactions_count ||= grouped_reactions.map { |k, reactions| [k.content, reactions.length] }.to_h"
+fDfK*
+eCeJ2ü¶8@2ílength`@reactions_count ||= grouped_reactions.map { |k, reactions| [k.content, reactions.length] }.to_h"
+fWf]*
+eVe\2≤∏8@2ùgrouped_reactions`@reactions_count ||= grouped_reactions.map { |k, reactions| [k.content, reactions.length] }.to_h"
+ff+*
+ee*2ıÜ8@2Sattr_writerattr_writer :reactions_count"
+hh*
+gg2…‘8@2areaction_exists?%def reaction_exists?(user:, emotion:)"
+mm*
+ll2–‡8@2Inil?return false if user.nil?"
+nn*
+mm2ãè8@2àany?Xreactions.any? { |reaction| reaction.user_id == user.id && reaction.emotion == emotion }"
+pp*
+oo2ü£8@2ãuser_idXreactions.any? { |reaction| reaction.user_id == user.id && reaction.emotion == emotion }"
+p*p1*
+o)o02∫¡8@2ÜidXreactions.any? { |reaction| reaction.user_id == user.id && reaction.emotion == emotion }"
+p:p<*
+o9o;2 Ã8@2ãemotionXreactions.any? { |reaction| reaction.user_id == user.id && reaction.emotion == emotion }"
+pIpP*
+oHoO2Ÿ‡8@2ç	reactionsXreactions.any? { |reaction| reaction.user_id == user.id && reaction.emotion == emotion }"
+pp*
+oo2ïû8@2Lreactdef react(actor:, content:)"
+ss*
+rr2˚Ä8@2òreactgReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+tt*
+ss2†•8@2ïidgReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+t-t/*
+s,s.2ø¡8@2ù
+demodulizegReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+tOtY*
+sNsX2·Î8@2ónamegReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+tJtN*
+sIsM2‹‡8@2òclassgReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+tDtI*
+sCsH2÷€8@2õReactiongReaction.react(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+tt*
+ss2óü8@2Punreactdef unreact(actor:, content:)"
+ww*
+vv2åì8@2úunreactiReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+xx*
+ww2≥∫8@2óidiReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+x/x1*
+w.w02‘÷8@2ü
+demodulizeiReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+xQx[*
+wPwZ2ˆÄ8@2ônameiReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+xLxP*
+wKwO2Òı8@2öclassiReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+xFxK*
+wEwJ2Î8@2ùReactioniReaction.unreact(user: actor, subject_id: id, subject_type: self.class.name.demodulize, content: content)"
+xx*
+ww2™≤8@2Yasync_locked_for?def async_locked_for?(actor)"
+{{*
+zz2°≤8@2{thenKReaction.async_subject_unlocked?(actor, self).then { |unlocked| !unlocked }"
+|3|7*
+{2{62Ï8@2éasync_subject_unlocked?KReaction.async_subject_unlocked?(actor, self).then { |unlocked| !unlocked }"
+||%*
+{{$2«ﬁ8@2ReactionKReaction.async_subject_unlocked?(actor, self).then { |unlocked| !unlocked }"
+||*
+{{2æ∆8@2:privateprivate"
+
+*
+~~	2ìö8@2Tnot_implemented!def not_implemented!"
+ÅÅ*
+ÄÄ2¢≤8@2_caller)calling_method = caller[0][/`.*'/][1..-2]"
+ÇÇ*
+ÅÅ2»Œ8@2Sraiseraise NotImplementedError.new("
+ÉÉ
+*
+ÇÇ	2ÂÍ8@2Qnewraise NotImplementedError.new("
+ÉÉ"*
+ÇÇ!2ˇÇ8@2aNotImplementedErrorraise NotImplementedError.new("
+ÉÉ*
+Ç
+Ç2Î˛8@

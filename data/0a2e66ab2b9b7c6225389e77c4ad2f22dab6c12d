@@ -1,0 +1,210 @@
+
+(0a2e66ab2b9b7c6225389e77c4ad2f22dab6c12d5test/models/search/queries/workflow_run_query_test.rbRuby"02…!SearchQueriesWorkflowRunQueryTest:class SearchQueriesWorkflowRunQueryTest < GitHub::TestCase"
+(*
+'2<]8@2lTestCase:class SearchQueriesWorkflowRunQueryTest < GitHub::TestCase"
++;*
+*:2`p8@2jGitHub:class SearchQueriesWorkflowRunQueryTest < GitHub::TestCase"
++1*
+*02`f8@2=fixturesfixtures do"
+*
+
+2s{8@2`returns-GitHub.stubs(:actions_enabled?).returns(true)"
+%,*
+$+2£ª8@2^stubs-GitHub.stubs(:actions_enabled?).returns(true)"
+*
+2Š8@2_GitHub-GitHub.stubs(:actions_enabled?).returns(true)"
+*
+
+2ƒ‰8@2fmake_trusted_oauth_apps_ownermake_trusted_oauth_apps_owner"
+"*
+!2µÒ8@2Mcreate@repo = create(:repository)"
+		*
+2ßå8@2ºcreate‡check_suite = create(:check_suite_for_actions_app, :failure, repository: @repo, name: "Node CI", event: "pull_request", action: "open")"
+*
+
+
+2†Œ8@2`workflow_run(@workflow_run = check_suite.workflow_run"
+!-*
+ ,2 ¬8@29setupsetup do"
+*
+2¶»8@2fnew7@query = Search::Queries::WorkflowRunQuery.new(page: 1)"
+03*
+/22îñ8@2sWorkflowRunQuery7@query = Search::Queries::WorkflowRunQuery.new(page: 1)"
+/*
+.2Ìí8@2jQueries7@query = Search::Queries::WorkflowRunQuery.new(page: 1)"
+*
+2ÌÛ8@2iSearch7@query = Search::Queries::WorkflowRunQuery.new(page: 1)"
+*
+2ÌÒ8@2mraise_on_mismatches.GitHub::Experiment.raise_on_mismatches = false"
++*
+*2’¥8@2d
+Experiment.GitHub::Experiment.raise_on_mismatches = false"
+*
+2ÿ‘8@2`GitHub.GitHub::Experiment.raise_on_mismatches = false"
+*
+
+2ÿ…8@2Lcontextcontext "query params" do"
+
+*
+	2·¾8@2Ztest*test "it will only query workflow runs" do"
+	*
+2ÕÙ8@2qassert_equal9assert_equal({type: "workflow_run"}, @query.query_params)"
+*
+2†’8@2qquery_params9assert_equal({type: "workflow_run"}, @query.query_params)"
+3?*
+2>2²¾8@2Wcontext$context "when building the query" do"
+
+*
+	2ÑØ8@2Rtest"test "it defaults to match_all" do"
+	*
+2úş8@2Eassert_equalassert_equal("
+*
+2£¯8@2Jbuild_query@query.build_query,"
+*
+2Œ—8@2btest2test "it creates a function score string query" do"
+""	*
+!!2®²8@2Jphrase@query.phrase = "search""
+##*
+""2îô8@2Qbuild_queryquery = @query.build_query"
+$$!*
+## 2• 8@2yassertGassert query[:bool][:must][:function_score][:query].key?(:query_string)"
+&&*
+%%2¨®8@2wkey?Gassert query[:bool][:must][:function_score][:query].key?(:query_string)"
+&;&?*
+%:%>2Üà8@2qeachAkeys.each { |key| assert qs.key?(key), "has key #{key.inspect}" }"
+***
+))2
+’
+8@2sassertAkeys.each { |key| assert qs.key?(key), "has key #{key.inspect}" }"
+***
+))2›
+¡
+8@2qkey?Akeys.each { |key| assert qs.key?(key), "has key #{key.inspect}" }"
+*#*'*
+)")&2¥
+©
+8@2tinspectAkeys.each { |key| assert qs.key?(key), "has key #{key.inspect}" }"
+*=*D*
+)<)C2¿
+Æ
+8@2`assert_equal(assert_equal keys.length, qs.keys.length"
+++*
+**2Ñ
+İ
+8@2Zlength(assert_equal keys.length, qs.keys.length"
+++*
+**2ã
+é
+8@2Zlength(assert_equal keys.length, qs.keys.length"
++)+/*
+*(*.2ó
+ù
+8@2Xkeys(assert_equal keys.length, qs.keys.length"
++$+(*
+*#*'2î
+ò
+8@2Yassert_equal!assert_equal "search", qs[:query]"
+,,*
+++2€Œ8@2Ytest)test "it queries the specified fields" do"
+//	*
+..2¯³8@2Xphrase&@query.phrase = "search status:queued""
+00*
+//2æì8@2Qbuild_queryquery = @query.build_query"
+11!*
+00 2›¦8@2eassert_equal-assert_equal %w[name^1.2 status], qs[:fields]"
+44*
+332õ8@2Qtest!test "builds a repo_id filter" do"
+77	*
+662°´8@2onew@query = Search::Queries::WorkflowRunQuery.new(repo_id: @repo.id)"
+8184*
+70732‚…8@2nid@query = Search::Queries::WorkflowRunQuery.new(repo_id: @repo.id)"
+8D8F*
+7C7E2•—8@2|WorkflowRunQuery@query = Search::Queries::WorkflowRunQuery.new(repo_id: @repo.id)"
+880*
+77/2à8@2sQueries@query = Search::Queries::WorkflowRunQuery.new(repo_id: @repo.id)"
+88*
+772àï8@2rSearch@query = Search::Queries::WorkflowRunQuery.new(repo_id: @repo.id)"
+88*
+772àæ8@2Eassert_equalassert_equal("
+99*
+882Ÿ«8@2ˆidZ{constant_score: {filter: {bool: {must: {term: {repo_id: @repo.id}}}}}}, query.build_query"
+:H:J*
+9G9I2ôö8@2‘build_queryZ{constant_score: {filter: {bool: {must: {term: {repo_id: @repo.id}}}}}}, query.build_query"
+:X:c*
+9W9b2„8@2Ncontextcontext "when executing" do"
+??
+*
+>>	2©°8@2fsetup5setup do # rubocop:disable GitHub/NestedSetupTeardown"
+@@
+*
+??	2ÉÎ8@2Oto_s"_id" => @workflow_run.id.to_s,"
+G'G+*
+F&F*2ÇË8@2Mid"_id" => @workflow_run.id.to_s,"
+G$G&*
+F#F%2ÄÆ8@2qidC"_source" => {"repo_id" => @repo.id, "name" => @workflow_run.name},"
+I.I0*
+H-H/2Ÿ8@2snameC"_source" => {"repo_id" => @repo.id, "name" => @workflow_run.name},"
+IJIN*
+HIHM2¹½8@2Tnew%@index = Elastomer::Index.new("test")"
+O!O$*
+N N#2²µ8@2VIndex%@index = Elastomer::Index.new("test")"
+OO *
+NN2¡±8@2Z	Elastomer%@index = Elastomer::Index.new("test")"
+OO*
+NN2¡ª8@2[returns(@index.stubs(:search).returns(@response)"
+PP$*
+OO#2Úá8@2Ystubs(@index.stubs(:search).returns(@response)"
+PP*
+OO2ËĞ8@2kreturns8@index.stubs(:count).returns(@response["hits"]["total"])"
+QQ#*
+PP"2ˆ8@2istubs8@index.stubs(:count).returns(@response["hits"]["total"])"
+QQ*
+PP2úÿ8@2ninstance_variable_set-@query.instance_variable_set(:@index, @index)"
+SS#*
+RR"2ºÏ8@2Ltesttest "executes the query" do"
+VV	*
+UU2îò8@2Jphrase@query.phrase = "search""
+WW*
+VV2˜8@2Kexecuteresults = @query.execute"
+XX*
+WW2ÁÈ8@2^assert_equal&assert_equal @query.page, results.page"
+ZZ*
+YY2ĞÜ8@2Vpage&assert_equal @query.page, results.page"
+ZZ*
+YY2äè8@2Vpage&assert_equal @query.page, results.page"
+Z)Z-*
+Y(Y,2òö8@2fassert_equal.assert_equal @query.per_page, results.per_page"
+[[*
+ZZ2ı‰8@2bper_page.assert_equal @query.per_page, results.per_page"
+[[#*
+ZZ"2‘™8@2bper_page.assert_equal @query.per_page, results.per_page"
+[-[5*
+Z,Z42£«8@2dassert_equal,assert_equal @response["took"], results.time"
+\\*
+[[2²¾8@2\time,assert_equal @response["took"], results.time"
+\/\3*
+[.[22ÚŞ8@2nassert_equal6assert_equal @response["hits"]["total"], results.total"
+]]*
+\\2åñ8@2gtotal6assert_equal @response["hits"]["total"], results.total"
+]8]=*
+\7\<2–›8@2Nfirstfirst = results.results.first"
+__$*
+^^#2»À8@2Presultsfirst = results.results.first"
+__*
+^^2³º8@2Jassertassert first.is_a?(Hash)"
+``*
+__2ÇÍ8@2Iis_a?assert first.is_a?(Hash)"
+``*
+__2ÔÙ8@2HHashassert first.is_a?(Hash)"
+``*
+__2ÚŞ8@2cassert_equal+assert_equal @workflow_run, first["_model"]"
+aa*
+``2æò8@2Rtest"test "executes the count query" do"
+dd	*
+cc2Ÿ£8@2Jphrase@query.phrase = "search""
+ee*
+dd2ÏÕ8@2massert_equal5assert_equal @response["hits"]["total"], @query.count"
+ff*
+ee2çó8@2fcount5assert_equal @response["hits"]["total"], @query.count"
+f7f<*
+e6e;2—œ8@

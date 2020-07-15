@@ -1,0 +1,144 @@
+
+(0a7db1688e54c8d1ba2d1f3389d3759c0b26cbd1>app/controllers/users/configuration_repositories_controller.rbRuby"02•#ConfigurationRepositoriesControllerHclass Users::ConfigurationRepositoriesController < ApplicationController"
+1*
+02,O8@2wUsersHclass Users::ConfigurationRepositoriesController < ApplicationController"
+*
+2%*8@2‡ApplicationControllerHclass Users::ConfigurationRepositoriesController < ApplicationController"
+4I*
+3H2Rg8@2abefore_action*before_action :require_config_repo_enabled"
+*
+2jw8@2Vbefore_actionbefore_action :login_required"
+*
+2—¤8@2¡skip_before_actioncskip_before_action :perform_conditional_access_checks, only: [:create, :post_profile_readme_opt_in]"
+*
+2¸Ê8@2’skip_before_actionTskip_before_action :require_config_repo_enabled, only: [:post_profile_readme_opt_in]"
+*
+2ž°8@2dareas_of_responsibility!areas_of_responsibility :pe_repos"
+
+
+*
+		2ö8@2<create
+def create"
+*
+2Ÿ¥8@2Tparams"is_public = params[:public] == "1""
+*
+2¶¼8@2›create_configuration_repositoryPconfig_repo = current_user.create_configuration_repository(is_public: is_public,"
+ ?*
+>2ì‹8@2Preflog_datareflog_data: reflog_data)"
+MX*
+LW2îù8@2ˆcurrent_userPconfig_repo = current_user.create_configuration_repository(is_public: is_public,"
+*
+2ßë8@2O
+persisted?if config_repo.persisted?"
+*
+2™8@2redirect_toHredirect_to blob_new_path("", config_repo.default_branch, config_repo) +"
+*
+2 «8@2blob_new_pathHredirect_to blob_new_path("", config_repo.default_branch, config_repo) +"
+ *
+2¬¹8@2‚default_branchHredirect_to blob_new_path("", config_repo.default_branch, config_repo) +"
+1?*
+0>2ÊØ8@2mDEFAULT_NAME5"?filename=#{ProfileConfigurationFile::DEFAULT_NAME}""
+<*
+;2þ¤8@2yProfileConfigurationFile5"?filename=#{ProfileConfigurationFile::DEFAULT_NAME}""
+.*
+-2þ–8@2lflash;flash[:error] = config_repo.errors.full_messages.join(", ")"
+*
+2¶»8@2kjoin;flash[:error] = config_repo.errors.full_messages.join(", ")"
+8<*
+7;2çë8@2tfull_messages;flash[:error] = config_repo.errors.full_messages.join(", ")"
+*7*
+)62Ùæ8@2merrors;flash[:error] = config_repo.errors.full_messages.join(", ")"
+#)*
+"(2ÒØ8@2Zredirect_to#redirect_to user_path(current_user)"
+*
+2øƒ8@2X	user_path#redirect_to user_path(current_user)"
+*
+2„8@2[current_user#redirect_to user_path(current_user)"
+)*
+(2Žš8@2dpost_profile_readme_opt_indef post_profile_readme_opt_in"
+!*
+ 2±Ë8@2jprofile_readme_opt_in)current_user.profile_readme_opt_in = true"
+'*
+&2Ýò8@2acurrent_user)current_user.profile_readme_opt_in = true"
+*
+2ÐÜ8@2Ksave!current_user.profile.save!"
+*
+2“˜8@2Mprofilecurrent_user.profile.save!"
+*
+2‹’8@2Rcurrent_usercurrent_user.profile.save!"
+*
+2þŠ8@2[redirect_to$redirect_to opt_in_redirect_location"
+*
+2ž©8@2hopt_in_redirect_location$redirect_to opt_in_redirect_location"
+)*
+(2ªÂ8@28privateprivate"
+!!*
+
+  2ÊÑ8@2Freflog_datadef reflog_data"
+##*
+""2Ùä8@2P	remote_ipreal_ip: request.remote_ip,"
+%%!*
+$$ 2‚	‹	8@2Nrequestreal_ip: request.remote_ip,"
+%%*
+$$2ú	8@2Ploginuser_login: current_user.login,"
+& &%*
+%%$2¬	±	8@2Wcurrent_useruser_login: current_user.login,"
+&&*
+%%2Ÿ	«	8@2U
+user_agentuser_agent: request.user_agent,"
+''%*
+&&$2Í	×	8@2Rrequestuser_agent: request.user_agent,"
+''*
+&&2Å	Ì	8@2Ocontextfrom: GitHub.context[:from],"
+((*
+''2ì	ó	8@2NGitHubfrom: GitHub.context[:from],"
+((*
+''2å	ë	8@2frequire_config_repo_enableddef require_config_repo_enabled"
+--"*
+,,!2Â
+Ý
+8@2\
+render_404&render_404 unless config_repo_enabled?"
+..*
+--2â
+ì
+8@2fconfig_repo_enabled?&render_404 unless config_repo_enabled?"
+..+*
+--*2ô
+ˆ8@2`opt_in_redirect_locationdef opt_in_redirect_location"
+11*
+002–®8@2wconfiguration_repository3config_repo = current_user.configuration_repository"
+2 28*
+1172Îæ8@2kcurrent_user3config_repo = current_user.configuration_repository"
+22*
+112ÁÍ8@2f	user_path1return user_path current_user if config_repo.nil?"
+33*
+222òû8@2icurrent_user1return user_path current_user if config_repo.nil?"
+33"*
+22!2üˆ8@2anil?1return user_path current_user if config_repo.nil?"
+3236*
+21252˜œ8@2Kprivate?if config_repo.private?"
+55*
+442±¹8@2iedit_repository_path)return edit_repository_path(current_user,"
+77"*
+66!2‹Ÿ8@2acurrent_user)return edit_repository_path(current_user,"
+7#7/*
+6"6.2 ¬8@2crepository_path(return_to: repository_path(config_repo))"
+9.9=*
+8-8<2Š™8@2Snil?#if current_user.profile_readme.nil?"
+=$=(*
+<#<'2œ 8@2]profile_readme#if current_user.profile_readme.nil?"
+==#*
+<<"2›8@2[current_user#if current_user.profile_readme.nil?"
+==*
+<<2€Œ8@2sflashBflash[:notice] = "You've successfully shared your profile README!""
+>>*
+==2§¬8@2lrepository_path1return repository_path(current_user, config_repo)"
+??*
+>>2÷†8@2icurrent_user1return repository_path(current_user, config_repo)"
+??**
+>>)2‡“8@2K	user_pathuser_path current_user"
+BB*
+AA2¯¸8@2Ncurrent_useruser_path current_user"
+BB*
+AA2¹Å8@

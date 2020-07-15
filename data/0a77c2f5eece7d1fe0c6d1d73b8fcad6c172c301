@@ -1,0 +1,115 @@
+
+(0a77c2f5eece7d1fe0c6d1d73b8fcad6c172c301Jtest/lib/platform/mutations/delete_organization_discussion_comment_test.rbRuby"02ß'DeleteOrganizationDiscussionCommentTestUclass Platform::Mutations::DeleteOrganizationDiscussionCommentTest < GitHub::TestCase"
+C*
+B2cä8@2à	MutationsUclass Platform::Mutations::DeleteOrganizationDiscussionCommentTest < GitHub::TestCase"
+*
+2Na8@2áPlatformUclass Platform::Mutations::DeleteOrganizationDiscussionCommentTest < GitHub::TestCase"
+*
+2NV8@2âTestCaseUclass Platform::Mutations::DeleteOrganizationDiscussionCommentTest < GitHub::TestCase"
+FV*
+EU2çù8@2áGitHubUclass Platform::Mutations::DeleteOrganizationDiscussionCommentTest < GitHub::TestCase"
+FL*
+EK2çì8@2Uinclude"include Platform::InterfaceHelpers"
+
+*
+	2†ß8@2^InterfaceHelpers"include Platform::InterfaceHelpers"
+%*
+
+$2®¬8@2VPlatform"include Platform::InterfaceHelpers"
+*
+
+2®∞8@2?fixturesfixtures do"
+*
+
+2∆Œ8@2^create,@random_user = create(:user, login: "rando")"
+		*
+2ÂÎ8@2Ncreate@org = create(:organization)"
+
+
+*
+		2éî8@2Hadmin@org_admin = @org.admin"
+*
+
+
+2∫ø8@2bcreate0@org_member = create(:user, login: "org-member")"
+*
+2“ÿ8@2R
+add_member@org.add_member(@org_member)"
+
+*
+	2˛à8@2qcreate?@second_org_member = create(:user, login: "sencond-org-member")"
+ *
+2Øµ8@2Y
+add_member#@org.add_member(@second_org_member)"
+
+*
+	2„Ì8@2ãcreateY@discussion = create(:organization_discussion_post, user: @org_admin, organization: @org)"
+*
+2îö8@2ôcreateg@comment = create(:organization_discussion_post_reply, user: @org_member, discussion_post: @discussion)"
+*
+2Ôı8@2¢createp@public_discussion = create(:organization_discussion_post, user: @org_admin, organization: @org, private: false)"
+ *
+2ÊÏ8@2ßcreateu@public_comment = create(:organization_discussion_post_reply, user: @org_member, discussion_post: @public_discussion)"
+*
+2ÿﬁ8@2Itesttest "deletes comment" do"
+*
+2Ù8@2äexecute_queryQexecute_query(@query, :viewer => @comment.user, :$id => @comment.global_relay_id)"
+  *
+2é	õ	8@2ÅuserQexecute_query(@query, :viewer => @comment.user, :$id => @comment.global_relay_id)"
+ / 3*
+.22∏	º	8@2åglobal_relay_idQexecute_query(@query, :viewer => @comment.user, :$id => @comment.global_relay_id)"
+ F U*
+ET2œ	ﬁ	8@2mrefute;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+!!*
+  
+2‰	Í	8@2nexists?;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+!,!3*
+ + 22ã
+í
+8@2iid;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+!=!?*
+ < >2ú
+û
+8@2ÜOrganizationDiscussionPostReply;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+!!+*
+  *2Î	ä
+8@2Vtest&test "org_admin can delete comment" do"
+$$*
+##2©
+≠
+8@2áexecute_queryNexecute_query(@query, :viewer => @org_admin, :$id => @comment.global_relay_id)"
+%%*
+$$2‘
+·
+8@2âglobal_relay_idNexecute_query(@query, :viewer => @org_admin, :$id => @comment.global_relay_id)"
+%C%R*
+$B$Q2í°8@2mrefute;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+&&*
+%%
+2ß≠8@2nexists?;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+&,&3*
+%+%22Œ’8@2iid;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+&=&?*
+%<%>2ﬂ·8@2ÜOrganizationDiscussionPostReply;refute OrganizationDiscussionPostReply.exists?(@comment.id)"
+&&+*
+%%*2ÆÕ8@2[test+test "random user cannot delete comment" do"
+))*
+((2Ï8@2Øexecute_query_with_errorsjdata = execute_query_with_errors(@query, :viewer => @random_user, :$id => @public_comment.global_relay_id)"
+**%*
+))$2£º8@2•global_relay_idjdata = execute_query_with_errors(@query, :viewer => @random_user, :$id => @public_comment.global_relay_id)"
+*_*n*
+)^)m2ˆÖ8@2\assert_error_responseassert_error_response(data,"
+,,*
+++2å°8@2™global_relay_idomessage: "#{@random_user} does not have permission to delete the comment '#{@public_comment.global_relay_id}'","
+-c-r*
+,b,q2äô8@2vtestFtest "org user who is not the comment author cannot delete comment" do"
+11*
+002⁄ﬁ8@2Æexecute_query_with_errorsidata = execute_query_with_errors(@query, :viewer => @second_org_member, :$id => @comment.global_relay_id)"
+22%*
+11$2¨≈8@2§global_relay_ididata = execute_query_with_errors(@query, :viewer => @second_org_member, :$id => @comment.global_relay_id)"
+2^2m*
+1]1l2˛ç8@2\assert_error_responseassert_error_response(data,"
+44*
+332î©8@2©global_relay_idnmessage: "#{@second_org_member} does not have permission to delete the comment '#{@comment.global_relay_id}'","
+5b5q*
+4a4p2ë†8@

@@ -1,0 +1,181 @@
+
+(0a0dbdf870a1a03338303a9d656b84d1aaed630c4test/lib/platform/objects/user_blocked_event_test.rbRuby"02~UserBlockedEventTest@class Platform::Objects::UserBlockedEventTest < GitHub::TestCase"
+.*
+-2au8@2qObjects@class Platform::Objects::UserBlockedEventTest < GitHub::TestCase"
+*
+2N_8@2rPlatform@class Platform::Objects::UserBlockedEventTest < GitHub::TestCase"
+*
+2NV8@2sTestCase@class Platform::Objects::UserBlockedEventTest < GitHub::TestCase"
+1A*
+0@2xà8@2pGitHub@class Platform::Objects::UserBlockedEventTest < GitHub::TestCase"
+17*
+062x~8@2?fixturesfixtures do"
+*
+
+2ãì8@2\prepare_issue_event_testprepare_issue_event_test"
+*
+2õ≥8@2Ocreate@blocked_user = create(:user)"
+		*
+2ÌÛ8@2Ocreate@event = create(:issue_event,"
+
+
+*
+		2àé8@2Ptest test "returns block duration" do"
+*
+2Ã–8@2wexecute_query>results = execute_query(query, :$id => @event.global_relay_id)"
+*
+2™∑8@2yglobal_relay_id>results = execute_query(query, :$id => @event.global_relay_id)"
+3B*
+2A2Œ›8@2Ldataevent = results.data["node"]"
+  *
+2Û˜8@2gassert_equal/assert_equal "ONE_WEEK", event["blockDuration"]"
+""*
+!!2Öë8@2Vtest&test "returns user who was blocked" do"
+%%*
+$$2æ¬8@2wexecute_query>results = execute_query(query, :$id => @event.global_relay_id)"
+22*
+112¿Õ8@2yglobal_relay_id>results = execute_query(query, :$id => @event.global_relay_id)"
+232B*
+121A2‰Û8@2Ldataevent = results.data["node"]"
+33*
+222â	ç	8@2sassert_equal;assert_equal @blocked_user.login, event["subject"]["login"]"
+44*
+332ö	¶	8@2llogin;assert_equal @blocked_user.login, event["subject"]["login"]"
+4 4%*
+33$2µ	∫	8@2Rtest"test "returns user who blocked" do"
+77*
+662ﬂ	„	8@2wexecute_query>results = execute_query(query, :$id => @event.global_relay_id)"
+DD*
+CC2€Ë8@2yglobal_relay_id>results = execute_query(query, :$id => @event.global_relay_id)"
+D3DB*
+C2CA2ˇé8@2Ldataevent = results.data["node"]"
+EE*
+DD2§®8@2kassert_equal3assert_equal @author.login, event["actor"]["login"]"
+GG*
+FF2∂¬8@2dlogin3assert_equal @author.login, event["actor"]["login"]"
+GG*
+FF2À–8@2ktest;test "returns UserBlockedEvent from timeline connection" do"
+JJ*
+II2Û˜8@2ûexecute_queryeresults = execute_query(query, viewer: create(:user), "$id": @issue.global_relay_id, target: :public)"
+YY*
+XX2∫«8@2ócreateeresults = execute_query(query, viewer: create(:user), "$id": @issue.global_relay_id, target: :public)"
+Y-Y3*
+X,X22◊›8@2†global_relay_ideresults = execute_query(query, viewer: create(:user), "$id": @issue.global_relay_id, target: :public)"
+YJYY*
+XIXX2ÙÉ8@2¨assert_includesqassert_includes results.data["node"]["timeline"]["nodes"].map { |types| types["__typename"] }, "UserBlockedEvent""
+ZZ*
+YY2õ™8@2†mapqassert_includes results.data["node"]["timeline"]["nodes"].map { |types| types["__typename"] }, "UserBlockedEvent""
+Z@ZC*
+Y?YB2’ÿ8@2°dataqassert_includes results.data["node"]["timeline"]["nodes"].map { |types| types["__typename"] }, "UserBlockedEvent""
+ZZ"*
+YY!2≥∑8@2Uinclude"include Platform::InterfaceHelpers"
+^^
+*
+]]	2óû8@2^InterfaceHelpers"include Platform::InterfaceHelpers"
+^^%*
+]
+]$2üπ8@2VPlatform"include Platform::InterfaceHelpers"
+^^*
+]
+]2üß8@2Vinclude#include Platform::IssueEventHelpers"
+__
+*
+^^	2º√8@2`IssueEventHelpers#include Platform::IssueEventHelpers"
+__&*
+^
+^%2ƒﬂ8@2WPlatform#include Platform::IssueEventHelpers"
+__*
+^
+^2ƒÃ8@2Ptest test "authz for public issue" do"
+aa*
+``2„Á8@2lassert_graphql_authz,assert_graphql_authz node: @event do |query|"
+bb*
+aa2àú8@2Kdefaultquery.default do |check|"
+cc*
+bb2¡»8@2Waccepted_scopescheck.accepted_scopes     """
+dd*
+cc2‚Ò8@2Qallowscheck.allows    @author, @rando"
+ee*
+dd2áç8@2@forbidscheck.forbids"
+ff*
+ee2Ø∂8@2{allowsIcheck.allows @apps_matrix_with_issues_read.installation_with_permissions,"
+hh*
+gg2ˆ¸8@2íinstallation_with_permissionsIcheck.allows @apps_matrix_with_issues_read.installation_with_permissions,"
+h4hQ*
+g3gP2õ∏8@2ã installation_without_permissions?@apps_matrix_with_issues_read.installation_without_permissions,"
+iFif*
+hEhe2ˇü8@2prandom_installation1@apps_matrix_with_issues_read.random_installation"
+jFjY*
+iEiX2Ê˘8@2öallowshcheck.allows  @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_with_permissions,"
+mm*
+ll2∏æ8@2œ;authorized_user_via_authorized_integration_with_permissionshcheck.allows  @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_with_permissions,"
+m5mp*
+l4lo2ﬁô8@2«>authorized_user_via_authorized_integration_without_permissions]@apps_matrix_with_issues_read.authorized_user_via_authorized_integration_without_permissions,"
+n5ns*
+m4mr2œç8@2≈=unauthorized_user_via_authorized_integration_with_permissions\@apps_matrix_with_issues_read.unauthorized_user_via_authorized_integration_with_permissions,"
+o5or*
+n4nq2√Ä8@2 @unauthorized_user_via_authorized_integration_without_permissions^@apps_matrix_with_issues_read.unauthorized_user_via_authorized_integration_without_permissions"
+p5pu*
+o4ot2∂ˆ8@2åforbidsYcheck.forbids @apps_matrix_with_issues_read.authorized_user_via_unauthorized_integration,"
+qq*
+pp2Öå8@2±,authorized_user_via_unauthorized_integrationYcheck.forbids @apps_matrix_with_issues_read.authorized_user_via_unauthorized_integration,"
+q5qa*
+p4p`2´◊8@2¶.unauthorized_user_via_unauthorized_integrationL@apps_matrix_with_issues_read.unauthorized_user_via_unauthorized_integration"
+r5rc*
+q4qb2çª8@2U
+challengescheck.challenges          :anon"
+ss*
+rr2 ‘8@2Qtest!test "authz for private issue" do"
+xx*
+ww2ˇÉ8@2Sprivate @event.repository.private = true"
+yy*
+xx2∑æ8@2V
+repository @event.repository.private = true"
+yy*
+xx2¨∂8@2Hsave!@event.repository.save!"
+zz*
+yy2‹·8@2M
+repository@event.repository.save!"
+zz*
+yy2—€8@2lassert_graphql_authz,assert_graphql_authz node: @event do |query|"
+||*
+{{2Á˚8@2Kdefaultquery.default do |check|"
+}}*
+||2†ß8@2[accepted_scopes check.accepted_scopes     "repo""
+~~*
+}}2¡–8@2Iallowscheck.allows    @author"
+*
+~~2Í8@2àrejectsScheck.rejects             @rando, @apps_matrix_with_issues_read.random_installation"
+ÄÄ*
+2äë8@2îrandom_installationScheck.rejects             @rando, @apps_matrix_with_issues_read.random_installation"
+ÄIÄ\*
+H[2ƒ◊8@2ÄallowsJcheck.allows   @apps_matrix_with_issues_read.installation_with_permissions"
+ÇÇ*
+ÅÅ2óù8@2óinstallation_with_permissionsJcheck.allows   @apps_matrix_with_issues_read.installation_with_permissions"
+Ç6ÇS*
+Å5ÅR2æ€8@2ÉforbidsLcheck.forbids @apps_matrix_with_issues_read.installation_without_permissions"
+ÉÉ*
+ÇÇ2ÍÒ8@2ú installation_without_permissionsLcheck.forbids @apps_matrix_with_issues_read.installation_without_permissions"
+É5ÉU*
+Ç4ÇT2ê ∞ 8@2ùallowsgcheck.allows  @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_with_permissions"
+ÜÜ*
+ÖÖ2Ô ı 8@2“;authorized_user_via_authorized_integration_with_permissionsgcheck.allows  @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_with_permissions"
+Ü5Üp*
+Ö4Öo2ï!–!8@2°forbidsjcheck.forbids @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_without_permissions"
+áá*
+ÜÜ2ﬂ!Ê!8@2ÿ>authorized_user_via_authorized_integration_without_permissionsjcheck.forbids @apps_matrix_with_issues_read.authorized_user_via_authorized_integration_without_permissions"
+á5ás*
+Ü4Ür2Ö"√"8@2°rejectsjcheck.rejects @apps_matrix_with_issues_read.unauthorized_user_via_authorized_integration_with_permissions,"
+àà*
+áá2“"Ÿ"8@2◊=unauthorized_user_via_authorized_integration_with_permissionsjcheck.rejects @apps_matrix_with_issues_read.unauthorized_user_via_authorized_integration_with_permissions,"
+à5àr*
+á4áq2¯"µ#8@2œ@unauthorized_user_via_authorized_integration_without_permissions_@apps_matrix_with_issues_read.unauthorized_user_via_authorized_integration_without_permissions,"
+â5âu*
+à4àt2Î#´$8@2ß,authorized_user_via_unauthorized_integrationK@apps_matrix_with_issues_read.authorized_user_via_unauthorized_integration,"
+ä5äa*
+â4â`2·$ç%8@2™.unauthorized_user_via_unauthorized_integrationL@apps_matrix_with_issues_read.unauthorized_user_via_unauthorized_integration"
+ã5ãc*
+ä4äb2√%Ò%8@2Y
+challengescheck.challenges          :anon"
+åå*
+ãã2Ä&ä&8@

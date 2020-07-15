@@ -1,0 +1,187 @@
+
+(0a050c23101f02a9ff019e46d2a852056b59dad2(test/lib/elastomer/adapters/gist_test.rbRuby"02uElastomerAdaptersGistTest2class ElastomerAdaptersGistTest < GitHub::TestCase"
+ *
+2Ng8@2dTestCase2class ElastomerAdaptersGistTest < GitHub::TestCase"
+#3*
+"22jz8@2bGitHub2class ElastomerAdaptersGistTest < GitHub::TestCase"
+#)*
+"(2jp8@2>fixturesfixtures do"
+*
+
+2}…8@2]create+@defunkt  = create(:user, login: "defunkt")"
+*
+2™Ÿ8@2]push-@update_contents = @create_contents.dup.push("
+-1*
+,02ÉÍ8@2\dup-@update_contents = @create_contents.dup.push("
+),*
+(+2ÅÈ8@2Ygenerate%@gist = Gist.generate(user: @defunkt,"
+*
+2¦8@2UGist%@gist = Gist.generate(user: @defunkt,"
+*
+2™8@29setupsetup do"
+*
+2ª¯8@2efirst4@update_contents.first[:oid] = @gist.files.first.oid"
+*
+2æë8@2coid4@update_contents.first[:oid] = @gist.files.first.oid"
+69*
+582†‰8@2efirst4@update_contents.first[:oid] = @gist.files.first.oid"
+05*
+/42€…8@2efiles4@update_contents.first[:oid] = @gist.files.first.oid"
+*/*
+).2úÿ8@2Ucontents!@gist.contents = @update_contents"
+*
+
+2”œ8@2<save!@gist.save!"
+*
+
+2º¿8@2_test/test "configured to the right mysql cluster" do"
+*
+2ÉÍ8@2uassert_equal=assert_equal :mysql1, Elastomer::Adapters::Gist.mysql_cluster"
+*
+2ı‰8@2vmysql_cluster=assert_equal :mysql1, Elastomer::Adapters::Gist.mysql_cluster"
+5B*
+4A2­º8@2mGist=assert_equal :mysql1, Elastomer::Adapters::Gist.mysql_cluster"
+4*
+32“¬8@2qAdapters=assert_equal :mysql1, Elastomer::Adapters::Gist.mysql_cluster"
+.*
+-2“¦8@2r	Elastomer=assert_equal :mysql1, Elastomer::Adapters::Gist.mysql_cluster"
+$*
+#2“œ8@2yassert_equalAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+*
+2¿Ë8@2zmysql_clusterAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+9F*
+8E2ó€8@2pnewAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+58*
+472ïò8@2qGistAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+4*
+32Õî8@2uAdaptersAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+.*
+-2Õè8@2v	ElastomerAassert_equal :mysql1, Elastomer::Adapters::Gist.new.mysql_cluster"
+$*
+#2ÕŞ8@2Fcontextcontext "#model" do"
+!!
+*
+  	2Š‘8@2itest9test "returns the gist object it was initialized with" do"
+""	*
+!!2¢¦8@2bcreate0adapter = Elastomer::Adapters::Gist.create @gist"
+#+#1*
+"*"02†Œ8@2`Gist0adapter = Elastomer::Adapters::Gist.create @gist"
+##**
+"")2ì…8@2dAdapters0adapter = Elastomer::Adapters::Gist.create @gist"
+##$*
+""#2ìÿ8@2e	Elastomer0adapter = Elastomer::Adapters::Gist.create @gist"
+##*
+""2ìõ8@2Yassert_equal!assert_equal @gist, adapter.model"
+$$*
+##2™¥8@2Rmodel!assert_equal @gist, adapter.model"
+$#$(*
+#"#'2µº8@2ttestDtest "returns the found gist when initialized with the repo's id" do"
+''	*
+&&2ÈÌ8@2ecreate3adapter = Elastomer::Adapters::Gist.create @gist.id"
+(+(1*
+'*'02·	½	8@2aid3adapter = Elastomer::Adapters::Gist.create @gist.id"
+(8(:*
+'7'92Ä	Æ	8@2cGist3adapter = Elastomer::Adapters::Gist.create @gist.id"
+((**
+'')2	¶	8@2gAdapters3adapter = Elastomer::Adapters::Gist.create @gist.id"
+(($*
+''#2	°	8@2h	Elastomer3adapter = Elastomer::Adapters::Gist.create @gist.id"
+((*
+''2	¦	8@2Yassert_equal!assert_equal @gist, adapter.model"
+))*
+((2Í	Ù	8@2Rmodel!assert_equal @gist, adapter.model"
+)#)(*
+("('2é	î	8@2Hcontextcontext "#to_hash" do"
+--
+*
+,,	2€
+‡
+8@2Rtest"test "correctly sets meta data" do"
+..	*
+--2š
+
+8@2bcreate0adapter = Elastomer::Adapters::Gist.create @gist"
+/+/1*
+.*.02ç
+í
+8@2`Gist0adapter = Elastomer::Adapters::Gist.create @gist"
+//**
+..)2Í
+æ
+8@2dAdapters0adapter = Elastomer::Adapters::Gist.create @gist"
+//$*
+..#2Í
+à
+8@2e	Elastomer0adapter = Elastomer::Adapters::Gist.create @gist"
+//*
+..2Í
+Ö
+8@2Ito_hashhash = adapter.to_hash"
+00*
+//2‰8@2Zassert_equal"assert_equal @gist.id,  hash[:_id]"
+22*
+112˜¤8@2Pid"assert_equal @gist.id,  hash[:_id]"
+22*
+112«­8@2\assert_equal$assert_equal "gist",    hash[:_type]"
+33*
+222ÁÍ8@2atest1test "includes basic attributes for searching" do"
+66	*
+552ó÷8@2bcreate0adapter = Elastomer::Adapters::Gist.create @gist"
+7+71*
+6*602ÏÕ8@2`Gist0adapter = Elastomer::Adapters::Gist.create @gist"
+77**
+66)2µÎ8@2dAdapters0adapter = Elastomer::Adapters::Gist.create @gist"
+77$*
+66#2µÈ8@2e	Elastomer0adapter = Elastomer::Adapters::Gist.create @gist"
+77*
+662µ¾8@2Ito_hashhash = adapter.to_hash"
+88*
+772ñø8@2`assert_equal(assert_equal @gist.id,    hash[:gist_id]"
+::*
+992€Œ8@2Vid(assert_equal @gist.id,    hash[:gist_id]"
+::*
+992“•8@2aassert_equal)assert_equal @defunkt.id, hash[:owner_id]"
+;;*
+::2¯»8@2Wid)assert_equal @defunkt.id, hash[:owner_id]"
+;;*
+::2ÅÇ8@2^assert_equal&assert_equal 0,           hash[:forks]"
+<<*
+;;2ßë8@2]assert_equal%assert_equal false,       hash[:fork]"
+==*
+<<2Œ˜8@2_assert_equal'assert_equal true,        hash[:public]"
+>>*
+==2¸Ä8@2dassert_equal,assert_equal "Test Gist", hash[:description]"
+??*
+>>2æò8@2atest1test "includes code information for searching" do"
+BB	*
+AA2 ¤8@2bcreate0adapter = Elastomer::Adapters::Gist.create @gist"
+C+C1*
+B*B02ü‚8@2`Gist0adapter = Elastomer::Adapters::Gist.create @gist"
+CC**
+BB)2âû8@2dAdapters0adapter = Elastomer::Adapters::Gist.create @gist"
+CC$*
+BB#2âõ8@2e	Elastomer0adapter = Elastomer::Adapters::Gist.create @gist"
+CC*
+BB2âë8@2Ito_hashhash = adapter.to_hash"
+DD*
+CC2¥8@2]assert_equal%assert_equal "master",    hash[:head]"
+FF*
+EE2­¹8@2aassert_equal)assert_equal @gist.sha,   hash[:head_ref]"
+GG*
+FF2Ùå8@2Xsha)assert_equal @gist.sha,   hash[:head_ref]"
+GG*
+FF2ìï8@2Yassert_equal!assert_equal 2, hash[:code].count"
+II*
+HH2Š–8@2Rcount!assert_equal 2, hash[:code].count"
+I#I(*
+H"H'2¦«8@2wfindGhello_world = hash[:code].find { |file| file[:filename] == "hello.rb" }"
+K!K%*
+J J$2ÍÑ8@2bassert_equal*assert_equal "rb", hello_world[:extension]"
+LL*
+KK28@2xassert_equal@assert_equal "def hello; puts 'Hello!'; end", hello_world[:file]"
+MM*
+LL2²¾8@2`assert_equal(assert_equal 29, hello_world[:file_size]"
+NN*
+MM2ù…8@2cassert_equal+assert_equal "ruby", hello_world[:language]"
+OO*
+NN2¨´8@

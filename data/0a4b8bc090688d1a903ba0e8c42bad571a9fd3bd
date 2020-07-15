@@ -1,0 +1,120 @@
+
+(0a4b8bc090688d1a903ba0e8c42bad571a9fd3bd6test/models/hook/event/deployment_status_event_test.rbRuby"02‡"HookEventDeploymentStatusEventTest;class HookEventDeploymentStatusEventTest < GitHub::TestCase"
+)*
+(2<^8@2mTestCase;class HookEventDeploymentStatusEventTest < GitHub::TestCase"
+,<*
++;2aq8@2kGitHub;class HookEventDeploymentStatusEventTest < GitHub::TestCase"
+,2*
++12ag8@2Lincludeinclude HookEventTestHelper"
+
+*
+	2t{8@2YHookEventTestHelperinclude HookEventTestHelper"
+*
+
+2|8@2?fixturesfixtures do"
+*
+
+2“›8@2`create.@deployment_status = create :deployment_status"
+		 *
+2¸¾8@2Mtesttest "required attributes" do"
+*
+2Ûß8@2¦ assert_event_required_attributesZassert_event_required_attributes Hook::Event::DeploymentStatusEvent, :deployment_status_id"
+%*
+$2ı8@2›DeploymentStatusEventZassert_event_required_attributes Hook::Event::DeploymentStatusEvent, :deployment_status_id"
+&H*
+%G2À8@2‹EventZassert_event_required_attributes Hook::Event::DeploymentStatusEvent, :deployment_status_id"
+&1*
+%02©8@2ŠHookZassert_event_required_attributes Hook::Event::DeploymentStatusEvent, :deployment_status_id"
+&**
+%)2¢8@2Rcontextcontext "#deployment_status" do"
+
+*
+	2áè8@2]test-test "returns the specified status record" do"
+	*
+2…‰8@2œnewmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+25*
+142äç8@2›idmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+_a*
+^`2‘“8@2®DeploymentStatusEventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+1*
+02Áã8@2Eventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+*
+2ÁÌ8@2Hookmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+*
+2ÁÅ8@2passert_equal8assert_equal @deployment_status, event.deployment_status"
+*
+2­¹8@2udeployment_status8assert_equal @deployment_status, event.deployment_status"
+.?*
+->2Ôå8@2Rcontextcontext "#target_repository" do"
+
+*
+	2÷ş8@2_test/test "returns the repo for specified status" do"
+	*
+2›Ÿ8@2œnewmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+25*
+142üÿ8@2›idmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+_a*
+^`2©«8@2®DeploymentStatusEventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+1*
+02Ùû8@2Eventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+*
+2Ùä8@2Hookmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+*
+2Ùİ8@2{assert_equalCassert_equal @deployment_status.repository, event.target_repository"
+*
+2ÅÑ8@2y
+repositoryCassert_equal @deployment_status.repository, event.target_repository"
+'1*
+&02åï8@2€target_repositoryCassert_equal @deployment_status.repository, event.target_repository"
+9J*
+8I2÷ˆ8@2Fcontextcontext "#actor" do"
+
+*
+	2š¡8@2ktest;test "returns the user who created the specified status" do"
+	*
+2²¶8@2œnewmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+ 2 5*
+142Ÿ¢8@2›idmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+ _ a*
+^`2ÌÎ8@2®DeploymentStatusEventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+  1*
+02ü8@2Eventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+  *
+2ü‡8@2Hookmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+  *
+2ü€8@2lassert_equal4assert_equal @deployment_status.creator, event.actor"
+!!*
+  2èô8@2gcreator4assert_equal @deployment_status.creator, event.actor"
+!'!.*
+ & -2ˆ		8@2eactor4assert_equal @deployment_status.creator, event.actor"
+!6!;*
+ 5 :2—	œ	8@2Gcontextcontext "#action" do"
+%%
+*
+$$	2®	µ	8@2ptest@test "returns the action for the specified deployment status" do"
+&&	*
+%%2Ç	Ë	8@2œnewmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+'2'5*
+&1&42¹
+¼
+8@2›idmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+'_'a*
+&^&`2æ
+è
+8@2®DeploymentStatusEventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+''1*
+&&02–
+¸
+8@2Eventmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+''*
+&&2–
+¡
+8@2Hookmevent = Hook::Event::DeploymentStatusEvent.new deployment_status_id: @deployment_status.id, action: "created""
+''*
+&&2–
+š
+8@2\assert_equal$assert_equal "created", event.action"
+((*
+''2‚8@2Vaction$assert_equal "created", event.action"
+(%(+*
+'$'*2 ¦8@

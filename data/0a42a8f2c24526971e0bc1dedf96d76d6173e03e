@@ -1,0 +1,57 @@
+
+(0a42a8f2c24526971e0bc1dedf96d76d6173e03e?lib/platform/resolvers/enterprise_server_user_account_emails.rbRuby"02APlatformmodule Platform"
+*
+2&.8@2C	Resolversmodule Resolvers"
+
+*
+	28A8@2„!EnterpriseServerUserAccountEmails9class EnterpriseServerUserAccountEmails < Resolvers::Base"
+,*
+
++2Lm8@2gBase9class EnterpriseServerUserAccountEmails < Resolvers::Base"
+/>*
+.=2p8@2l	Resolvers9class EnterpriseServerUserAccountEmails < Resolvers::Base"
+/8*
+.72py8@2vargumentBargument :order_by, Inputs::EnterpriseServerUserAccountEmailOrder,"
+*
+2†Ž8@2“%EnterpriseServerUserAccountEmailOrderBargument :order_by, Inputs::EnterpriseServerUserAccountEmailOrder,"
+H*
+G2šÇ8@2tInputsBargument :order_by, Inputs::EnterpriseServerUserAccountEmailOrder,"
+!*
+ 2š 8@2typeOtype Connections.define(Objects::EnterpriseServerUserAccountEmail), null: false"
+
+
+*
+		
+2…8@2defineOtype Connections.define(Objects::EnterpriseServerUserAccountEmail), null: false"
+
+
+*
+		2’˜8@2› EnterpriseServerUserAccountEmailOtype Connections.define(Objects::EnterpriseServerUserAccountEmail), null: false"
+
+
+H*
+		G2™Â8@2‚ObjectsOtype Connections.define(Objects::EnterpriseServerUserAccountEmail), null: false"
+
+
+&*
+		%2™ 8@2†ConnectionsOtype Connections.define(Objects::EnterpriseServerUserAccountEmail), null: false"
+
+
+*
+		2†‘8@2Mresolvedef resolve(order_by: nil)"
+*
+
+2Üã8@2Hemailsemails = object.emails"
+*
+2‹‘8@2Hobjectemails = object.emails"
+*
+2„Š8@2capply_order_by)emails = apply_order_by(emails, order_by)"
+ *
+2£±8@2]apply_order_by#def apply_order_by(scope, order_by)"
+*
+
+2Ùç8@2Mnil?return scope if order_by.nil?"
+"&*
+!%2šž8@2—orderfscope.order("enterprise_installation_user_account_emails.#{order_by[:field]} #{order_by[:direction]}")"
+*
+2­²8@

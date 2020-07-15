@@ -1,0 +1,3075 @@
+
+(0a4cd0ff4f4adf7b282c22c814731893850751c68test/models/repository/contribution_graph_status_test.rbRuby"02%RepositoryContributionGraphStatusTest>class RepositoryContributionGraphStatusTest < GitHub::TestCase"
+,*
++2<a8@2pTestCase>class RepositoryContributionGraphStatusTest < GitHub::TestCase"
+/?*
+.>2dt8@2nGitHub>class RepositoryContributionGraphStatusTest < GitHub::TestCase"
+/5*
+.42dj8@2Fincludeinclude MetricsHelper"
+
+*
+	2w~8@2MMetricsHelperinclude MetricsHelper"
+*
+
+2Œ8@2?fixturesfixtures do"
+*
+
+2—8@2kcreate9@status = create(:contribution_graph_status, :git_backed)"
+*
+2©¯8@2wcreateE@contributor_status = create(:contribution_graph_status, :git_backed,"
+		!*
+ 2óù8@2Wutc(last_viewed_at: Time.utc(2012, 1, 1, 13)"
+*
+
+
+2òõ8@2XTime(last_viewed_at: Time.utc(2012, 1, 1, 13)"
+*
+
+
+2íñ8@2Pto_i Time.utc(2011, 2, 4).to_i => 90,"
+ $*
+#2•™8@2Outc Time.utc(2011, 2, 4).to_i => 90,"
+*
+2…ˆ8@2PTime Time.utc(2011, 2, 4).to_i => 90,"
+*
+
+2€„8@2Pto_i Time.utc(2011, 2, 27).to_i => 7,"
+!%*
+ $2ÁÅ8@2Outc Time.utc(2011, 2, 27).to_i => 7,"
+*
+2°³8@2PTime Time.utc(2011, 2, 27).to_i => 7,"
+*
+
+2«¯8@2Oto_iTime.utc(2011, 3, 1).to_i => 1,"
+ $*
+#2ëï8@2NutcTime.utc(2011, 3, 1).to_i => 1,"
+*
+2ÛŞ8@2OTimeTime.utc(2011, 3, 1).to_i => 1,"
+*
+
+2ÖÚ8@2Rto_i"Time.utc(2010, 11, 12).to_i => 38,"
+"&*
+!%2ÂÆ8@2Qutc"Time.utc(2010, 11, 12).to_i => 38,"
+*
+2°³8@2RTime"Time.utc(2010, 11, 12).to_i => 38,"
+*
+
+2«¯8@2Pto_i Time.utc(2011, 3, 20).to_i => 0,"
+!%*
+ $2îò8@2Outc Time.utc(2011, 3, 20).to_i => 0,"
+*
+2İà8@2PTime Time.utc(2011, 3, 20).to_i => 0,"
+*
+
+2ØÜ8@2Pto_i Time.utc(2011, 3, 20).to_i => 1,"
+!%*
+ $2ÁÅ8@2Outc Time.utc(2011, 3, 20).to_i => 1,"
+*
+2°³8@2PTime Time.utc(2011, 3, 20).to_i => 1,"
+*
+
+2«¯8@2Pto_i Time.utc(2011, 4, 25).to_i => 1,"
+!%*
+ $2ìğ8@2Outc Time.utc(2011, 4, 25).to_i => 1,"
+*
+2ÛŞ8@2PTime Time.utc(2011, 4, 25).to_i => 1,"
+*
+
+2ÖÚ8@2Oto_iTime.utc(2011, 2, 4).to_i => 0,"
+   $*
+#2îò8@2NutcTime.utc(2011, 2, 4).to_i => 0,"
+  *
+2Şá8@2OTimeTime.utc(2011, 2, 4).to_i => 0,"
+  *
+
+2Ùİ8@2Pto_i Time.utc(2011, 2, 27).to_i => 1,"
+!!!%*
+   $2™8@2Outc Time.utc(2011, 2, 27).to_i => 1,"
+!!*
+  2ˆ‹8@2PTime Time.utc(2011, 2, 27).to_i => 1,"
+!!*
+ 
+ 2ƒ‡8@2Oto_iTime.utc(2011, 3, 1).to_i => 2,"
+" "$*
+!!#2ÃÇ8@2NutcTime.utc(2011, 3, 1).to_i => 2,"
+""*
+!!2³¶8@2OTimeTime.utc(2011, 3, 1).to_i => 2,"
+""*
+!
+!2®²8@2Qto_i!Time.utc(2010, 11, 12).to_i => 0,"
+%"%&*
+$!$%2š		8@2Putc!Time.utc(2010, 11, 12).to_i => 0,"
+%%*
+$$2ˆ	‹	8@2QTime!Time.utc(2010, 11, 12).to_i => 0,"
+%%*
+$
+$2ƒ	‡	8@2Pto_i Time.utc(2011, 3, 20).to_i => 7,"
+&!&%*
+% %$2Å	É	8@2Outc Time.utc(2011, 3, 20).to_i => 7,"
+&&*
+%%2´	·	8@2PTime Time.utc(2011, 3, 20).to_i => 7,"
+&&*
+%
+%2¯	³	8@2Pto_i Time.utc(2011, 3, 20).to_i => 1,"
+)!)%*
+( ($2˜
+œ
+8@2Outc Time.utc(2011, 3, 20).to_i => 1,"
+))*
+((2‡
+Š
+8@2PTime Time.utc(2011, 3, 20).to_i => 1,"
+))*
+(
+(2‚
+†
+8@2Pto_i Time.utc(2012, 4, 25).to_i => 0,"
+*!*%*
+) )$2Ã
+Ç
+8@2Outc Time.utc(2012, 4, 25).to_i => 0,"
+***
+))2²
+µ
+8@2PTime Time.utc(2012, 4, 25).to_i => 0,"
+***
+)
+)2­
+±
+8@2Oto_iTime.utc(2011, 2, 4).to_i => 1,"
+/ /$*
+..#2ÃÇ8@2NutcTime.utc(2011, 2, 4).to_i => 1,"
+//*
+..2³¶8@2OTimeTime.utc(2011, 2, 4).to_i => 1,"
+//*
+.
+.2®²8@2Pto_i Time.utc(2011, 2, 27).to_i => 1,"
+0!0%*
+/ /$2îò8@2Outc Time.utc(2011, 2, 27).to_i => 1,"
+00*
+//2İà8@2PTime Time.utc(2011, 2, 27).to_i => 1,"
+00*
+/
+/2ØÜ8@2Oto_iTime.utc(2011, 3, 1).to_i => 1,"
+1 1$*
+00#2˜œ8@2NutcTime.utc(2011, 3, 1).to_i => 1,"
+11*
+002ˆ‹8@2OTimeTime.utc(2011, 3, 1).to_i => 1,"
+11*
+0
+02ƒ‡8@2Qto_i!Time.utc(2010, 11, 12).to_i => 1,"
+4"4&*
+3!3%2ïó8@2Putc!Time.utc(2010, 11, 12).to_i => 1,"
+44*
+332İà8@2QTime!Time.utc(2010, 11, 12).to_i => 1,"
+44*
+3
+32ØÜ8@2Pto_i Time.utc(2011, 3, 20).to_i => 1,"
+5!5%*
+4 4$2š8@2Outc Time.utc(2011, 3, 20).to_i => 1,"
+55*
+442‰Œ8@2PTime Time.utc(2011, 3, 20).to_i => 1,"
+55*
+4
+42„ˆ8@2Pto_i Time.utc(2011, 3, 20).to_i => 1,"
+8!8%*
+7 7$2íñ8@2Outc Time.utc(2011, 3, 20).to_i => 1,"
+88*
+772Üß8@2PTime Time.utc(2011, 3, 20).to_i => 1,"
+88*
+7
+72×Û8@2Pto_i Time.utc(2012, 4, 25).to_i => 1,"
+9!9%*
+8 8$2˜œ8@2Outc Time.utc(2012, 4, 25).to_i => 1,"
+99*
+882‡Š8@2PTime Time.utc(2012, 4, 25).to_i => 1,"
+99*
+8
+82‚†8@2Ä!assert_fresh_data_overrides_stalewdef assert_fresh_data_overrides_stale(graph_name, stale_data, fresh_data, parsed_stale: [], now: Time.utc(2011, 2, 15))"
+??(*
+>>'2Êë8@2¦utcwdef assert_fresh_data_overrides_stale(graph_name, stale_data, fresh_data, parsed_stale: [], now: Time.utc(2011, 2, 15))"
+?i?l*
+>h>k2¬¯8@2§Timewdef assert_fresh_data_overrides_stale(graph_name, stale_data, fresh_data, parsed_stale: [], now: Time.utc(2011, 2, 15))"
+?d?h*
+>c>g2§«8@2Swith_cache_enabledwith_cache_enabled do"
+@@*
+??2ÂÔ8@2HfreezeTimecop.freeze(now) do"
+AA*
+@@2æì8@2Oupdate!@contributor_status.update!("
+BB$*
+AA#2‘˜8@2tdefault_oid=last_indexed_oid: @contributor_status.repository.default_oid,"
+C<CG*
+B;BF2Õà8@2s
+repository=last_indexed_oid: @contributor_status.repository.default_oid,"
+C1C;*
+B0B:2ÊÔ8@2Kagolast_viewed_at: 5.hours.ago,"
+D#D&*
+C"C%2„‡8@2Mhourslast_viewed_at: 5.hours.ago,"
+DD"*
+CC!2şƒ8@2Oago last_indexed_at: 10.minutes.ago,"
+E'E**
+D&D)2¯²8@2Sminutes last_indexed_at: 10.minutes.ago,"
+EE&*
+DD%2§®8@2qreturns>@contributor_status.stubs(:data_fully_indexed?).returns(false)"
+G9G@*
+F8F?2öı8@2ostubs>@contributor_status.stubs(:data_fully_indexed?).returns(false)"
+GG"*
+FF!2Úß8@2nreturns;@contributor_status.stubs(:serve_stale_data?).returns(true)"
+H7H>*
+G6G=2»Â8@2lstubs;@contributor_status.stubs(:serve_stale_data?).returns(true)"
+HH"*
+GG!2¡¦8@2stubs^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+J1J6*
+I0I52úÿ8@2to_sym^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+JRJX*
+IQIW2›¡8@2–any_instance^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+J$J0*
+I#I/2íù8@2‘Eventer^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+J	J#*
+II"2Òì8@2“	RepoGraph^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+J	J*
+II2Òã8@2GitHub^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => stale_data)"
+J	J*
+II2ÒØ8@2assert_equalIassert_equal parsed_stale, @contributor_status.send("#{graph_name}_data")"
+K	K*
+JJ2¹Å8@2ysendIassert_equal parsed_stale, @contributor_status.send("#{graph_name}_data")"
+K8K<*
+J7J;2èì8@2stubs^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+N1N6*
+M0M52Œ‘8@2to_sym^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+NRNX*
+MQMW2­³8@2–any_instance^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+N$N0*
+M#M/2ÿ‹8@2‘Eventer^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+N	N#*
+MM"2äş8@2“	RepoGraph^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+N	N*
+MM2äõ8@2GitHub^GitHub::RepoGraph::Eventer.any_instance.stubs("fetch_#{graph_name}_data".to_sym => fresh_data)"
+N	N*
+MM2äê8@2assert_equalIassert_equal parsed_stale, @contributor_status.send("#{graph_name}_data")"
+O	O*
+NN2Ë×8@2ysendIassert_equal parsed_stale, @contributor_status.send("#{graph_name}_data")"
+O8O<*
+N7N;2úş8@2preturns=@contributor_status.stubs(:data_fully_indexed?).returns(true)"
+R9R@*
+Q8Q?2›¢8@2nstubs=@contributor_status.stubs(:data_fully_indexed?).returns(true)"
+RR"*
+QQ!2ÿ„8@2oreturns<@contributor_status.stubs(:serve_stale_data?).returns(false)"
+S7S>*
+R6R=2ßæ8@2mstubs<@contributor_status.stubs(:serve_stale_data?).returns(false)"
+SS"*
+RR!2ÅÊ8@2dsend4yield @contributor_status.send("#{graph_name}_data")"
+U#U'*
+T"T&2‘•8@2ITimecopTimecop.freeze(now) do"
+AA*
+@@2Şå8@2Kcontextcontext "validations" do"
+ZZ
+*
+YY	2ÇÎ8@2Ntesttest "require a repository" do"
+[[	*
+ZZ2äè8@2lbuild;status = build(:contribution_graph_status, repository: nil)"
+\\*
+[[2’—8@2\refute_predicate refute_predicate status, :valid?"
+^^*
+]]2ÌÜ8@2wassert_includes<assert_includes status.errors[:repository], "can't be blank""
+__*
+^^2ó‚8@2nerrors<assert_includes status.errors[:repository], "can't be blank""
+__$*
+^^#2Š8@2[test+test "require one status per repository" do"
+bb	*
+aa2½Á8@2{buildJstatus = build(:contribution_graph_status, repository: @status.repository)"
+cc*
+bb2øı8@2€
+repositoryJstatus = build(:contribution_graph_status, repository: @status.repository)"
+cFcP*
+bEbO2®¸8@2\refute_predicate refute_predicate status, :valid?"
+ee*
+dd2ÁÑ8@2‚assert_includesGassert_includes status.errors[:repository_id], "has already been taken""
+ff*
+ee2è÷8@2yerrorsGassert_includes status.errors[:repository_id], "has already been taken""
+ff$*
+ee#2ÿ…8@2]test-test "set up last_viewed_at automatically" do"
+ii	*
+hh2½Á8@2[build*status = build(:contribution_graph_status)"
+jj*
+ii2úÿ8@2V
+assert_nil assert_nil status.last_viewed_at"
+kk*
+jj2¢¬8@2Zlast_viewed_at assert_nil status.last_viewed_at"
+kk'*
+jj&2´Â8@2CfreezeTimecop.freeze do"
+mm*
+ll2ÒØ8@2\assert_predicate assert_predicate status, :valid?"
+n	n*
+mm2äô8@2rassert_equal:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+o	o*
+nn2™8@2jto_i:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+o#o'*
+n"n&2§«8@2mcurrent:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+oo"*
+nn!2Ÿ¦8@2jTime:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+oo*
+nn2š8@2jto_i:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+o?oC*
+n>nB2ÃÇ8@2tlast_viewed_at:assert_equal Time.current.to_i, status.last_viewed_at.to_i"
+o0o>*
+n/n=2´Â8@2DTimecopTimecop.freeze do"
+mm*
+ll2ÊÑ8@2ctest3test "requires that last_viewed_at is not unset" do"
+ss	*
+rr2ßã8@2Vlast_viewed_at@status.last_viewed_at = nil"
+tt*
+ss2¡¯8@2]refute_predicate!refute_predicate @status, :valid?"
+vv*
+uu2½Í8@2|assert_includesAassert_includes @status.errors[:last_viewed_at], "can't be blank""
+ww*
+vv2åô8@2serrorsAassert_includes @status.errors[:last_viewed_at], "can't be blank""
+ww%*
+vv$2ıƒ 8@2~testNtest "requires that 'last_indexed_at' is set if we have 'last_indexed_oid'" do"
+zz	*
+yy2´ ¸ 8@2Zlast_indexed_oid@status.last_indexed_oid = nil"
+{{*
+zz2‘!¡!8@2Xlast_indexed_at@status.last_indexed_at = nil"
+||*
+{{2¶!Å!8@2]assert_predicate!assert_predicate @status, :valid?"
+~~*
+}}2Ó!ã!8@2wlast_indexed_oid9@status.last_indexed_oid = @status.repository.default_oid"
+€€*
+2„"”"8@2rdefault_oid9@status.last_indexed_oid = @status.repository.default_oid"
+€5€@*
+4?2ª"µ"8@2q
+repository9@status.last_indexed_oid = @status.repository.default_oid"
+€*€4*
+)32Ÿ"©"8@2\last_indexed_at@status.last_indexed_at = nil"
+*
+€€2Ä"Ó"8@2arefute_predicate!refute_predicate @status, :valid?"
+ƒƒ*
+‚‚2á"ñ"8@2assert_includesBassert_includes @status.errors[:last_indexed_at], "can't be blank""
+„„*
+ƒƒ2‰#˜#8@2xerrorsBassert_includes @status.errors[:last_indexed_at], "can't be blank""
+„„%*
+ƒƒ$2¡#§#8@2testMtest "requires that 'job_enqueued_at' is set if we have a 'job_status_id'" do"
+‡‡	*
+††2Ù#İ#8@2Xjob_status_id@status.job_status_id = nil"
+ˆˆ*
+‡‡2µ$Â$8@2\job_enqueued_at@status.job_enqueued_at = nil"
+‰‰*
+ˆˆ2×$æ$8@2aassert_predicate!assert_predicate @status, :valid?"
+‹‹*
+ŠŠ2ô$„%8@2fjob_status_id)@status.job_status_id = SecureRandom.uuid"
+*
+ŒŒ2¥%²%8@2]uuid)@status.job_status_id = SecureRandom.uuid"
+,0*
+Œ+Œ/2Â%Æ%8@2eSecureRandom)@status.job_status_id = SecureRandom.uuid"
++*
+ŒŒ*2µ%Á%8@2\job_enqueued_at@status.job_enqueued_at = nil"
+*
+2Õ%ä%8@2arefute_predicate!refute_predicate @status, :valid?"
+*
+2ò%‚&8@2assert_includesBassert_includes @status.errors[:job_enqueued_at], "can't be blank""
+‘‘*
+2š&©&8@2xerrorsBassert_includes @status.errors[:job_enqueued_at], "can't be blank""
+‘‘%*
+$2²&¸&8@2Lcontextcontext "#destroy" do"
+••
+*
+””	2î&õ&8@2Ztest&test "deletes metrics from Eventer" do"
+––	*
+••2ˆ'Œ'8@2xexpectsAGitHub::RepoGraph::Eventer.any_instance.expects(:delete_counters)"
+—/—6*
+–.–52İ'ä'8@2}any_instanceAGitHub::RepoGraph::Eventer.any_instance.expects(:delete_counters)"
+—"—.*
+–!–-2Ğ'Ü'8@2xEventerAGitHub::RepoGraph::Eventer.any_instance.expects(:delete_counters)"
+——!*
+–– 2µ'Ï'8@2z	RepoGraphAGitHub::RepoGraph::Eventer.any_instance.expects(:delete_counters)"
+——*
+––2µ'Æ'8@2wGitHubAGitHub::RepoGraph::Eventer.any_instance.expects(:delete_counters)"
+——*
+––2µ'»'8@2Lassertassert @status.destroy"
+˜˜*
+——2ı'ƒ(8@2Mdestroyassert @status.destroy"
+˜˜*
+——2Œ(“(8@2Lcontextcontext ".expired" do"
+œœ
+*
+››	2¥(¬(8@2jtest6test "finds records not viewed in the last 28 days" do"
+	*
+œœ2¿(Ã(8@2}createGstale = create(:contribution_graph_status, last_viewed_at: 90.days.ago)"
+*
+2„)Š)8@2zagoGstale = create(:contribution_graph_status, last_viewed_at: 90.days.ago)"
+JM*
+IL2¿)Â)8@2{daysGstale = create(:contribution_graph_status, last_viewed_at: 90.days.ago)"
+EI*
+DH2º)¾)8@2ŒcreateVstale2 = create(:contribution_graph_status, last_viewed_at: (28.days.ago - 5.minutes))"
+ŸŸ*
+2Ó)Ù)8@2‰agoVstale2 = create(:contribution_graph_status, last_viewed_at: (28.days.ago - 5.minutes))"
+ŸLŸO*
+KN2*’*8@2ŠdaysVstale2 = create(:contribution_graph_status, last_viewed_at: (28.days.ago - 5.minutes))"
+ŸGŸK*
+FJ2Š**8@2minutesVstale2 = create(:contribution_graph_status, last_viewed_at: (28.days.ago - 5.minutes))"
+ŸTŸ[*
+SZ2—**8@2‹createUfresh = create(:contribution_graph_status, last_viewed_at: (28.days.ago + 5.minutes))"
+  *
+ŸŸ2¯*µ*8@2ˆagoUfresh = create(:contribution_graph_status, last_viewed_at: (28.days.ago + 5.minutes))"
+ K N*
+ŸJŸM2ë*î*8@2‰daysUfresh = create(:contribution_graph_status, last_viewed_at: (28.days.ago + 5.minutes))"
+ F J*
+ŸEŸI2æ*ê*8@2ŒminutesUfresh = create(:contribution_graph_status, last_viewed_at: (28.days.ago + 5.minutes))"
+ S Z*
+ŸRŸY2ó*ú*8@2lexpired5expired = Repository::ContributionGraphStatus.expired"
+¢5¢<*
+¡4¡;2²+¹+8@2|ContributionGraphStatus5expired = Repository::ContributionGraphStatus.expired"
+¢¢4*
+¡¡32+±+8@2o
+Repository5expired = Repository::ContributionGraphStatus.expired"
+¢¢*
+¡¡2+˜+8@2]assert_includesassert_includes expired, stale"
+££*
+¢¢2À+Ï+8@2^assert_includesassert_includes expired, stale2"
+¤¤*
+££2å+ô+8@2]refute_includesrefute_includes expired, fresh"
+¥¥*
+¤¤2‹,š,8@2Scontextcontext ".for_repository" do"
+©©
+*
+¨¨	2»,Â,8@2ctest/test "finds the status if it already exists" do"
+ªª	*
+©©2Ü,à,8@2˜assert_equal\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+««*
+ªª2’--8@2šfor_repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+«A«O*
+ª@ªN2Ì-Ú-8@2–
+repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+«X«b*
+ªWªa2ã-í-8@2£ContributionGraphStatus\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+««@*
+ªª?2¨-Ë-8@2–
+Repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+««'*
+ªª&2¨-²-8@2jtest6test "creates the status if one does not yet exist" do"
+®®	*
+­­2ü-€.8@2Ocreaterepo = create :repository"
+¯¯*
+®®2À.Æ.8@2Šassert_differenceIstatus = assert_difference "Repository::ContributionGraphStatus.count" do"
+±±!*
+°° 2ã.ô.8@2vfor_repository8Repository::ContributionGraphStatus.for_repository(repo)"
+²-²;*
+±,±:2Ğ/Ş/8@2ContributionGraphStatus8Repository::ContributionGraphStatus.for_repository(repo)"
+²	²,*
+±±+2¬/Ï/8@2r
+Repository8Repository::ContributionGraphStatus.for_repository(repo)"
+²	²*
+±±2¬/¶/8@2`assert_equal$assert_equal repo, status.repository"
+µµ*
+´´2ö/‚08@2^
+repository$assert_equal repo, status.repository"
+µ!µ+*
+´ ´*20š08@2xtestDtest "handles race conditions resulting in a DB constraint error" do"
+¸¸	*
+··2¨0¬08@2Mreturnsreturns([], [@status])"
+º	º*
+¹¹2Û1â18@2”twice_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹`¹e*
+¸_¸d2Ì1Ñ18@2“with_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹;¹?*
+¸:¸>2§1«18@2™
+repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹T¹^*
+¸S¸]2À1Ê18@2–expects_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹+¹2*
+¸*¸12—118@2¦ContributionGraphStatus_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹¹**
+¸¸)2ó0–18@2™
+Repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+¹¹*
+¸¸2ó0ı08@2‘raises[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»=»C*
+º<ºB2®2´28@2šRecordNotUnique[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»D»a*
+ºCº`2µ2Ò28@2—ActiveRecord[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»D»P*
+ºCºO2µ2Á28@2’expects[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»+»2*
+º*º12œ2£28@2¢ContributionGraphStatus[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»»**
+ºº)2ø1›28@2•
+Repository[Repository::ContributionGraphStatus.expects(:create!).raises(ActiveRecord::RecordNotUnique)"
+»»*
+ºº2ø1‚28@2˜assert_equal\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+½½*
+¼¼2Û2ç28@2šfor_repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+½A½O*
+¼@¼N2•3£38@2–
+repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+½X½b*
+¼W¼a2¬3¶38@2£ContributionGraphStatus\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+½½@*
+¼¼?2ñ2”38@2–
+Repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+½½'*
+¼¼&2ñ2û28@2utestAtest "handles race conditions resulting in a validation error" do"
+ÀÀ	*
+¿¿2Å3É38@2Mreturnsreturns([], [@status])"
+Â	Â*
+ÁÁ2õ4ü48@2”twice_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+Á`Áe*
+À_Àd2æ4ë48@2“with_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+Á;Á?*
+À:À>2Á4Å48@2™
+repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÁTÁ^*
+ÀSÀ]2Ú4ä48@2–expects_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+Á+Á2*
+À*À12±4¸48@2¦ContributionGraphStatus_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÁÁ**
+ÀÀ)24°48@2™
+Repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÁÁ*
+ÀÀ24—48@2˜assert_equal\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+ÄÄ*
+ÃÃ2“5Ÿ58@2šfor_repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+ÄAÄO*
+Ã@ÃN2Í5Û58@2–
+repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+ÄXÄb*
+ÃWÃa2ä5î58@2£ContributionGraphStatus\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+ÄÄ@*
+ÃÃ?2©5Ì58@2–
+Repository\assert_equal @status, Repository::ContributionGraphStatus.for_repository(@status.repository)"
+ÄÄ'*
+ÃÃ&2©5³58@2stest?test "only retries one time if a race condition is expected" do"
+ÇÇ	*
+ÆÆ2ı568@2Freturnsreturns([], [])"
+É	É*
+ÈÈ2«7²78@2”twice_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+È`Èe*
+Ç_Çd2œ7¡78@2“with_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+È;È?*
+Ç:Ç>2÷6û68@2™
+repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÈTÈ^*
+ÇSÇ]27š78@2–expects_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+È+È2*
+Ç*Ç12ç6î68@2¦ContributionGraphStatus_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÈÈ**
+ÇÇ)2Ã6æ68@2™
+Repository_Repository::ContributionGraphStatus.expects(:where).with(repository: @status.repository).twice."
+ÈÈ*
+ÇÇ2Ã6Í68@2iassert_raises,assert_raises ActiveRecord::RecordInvalid do"
+ËË*
+ÊÊ2Â7Ï78@2iRecordInvalid,assert_raises ActiveRecord::RecordInvalid do"
+ËË0*
+ÊÊ/2Ğ7ë78@2hActiveRecord,assert_raises ActiveRecord::RecordInvalid do"
+ËË!*
+ÊÊ 2Ğ7Ü78@2„for_repositoryFRepository::ContributionGraphStatus.for_repository(@status.repository)"
+Ì-Ì;*
+Ë,Ë:2›8©88@2€
+repositoryFRepository::ContributionGraphStatus.for_repository(@status.repository)"
+ÌDÌN*
+ËCËM2²8¼88@2ContributionGraphStatusFRepository::ContributionGraphStatus.for_repository(@status.repository)"
+Ì	Ì,*
+ËË+2÷7š88@2€
+RepositoryFRepository::ContributionGraphStatus.for_repository(@status.repository)"
+Ì	Ì*
+ËË2÷788@2Ocontextcontext "#job_status" do"
+ÑÑ
+*
+ĞĞ	2Ù8à88@2ptest<test "returns nil if there isn't a tracked job status ID" do"
+ÒÒ	*
+ÑÑ2ö8ú88@2Z
+assert_nil assert_nil @status.job_status_id"
+ÓÓ*
+ÒÒ2¹9Ã98@2]job_status_id assert_nil @status.job_status_id"
+ÓÓ'*
+ÒÒ&2Ì9Ù98@2W
+assert_nilassert_nil @status.job_status"
+ÔÔ*
+ÓÓ2à9ê98@2W
+job_statusassert_nil @status.job_status"
+ÔÔ$*
+ÓÓ#2ó9ı98@2‚testNtest "returns nil if there isn't an existing status with the job status ID" do"
+××	*
+ÖÖ2‹::8@2fjob_status_id)@status.job_status_id = SecureRandom.uuid"
+ØØ*
+××2è:õ:8@2]uuid)@status.job_status_id = SecureRandom.uuid"
+Ø,Ø0*
+×+×/2…;‰;8@2eSecureRandom)@status.job_status_id = SecureRandom.uuid"
+ØØ+*
+××*2ø:„;8@2W
+assert_nilassert_nil @status.job_status"
+ÙÙ*
+ØØ2;š;8@2W
+job_statusassert_nil @status.job_status"
+ÙÙ$*
+ØØ#2£;­;8@2_test+test "returns a JobStatus if one exists" do"
+ÜÜ	*
+ÛÛ2»;¿;8@2Screatejob_status = JobStatus.create"
+İİ$*
+ÜÜ#2„<Š<8@2V	JobStatusjob_status = JobStatus.create"
+İİ*
+ÜÜ2ú;ƒ<8@2bjob_status_id%@status.job_status_id = job_status.id"
+ŞŞ*
+İİ2™<¦<8@2Wid%@status.job_status_id = job_status.id"
+Ş*Ş,*
+İ)İ+2´<¶<8@2massert_equal1assert_equal job_status.id, @status.job_status.id"
+ßß*
+ŞŞ2½<É<8@2cid1assert_equal job_status.id, @status.job_status.id"
+ßß!*
+ŞŞ 2Õ<×<8@2cid1assert_equal job_status.id, @status.job_status.id"
+ß6ß8*
+Ş5Ş72ì<î<8@2k
+job_status1assert_equal job_status.id, @status.job_status.id"
+ß+ß5*
+Ş*Ş42á<ë<8@2Tcontextcontext "#job_enqueued_at" do"
+ãã
+*
+ââ	2€=‡=8@2ntest:test "backfills to updated_at on-read if it wasn't set" do"
+ää	*
+ãã2¢=¦=8@2\freeze&Timecop.freeze(5.minutes.ago) do |now|"
+åå*
+ää2ë=ñ=8@2Yago&Timecop.freeze(5.minutes.ago) do |now|"
+å å#*
+ää"2ü=ÿ=8@2]minutes&Timecop.freeze(5.minutes.ago) do |now|"
+åå*
+ää2ô=û=8@2œupdate_columns^@status.update_columns job_status_id: SecureRandom.uuid, job_enqueued_at: nil, updated_at: now"
+ææ*
+åå2š>¨>8@2’uuid^@status.update_columns job_status_id: SecureRandom.uuid, job_enqueued_at: nil, updated_at: now"
+æ<æ@*
+å;å?2Å>É>8@2šSecureRandom^@status.update_columns job_status_id: SecureRandom.uuid, job_enqueued_at: nil, updated_at: now"
+æ/æ;*
+å.å:2¸>Ä>8@2]Timecop&Timecop.freeze(5.minutes.ago) do |now|"
+åå*
+ää2ã=ê=8@2W
+updated_atexpected = @status.updated_at"
+éé$*
+èè#2•?Ÿ?8@2—assert_equal[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êê*
+éé2¦?²?8@2šjob_enqueued_at[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êSêb*
+éRéa2ò?@8@2find[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êBêF*
+éAéE2á?å?8@2id[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êOêQ*
+éNéP2î?ğ?8@2¢ContributionGraphStatus[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êêA*
+éé@2½?à?8@2•
+Repository[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).job_enqueued_at"
+êê(*
+éé'2½?Ç?8@2Mcontextcontext "#running?" do"
+îî
+*
+íí	2“@š@8@2gtest3test "returns false if there isn't a job status" do"
+ïï	*
+îî2®@²@8@2W
+assert_nilassert_nil @status.job_status"
+ğğ*
+ïï2è@ò@8@2W
+job_statusassert_nil @status.job_status"
+ğğ$*
+ïï#2û@…A8@2crefute_predicate#refute_predicate @status, :running?"
+ññ*
+ğğ2ŒAœA8@2rtest>test "returns true if the job status is pending or running" do"
+ôô	*
+óó2½AÁA8@2Screatejob_status = JobStatus.create"
+öö$*
+õõ#2šB B8@2V	JobStatusjob_status = JobStatus.create"
+öö*
+õõ2B™B8@2bjob_status_id%@status.job_status_id = job_status.id"
+÷÷*
+öö2¯B¼B8@2Wid%@status.job_status_id = job_status.id"
+÷*÷,*
+ö)ö+2ÊBÌB8@2nassert_predicate.assert_predicate @status.job_status, :pending?"
+ùù*
+øø2ÔBäB8@2h
+job_status.assert_predicate @status.job_status, :pending?"
+ù ù**
+øø)2íB÷B8@2cassert_predicate#assert_predicate @status, :running?"
+úú*
+ùù2‰C™C8@2Sstarted!@status.job_status.started!"
+üü"*
+ûû!2ÇCÏC8@2U
+job_status@status.job_status.started!"
+üü*
+ûû2¼CÆC8@2nassert_predicate.assert_predicate @status.job_status, :started?"
+ıı*
+üü2ÖCæC8@2h
+job_status.assert_predicate @status.job_status, :started?"
+ı ı**
+üü)2ïCùC8@2cassert_predicate#assert_predicate @status, :running?"
+şş*
+ıı2‹D›D8@2itest5test "returns false if the job status is finished" do"
+	*
+€€2¼DÀD8@2Screatejob_status = JobStatus.create"
+‚‚$*
+#2E•E8@2V	JobStatusjob_status = JobStatus.create"
+‚‚*
+2…EE8@2bjob_status_id%@status.job_status_id = job_status.id"
+ƒƒ*
+‚‚2¤E±E8@2Wid%@status.job_status_id = job_status.id"
+ƒ*ƒ,*
+‚)‚+2¿EÁE8@2Ssuccess!@status.job_status.success!"
+……"*
+„„!2ÜEäE8@2U
+job_status@status.job_status.success!"
+……*
+„„2ÑEÛE8@2nassert_predicate.assert_predicate @status.job_status, :success?"
+††*
+……2ëEûE8@2h
+job_status.assert_predicate @status.job_status, :success?"
+† †**
+……)2„FF8@2crefute_predicate#refute_predicate @status, :running?"
+‡‡*
+††2 F°F8@2Oerror!@status.job_status.error!"
+‰‰ *
+ˆˆ2ŞFäF8@2S
+job_status@status.job_status.error!"
+‰‰*
+ˆˆ2ÓFİF8@2lassert_predicate,assert_predicate @status.job_status, :error?"
+ŠŠ*
+‰‰2ëFûF8@2f
+job_status,assert_predicate @status.job_status, :error?"
+Š Š**
+‰‰)2„GG8@2crefute_predicate#refute_predicate @status, :running?"
+‹‹*
+ŠŠ2G®G8@2ktest7test "sets the job status' ttl if it is unspecified" do"
+	*
+2ÏGÓG8@2Screatejob_status = JobStatus.create"
+$*
+#2¤HªH8@2V	JobStatusjob_status = JobStatus.create"
+*
+2šH£H8@2bjob_status_id%@status.job_status_id = job_status.id"
+‘‘*
+2ºHÇH8@2Wid%@status.job_status_id = job_status.id"
+‘*‘,*
+)+2ÕH×H8@2oassert_equal3assert_equal JobStatus::DEFAULT_TTL, job_status.ttl"
+““*
+’’2ßHëH8@2nDEFAULT_TTL3assert_equal JobStatus::DEFAULT_TTL, job_status.ttl"
+““**
+’’)2ìH‚I8@2l	JobStatus3assert_equal JobStatus::DEFAULT_TTL, job_status.ttl"
+““*
+’’2ìHõH8@2fttl3assert_equal JobStatus::DEFAULT_TTL, job_status.ttl"
+“7“:*
+’6’92I’I8@2cassert_predicate#assert_predicate @status, :running?"
+””*
+““2™I©I8@2`find!+job_status = JobStatus.find!(job_status.id)"
+––#*
+••"2ÛIàI8@2]id+job_status = JobStatus.find!(job_status.id)"
+–/–1*
+•.•02ìIîI8@2d	JobStatus+job_status = JobStatus.find!(job_status.id)"
+––*
+••2ÑIÚI8@2Œassert_equalPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+——*
+––2öI‚J8@2JOB_STATUS_TTLPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+——G*
+––F2ƒJ¶J8@2—ContributionGraphStatusPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+——7*
+––62ƒJ¦J8@2Š
+RepositoryPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+——*
+––2ƒJJ8@2ƒttlPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+—T—W*
+–S–V2ÃJÆJ8@2Mcontextcontext "#current?" do"
+››
+*
+šš	2ØJßJ8@2utestAtest "returns false if repo graph data has never been indexed" do"
+œœ	*
+››2óJ÷J8@2_build*status = build(:contribution_graph_status)"
+*
+œœ2ÄKÉK8@2brefute_predicate"refute_predicate status, :current?"
+*
+2ìKüK8@2qtest=test "returns false if the repo graph data is out of date" do"
+¡¡	*
+  2œL L8@2ƒupdate!L@status.update! last_indexed_oid: "2c6363c328126bdee83e9f8dd55ad1db3a2aa160""
+¢¢*
+¡¡2èLïL8@2crefute_predicate#refute_predicate @status, :current?"
+¤¤*
+££2´MÄM8@2ltest8test "returns true if the repo graph data is current" do"
+§§	*
+¦¦2åMéM8@2wupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+¨¨*
+§§2¬N³N8@2{default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+¨<¨G*
+§;§F2ÙNäN8@2z
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+¨1¨;*
+§0§:2ÎNØN8@2cassert_predicate#assert_predicate @status, :current?"
+©©*
+¨¨2ëNûN8@2Xcontext!context "#enqueue_metrics_job" do"
+­­
+*
+¬¬	2 O§O8@2ktest7test "does nothing if the status is already current" do"
+®®	*
+­­2ÆOÊO8@2wupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+¯¯*
+®®2ŒP“P8@2{default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+¯<¯G*
+®;®F2¹PÄP8@2z
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+¯1¯;*
+®0®:2®P¸P8@2cassert_predicate#assert_predicate @status, :current?"
+°°*
+¯¯2ËPÛP8@2snever>RepositoryContributionMetricsJob.expects(:perform_later).never"
+²@²E*
+±?±D2¯Q´Q8@2uexpects>RepositoryContributionMetricsJob.expects(:perform_later).never"
+²(²/*
+±'±.2—QQ8@2 RepositoryContributionMetricsJob>RepositoryContributionMetricsJob.expects(:perform_later).never"
+²²'*
+±±&2öP–Q8@2`
+assert_nil&assert_nil @status.enqueue_metrics_job"
+´´*
+³³2¼QÆQ8@2ienqueue_metrics_job&assert_nil @status.enqueue_metrics_job"
+´´-*
+³³,2ÏQâQ8@2ptest<test "does nothing if the metrics job is already running" do"
+··	*
+¶¶2ğQôQ8@2Screatejob_status = JobStatus.create"
+¸¸$*
+··#2ÊRĞR8@2V	JobStatusjob_status = JobStatus.create"
+¸¸*
+··2ÀRÉR8@2bjob_status_id%@status.job_status_id = job_status.id"
+¹¹*
+¸¸2ßRìR8@2Wid%@status.job_status_id = job_status.id"
+¹*¹,*
+¸)¸+2úRüR8@2Sstarted!@status.job_status.started!"
+ºº"*
+¹¹!2–SS8@2U
+job_status@status.job_status.started!"
+ºº*
+¹¹2‹S•S8@2crefute_predicate#refute_predicate @status, :current?"
+¼¼*
+»»2¦S¶S8@2cassert_predicate#assert_predicate @status, :running?"
+½½*
+¼¼2ĞSàS8@2snever>RepositoryContributionMetricsJob.expects(:perform_later).never"
+¿@¿E*
+¾?¾D2´T¹T8@2uexpects>RepositoryContributionMetricsJob.expects(:perform_later).never"
+¿(¿/*
+¾'¾.2œT£T8@2 RepositoryContributionMetricsJob>RepositoryContributionMetricsJob.expects(:perform_later).never"
+¿¿'*
+¾¾&2ûS›T8@2`
+assert_nil&assert_nil @status.enqueue_metrics_job"
+ÁÁ*
+ÀÀ2ÁTËT8@2ienqueue_metrics_job&assert_nil @status.enqueue_metrics_job"
+ÁÁ-*
+ÀÀ,2ÔTçT8@2xtestDtest "creates a JobStatus and returns its ID to track job status" do"
+ÄÄ	*
+ÃÃ2õTùT8@2Z
+assert_nil assert_nil @status.job_status_id"
+ÅÅ*
+ÄÄ2ÀUÊU8@2]job_status_id assert_nil @status.job_status_id"
+ÅÅ'*
+ÄÄ&2ÓUàU8@2hassert2assert job_status_id = @status.enqueue_metrics_job"
+ÇÇ*
+ÆÆ2èUîU8@2uenqueue_metrics_job2assert job_status_id = @status.enqueue_metrics_job"
+Ç&Ç9*
+Æ%Æ82‡VšV8@2massert_equal1assert_equal job_status_id, @status.job_status_id"
+ÈÈ*
+ÇÇ2¡V­V8@2njob_status_id1assert_equal job_status_id, @status.job_status_id"
+È+È8*
+Ç*Ç72ÅVÒV8@2^find*job_status = JobStatus.find(job_status_id)"
+ÊÊ"*
+ÉÉ!2ñVõV8@2c	JobStatus*job_status = JobStatus.find(job_status_id)"
+ÊÊ*
+ÉÉ2çVğV8@2nassert8assert job_status, "expected a job status to be created""
+ËË*
+ÊÊ2‹W‘W8@2Œassert_equalPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+ÍÍ*
+ÌÌ2ËW×W8@2JOB_STATUS_TTLPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+ÍÍG*
+ÌÌF2ØW‹X8@2—ContributionGraphStatusPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+ÍÍ7*
+ÌÌ62ØWûW8@2Š
+RepositoryPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+ÍÍ*
+ÌÌ2ØWâW8@2ƒttlPassert_equal Repository::ContributionGraphStatus::JOB_STATUS_TTL, job_status.ttl"
+ÍTÍW*
+ÌSÌV2˜X›X8@2`test,test "enqueues a job to generate metrics" do"
+ĞĞ	*
+ÏÏ2©X­X8@2“with_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+Ò	Ò*
+ÑÑ2Y¢Y8@2šdefault_oid_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+Ò\Òg*
+Ñ[Ñf2ñYüY8@2™
+repository_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+ÒQÒ[*
+ÑPÑZ2æYğY8@2pexpects9RepositoryContributionMetricsJob.expects(:perform_later)."
+Ñ(Ñ/*
+Ğ'Ğ.2ıX„Y8@2‰ RepositoryContributionMetricsJob9RepositoryContributionMetricsJob.expects(:perform_later)."
+ÑÑ'*
+ĞĞ&2ÜXüX8@2Xassert"assert @status.enqueue_metrics_job"
+ÔÔ*
+ÓÓ2…Z‹Z8@2eenqueue_metrics_job"assert @status.enqueue_metrics_job"
+ÔÔ)*
+ÓÓ(2”Z§Z8@2`context)context "#enqueue_rebuild_metrics_job" do"
+ØØ
+*
+××	2¹ZÀZ8@2ptest<test "does nothing if the metrics job is already running" do"
+ÙÙ	*
+ØØ2çZëZ8@2Screatejob_status = JobStatus.create"
+ÚÚ$*
+ÙÙ#2Á[Ç[8@2V	JobStatusjob_status = JobStatus.create"
+ÚÚ*
+ÙÙ2·[À[8@2bjob_status_id%@status.job_status_id = job_status.id"
+ÛÛ*
+ÚÚ2Ö[ã[8@2Wid%@status.job_status_id = job_status.id"
+Û*Û,*
+Ú)Ú+2ñ[ó[8@2Sstarted!@status.job_status.started!"
+ÜÜ"*
+ÛÛ!2\•\8@2U
+job_status@status.job_status.started!"
+ÜÜ*
+ÛÛ2‚\Œ\8@2cassert_predicate#assert_predicate @status, :running?"
+ŞŞ*
+İİ2\­\8@2snever>RepositoryContributionMetricsJob.expects(:perform_later).never"
+à@àE*
+ß?ßD2]†]8@2uexpects>RepositoryContributionMetricsJob.expects(:perform_later).never"
+à(à/*
+ß'ß.2é\ğ\8@2 RepositoryContributionMetricsJob>RepositoryContributionMetricsJob.expects(:perform_later).never"
+àà'*
+ßß&2È\è\8@2h
+assert_nil.assert_nil @status.enqueue_rebuild_metrics_job"
+ââ*
+áá2]˜]8@2yenqueue_rebuild_metrics_job.assert_nil @status.enqueue_rebuild_metrics_job"
+ââ5*
+áá42¡]¼]8@2xtestDtest "creates a JobStatus and returns its ID to track job status" do"
+åå	*
+ää2Ê]Î]8@2Z
+assert_nil assert_nil @status.job_status_id"
+ææ*
+åå2•^Ÿ^8@2]job_status_id assert_nil @status.job_status_id"
+ææ'*
+åå&2¨^µ^8@2passert:assert job_status_id = @status.enqueue_rebuild_metrics_job"
+èè*
+çç2½^Ã^8@2…enqueue_rebuild_metrics_job:assert job_status_id = @status.enqueue_rebuild_metrics_job"
+è&èA*
+ç%ç@2Ü^÷^8@2massert_equal1assert_equal job_status_id, @status.job_status_id"
+éé*
+èè2ş^Š_8@2njob_status_id1assert_equal job_status_id, @status.job_status_id"
+é+é8*
+è*è72¢_¯_8@2assertKassert JobStatus.find(job_status_id), "expected a job status to be created""
+êê*
+éé2¶_¼_8@2findKassert JobStatus.find(job_status_id), "expected a job status to be created""
+êê*
+éé2Ç_Ë_8@2„	JobStatusKassert JobStatus.find(job_status_id), "expected a job status to be created""
+êê*
+éé2½_Æ_8@2Utest!test "clears last_indexed_oid" do"
+íí	*
+ìì2`“`8@2wupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+îî*
+íí2¿`Æ`8@2{default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+î<îG*
+í;íF2ì`÷`8@2z
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+î1î;*
+í0í:2á`ë`8@2`assert*assert @status.enqueue_rebuild_metrics_job"
+ğğ*
+ïï2ÿ`…a8@2uenqueue_rebuild_metrics_job*assert @status.enqueue_rebuild_metrics_job"
+ğğ1*
+ïï02a©a8@2d
+assert_nil*assert_nil @status.reload.last_indexed_oid"
+ññ*
+ğğ2°aºa8@2jlast_indexed_oid*assert_nil @status.reload.last_indexed_oid"
+ñ!ñ1*
+ğ ğ02ÊaÚa8@2`reload*assert_nil @status.reload.last_indexed_oid"
+ññ *
+ğğ2ÃaÉa8@2_test+test "enqueues a job to rebuild metrics" do"
+ôô	*
+óó2èaìa8@2wupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+õõ*
+ôô2¢b©b8@2{default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+õ<õG*
+ô;ôF2ÏbÚb8@2z
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+õ1õ;*
+ô0ô:2ÄbÎb8@2“with_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+ø	ø*
+÷÷2¤c¨c8@2šdefault_oid_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+ø\øg*
+÷[÷f2÷c‚d8@2™
+repository_with(contribution_graph_status: @status, from_oid: nil, to_oid: @status.repository.default_oid)"
+øQø[*
+÷P÷Z2ìcöc8@2pexpects9RepositoryContributionMetricsJob.expects(:perform_later)."
+÷(÷/*
+ö'ö.2ƒcŠc8@2‰ RepositoryContributionMetricsJob9RepositoryContributionMetricsJob.expects(:perform_later)."
+÷÷'*
+öö&2âb‚c8@2`assert*assert @status.enqueue_rebuild_metrics_job"
+úú*
+ùù2‹d‘d8@2uenqueue_rebuild_metrics_job*assert @status.enqueue_rebuild_metrics_job"
+úú1*
+ùù02šdµd8@2Ucontextcontext "#generate_metrics" do"
+şş
+*
+ıı	2ÇdÎd8@2gtest3test "publishes contribution metrics to Eventer" do"
+ÿÿ	*
+şş2êdîd8@2sreturns<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€€&*
+ÿÿ%2¼eÃe8@2onew<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€?€B*
+ÿ>ÿA2Üeße8@2{MemoryDogstatsD<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€'€>*
+ÿ&ÿ=2ÄeÛe8@2rGitHub<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€'€-*
+ÿ&ÿ,2ÄeÊe8@2qstubs<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€€*
+ÿÿ2«e°e8@2rGitHub<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+€€*
+ÿÿ2¤eªe8@2QstubsEventer::Event.stubs(:track)"
+*
+€€2öeûe8@2QEventEventer::Event.stubs(:track)"
+*
+€€2çeõe8@2SEventerEventer::Event.stubs(:track)"
+*
+€€2çeîe8@2aassert_metrics_publishedassert_metrics_published("
+‚‚*
+2Šf¢f8@2aassert_metrics_publishedassert_metrics_published("
+‡‡*
+††2§g¿g8@2aassert_metrics_publishedassert_metrics_published("
+ŒŒ*
+‹‹2¾hÖh8@2generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+’’*
+‘‘2àiği8@2Šdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+’J’U*
+‘I‘T2›j¦j8@2‰
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+’?’I*
+‘>‘H2jšj8@2assert_timingSassert_timing("repographs.generate_metrics.fetch_from_git", tags: ["subset:false"])"
+““*
+’’2®j»j8@2”assert_timingWassert_timing("repographs.generate_metrics.publish_to_eventer", tags: ["subset:false"])"
+””*
+““2ˆk•k8@2stest?test "does not publish metrics with a value of 0 to Eventer" do"
+——	*
+––2íkñk8@2›neverfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜h˜m*
+—g—l2”m™m8@2šwithfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜&˜**
+—%—)2ÒlÖl8@2Ÿ	ADDITIONSfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜+˜P*
+—*—O2×lül8@2EventerfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜+˜E*
+—*—D2×lñl8@2Ÿ	RepoGraphfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜+˜<*
+—*—;2×lèl8@2œGitHubfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜+˜1*
+—*—02×lİl8@2Ÿ	has_entryfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜R˜[*
+—Q—Z2şl‡m8@2expectsfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜˜*
+——2ÂlÉl8@2›EventfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜˜*
+——2³lÁl8@2EventerfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::ADDITIONS, has_entry(:delta, 0)).never"
+˜˜*
+——2³lºl8@2›neverfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™h™m*
+˜g˜l2n†n8@2šwithfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™&™**
+˜%˜)2¿mÃm8@2Ÿ	DELETIONSfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™+™P*
+˜*˜O2Ämém8@2EventerfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™+™E*
+˜*˜D2ÄmŞm8@2Ÿ	RepoGraphfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™+™<*
+˜*˜;2ÄmÕm8@2œGitHubfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™+™1*
+˜*˜02ÄmÊm8@2Ÿ	has_entryfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™R™[*
+˜Q˜Z2ëmôm8@2expectsfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™™*
+˜˜2¯m¶m8@2›EventfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™™*
+˜˜2 m®m8@2EventerfEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::DELETIONS, has_entry(:delta, 0)).never"
+™™*
+˜˜2 m§m8@2“at_least_onceVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+ŸPŸ]*
+O\2îpûp8@2ŠwithVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+Ÿ&Ÿ**
+%)2ÄpÈp8@2anythingVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+Ÿ+Ÿ3*
+*22ÉpÑp8@2‰NotVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+Ÿ5Ÿ8*
+472ÓpÖp8@2	has_entryVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+Ÿ9ŸB*
+8A2×pàp8@2expectsVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+ŸŸ*
+2´p»p8@2‹EventVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+ŸŸ*
+2¥p³p8@2EventerVEventer::Event.expects(:track).with(anything, Not(has_entry(:delta, 0))).at_least_once"
+ŸŸ*
+2¥p¬p8@2generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¡¡*
+  2‹q›q8@2Šdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¡J¡U*
+ I T2ÆqÑq8@2‰
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¡?¡I*
+ > H2»qÅq8@2ftest2test "handles author emails with invalid utf-8" do"
+¤¤	*
+££2àqäq8@2returnsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¥H¥O*
+¤G¤N2Úrár8@2˜bg{author: "\xF0\xA4\xAD\xE2@example.org".b, date: "2012-02-03", commits: 2, additions: 2, deletions: 2},"
+§1§2*
+¦0¦12ös÷s8@2expectsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¥¥%*
+¤¤$2°r·r8@2}rpcJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¥¥*
+¤¤2¬r¯r8@2„
+repositoryJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¥¥*
+¤¤2¡r«r8@2QstubsEventer::Event.stubs(:track)"
+©©*
+¨¨2ÔtÙt8@2QEventEventer::Event.stubs(:track)"
+©©*
+¨¨2ÅtÓt8@2SEventerEventer::Event.stubs(:track)"
+©©*
+¨¨2ÅtÌt8@2aassert_metrics_publishedassert_metrics_published("
+ªª*
+©©2èt€u8@2aassert_metrics_publishedassert_metrics_published("
+¯¯*
+®®2şu–v8@2generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+µµ*
+´´2 w°w8@2Šdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+µJµU*
+´I´T2Ûwæw8@2‰
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+µ?µI*
+´>´H2ĞwÚw8@2ztestFtest "normalizes stealth email addresses before sending to Eventer" do"
+¸¸	*
+··2õwùw8@2returnsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¹H¹O*
+¸G¸N2ƒyŠy8@2¾stealth_email_host_namew{author: "42+defunkt@#{ GitHub.stealth_email_host_name }", date: "2012-02-03", commits: 2, additions: 2, deletions: 2},"
+»(»?*
+º'º>2¢z¹z8@2­GitHubw{author: "42+defunkt@#{ GitHub.stealth_email_host_name }", date: "2012-02-03", commits: 2, additions: 2, deletions: 2},"
+»!»'*
+º º&2›z¡z8@2expectsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¹¹%*
+¸¸$2Ùxàx8@2}rpcJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¹¹*
+¸¸2ÕxØx8@2„
+repositoryJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+¹¹*
+¸¸2ÊxÔx8@2QstubsEventer::Event.stubs(:track)"
+½½*
+¼¼2™{{8@2QEventEventer::Event.stubs(:track)"
+½½*
+¼¼2Š{˜{8@2SEventerEventer::Event.stubs(:track)"
+½½*
+¼¼2Š{‘{8@2aassert_metrics_publishedassert_metrics_published("
+¾¾*
+½½2­{Å{8@2aassert_metrics_publishedassert_metrics_published("
+ÃÃ*
+ÂÂ2Ğ|è|8@2stealth_email_host_name:author: "42+username@#{ GitHub.stealth_email_host_name }","
+Å(Å?*
+Ä'Ä>2­}Ä}8@2pGitHub:author: "42+username@#{ GitHub.stealth_email_host_name }","
+Å!Å'*
+Ä Ä&2¦}¬}8@2generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+ÉÉ*
+ÈÈ2~Ÿ~8@2Šdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+ÉJÉU*
+ÈIÈT2Ê~Õ~8@2‰
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+É?ÉI*
+È>ÈH2¿~É~8@2Ptesttest "ignores co-authors" do"
+ÌÌ	*
+ËË2ä~è~8@2dcreate.user_a = create(:user, email: "a@example.org")"
+ÍÍ*
+ÌÌ2–8@2dcreate.user_b = create(:user, email: "b@example.org")"
+ÎÎ*
+ÍÍ2ÅË8@2kfreeze4Timecop.freeze(Time.parse("2019-03-22 12:00:00")) do"
+ĞĞ*
+ÏÏ2ú€€8@2kparse4Timecop.freeze(Time.parse("2019-03-22 12:00:00")) do"
+ĞĞ *
+ÏÏ2†€‹€8@2jTime4Timecop.freeze(Time.parse("2019-03-22 12:00:00")) do"
+ĞĞ*
+ÏÏ2€…€8@2U
+repositoryrepo = @status.repository"
+ÑÑ"*
+ĞĞ!2¾€È€8@2Ëappend_commit‹repo.default_branch_ref.append_commit({ author: user_a, message: "Pairing 1\n\nCo-authored-by: B <b@example.org>" }, repo.owner) do |files|"
+Ò!Ò.*
+Ñ Ñ-2é€ö€8@2Çowner‹repo.default_branch_ref.append_commit({ author: user_a, message: "Pairing 1\n\nCo-authored-by: B <b@example.org>" }, repo.owner) do |files|"
+ÒƒÒˆ*
+Ñ‚Ñ‡2ËĞ8@2Xadd#files.add "pairing.txt", "line 1\n""
+ÓÓ*
+ÒÒ2íğ8@2Ğdefault_branch_ref‹repo.default_branch_ref.append_commit({ author: user_a, message: "Pairing 1\n\nCo-authored-by: B <b@example.org>" }, repo.owner) do |files|"
+ÒÒ *
+ÑÑ2Ö€è€8@2Ëappend_commit‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 2\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+Õ!Õ.*
+Ô Ô-2·‚Ä‚8@2Çowner‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 2\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+ÕƒÕˆ*
+Ô‚Ô‡2™ƒƒ8@2^add)files.add "pairing.txt", "line 1\nline 2""
+ÖÖ*
+ÕÕ2»ƒ¾ƒ8@2Ğdefault_branch_ref‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 2\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+ÕÕ *
+ÔÔ2¤‚¶‚8@2Ëappend_commit‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 3\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+Ø!Ø.*
+× ×-2‹„˜„8@2Çowner‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 3\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+ØƒØˆ*
+×‚×‡2í„ò„8@2^add)files.add "pairing.txt", "line 1\nline 3""
+ÙÙ*
+ØØ2…’…8@2Ğdefault_branch_ref‹repo.default_branch_ref.append_commit({ author: user_b, message: "Pairing 3\n\nCo-authored-by: A <a@example.org>" }, repo.owner) do |files|"
+ØØ *
+××2øƒŠ„8@2kTimecop4Timecop.freeze(Time.parse("2019-03-22 12:00:00")) do"
+ĞĞ*
+ÏÏ2òù8@2SstubsEventer::Event.stubs(:track)"
+İİ*
+ÜÜ2ß…ä…8@2SEventEventer::Event.stubs(:track)"
+İİ*
+ÜÜ2Ğ…Ş…8@2UEventerEventer::Event.stubs(:track)"
+İİ*
+ÜÜ2Ğ…×…8@2cassert_metrics_publishedassert_metrics_published("
+ŞŞ*
+İİ2ó…‹†8@2cassert_metrics_publishedassert_metrics_published("
+ää*
+ãã2ˆ‡ ‡8@2‘generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+êê*
+éé2¥ˆµˆ8@2Œdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+êJêU*
+éIéT2àˆëˆ8@2‹
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+ê?êI*
+é>éH2Õˆßˆ8@2ƒtestMtest "ignores deltas occuring before the first week after the linux epoch" do"
+íí	*
+ìì2úˆşˆ8@2ƒreturnsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+ïHïO*
+îGîN2¾ŠÅŠ8@2ƒexpectsJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+ïï%*
+îî$2”Š›Š8@2rpcJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+ïï*
+îî2Š“Š8@2†
+repositoryJ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).returns(["
+ïï*
+îî2…ŠŠ8@2”never]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+ö_öd*
+õ^õc2ÎÓ8@2“with]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+ö&ö**
+õ%õ)2•™8@2—anything]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+ö+ö3*
+õ*õ22š¢8@2˜	has_entry]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+ö5ö>*
+õ4õ=2¤­8@2–expects]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+öö*
+õõ2…Œ8@2”Event]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+öö*
+õõ2ö„8@2–Eventer]Eventer::Event.expects(:track).with(anything, has_entry(:tag, "pre-epoch@example.org")).never"
+öö*
+õõ2öı8@2½times…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷`÷e*
+ö_öd2³¸8@2¼with…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷&÷**
+ö%ö)2ùı8@2Àanything…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷+÷3*
+ö*ö22ş†8@2Á	has_entry…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷5÷>*
+ö4ö=2ˆ‘8@2¿expects…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷÷*
+öö2éğ8@2½Event…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷÷*
+öö2Úè8@2¿Eventer…Eventer::Event.expects(:track).with(anything, has_entry(:tag, "post-epoch@example.org")).times(6) # 2 x commits, additions, deletions"
+÷÷*
+öö2Úá8@2onceWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+øZø^*
+÷Y÷]2¹½8@2withWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+ø&ø**
+÷%÷)2…‰8@2INDEXEDWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+ø+øN*
+÷*÷M2Š­8@2EventerWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+ø+øE*
+÷*÷D2Š¤8@2’	RepoGraphWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+ø+ø<*
+÷*÷;2Š›8@2GitHubWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+ø+ø1*
+÷*÷02Š8@2‘anythingWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+øPøX*
+÷O÷W2¯·8@2expectsWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+øø*
+÷÷2õü8@2EventWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+øø*
+÷÷2æô8@2EventerWEventer::Event.expects(:track).with(GitHub::RepoGraph::Eventer::INDEXED, anything).once"
+øø*
+÷÷2æí8@2‘generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+úú*
+ùù2Íİ8@2Œdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+úJúU*
+ùIùT2ˆ‘“‘8@2‹
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+ú?úI*
+ù>ùH2ı‡‘8@2xtestBtest "clears all existing metrics when generating from scratch" do"
+ıı	*
+üü2¢‘¦‘8@2Àwith‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+ş0ş4*
+ı/ı32”’˜’8@2Å	ADDITIONS‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şAşf*
+ı@ıe2¥’Ê’8@2ÃEventer‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şAş[*
+ı@ıZ2¥’¿’8@2Å	RepoGraph‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şAşR*
+ı@ıQ2¥’¶’8@2ÂGitHub‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şAşG*
+ı@ıF2¥’«’8@2È
+repository‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şwş*
+ıvı€2Û’å’8@2Ãexpects‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şş*
+ıı2ú‘’8@2ÁEvent‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şş*
+ıı2ë‘ù‘8@2ÃEventer‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::ADDITIONS, owner: @status.repository, async: false)"
+şş*
+ıı2ë‘ò‘8@2Àwith‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿ0ÿ4*
+ş/ş32¤“¨“8@2Å	DELETIONS‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿAÿf*
+ş@şe2µ“Ú“8@2ÃEventer‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿAÿ[*
+ş@şZ2µ“Ï“8@2Å	RepoGraph‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿAÿR*
+ş@şQ2µ“Æ“8@2ÂGitHub‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿAÿG*
+ş@şF2µ“»“8@2È
+repository‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿwÿ*
+şvş€2ë“õ“8@2Ãexpects‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿÿ*
+şş2Š“‘“8@2ÁEvent‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿÿ*
+şş2û’‰“8@2ÃEventer‰Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::DELETIONS, owner: @status.repository, async: false)"
+ÿÿ*
+şş2û’‚“8@2¾with‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€0€4*
+ÿ/ÿ32´”¸”8@2ÁCOMMITS‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€A€d*
+ÿ@ÿc2Å”è”8@2ÁEventer‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€A€[*
+ÿ@ÿZ2Å”ß”8@2Ã	RepoGraph‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€A€R*
+ÿ@ÿQ2Å”Ö”8@2ÀGitHub‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€A€G*
+ÿ@ÿF2Å”Ë”8@2Ä
+repository‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€u€*
+ÿtÿ~2ù”ƒ•8@2Áexpects‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€€*
+ÿÿ2š”¡”8@2¿Event‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€€*
+ÿÿ2‹”™”8@2ÁEventer‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::COMMITS, owner: @status.repository, async: false)"
+€€*
+ÿÿ2‹”’”8@2¾with‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+04*
+€/€32Â•Æ•8@2ÁINDEXED‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+Ad*
+€@€c2Ó•ö•8@2ÁEventer‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+A[*
+€@€Z2Ó•í•8@2Ã	RepoGraph‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+AR*
+€@€Q2Ó•ä•8@2ÀGitHub‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+AG*
+€@€F2Ó•Ù•8@2Ä
+repository‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+u*
+€t€~2‡–‘–8@2Áexpects‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+*
+€€2¨•¯•8@2¿Event‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+*
+€€2™•§•8@2ÁEventer‡Eventer::Event.expects(:delete_counters).with(event_name: GitHub::RepoGraph::Eventer::INDEXED, owner: @status.repository, async: false)"
+*
+€€2™• •8@2‘generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+„„*
+ƒƒ2±–Á–8@2Œdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+„J„U*
+ƒIƒT2ì–÷–8@2‹
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+„?„I*
+ƒ>ƒH2á–ë–8@2testKtest "does NOT clear existing metrics when generating from last indexed" do"
+‡‡	*
+††2†—Š—8@2enever.Eventer::Event.expects(:delete_counters).never"
+ˆ0ˆ5*
+‡/‡42˜†˜8@2gexpects.Eventer::Event.expects(:delete_counters).never"
+ˆˆ*
+‡‡2ç—î—8@2eEvent.Eventer::Event.expects(:delete_counters).never"
+ˆˆ*
+‡‡2Ø—æ—8@2gEventer.Eventer::Event.expects(:delete_counters).never"
+ˆˆ*
+‡‡2Ø—ß—8@2¹generate_metricsw@status.generate_metrics(from_oid:  "2c6363c328126bdee83e9f8dd55ad1db3a2aa160", to_oid: @status.repository.default_oid)"
+ŠŠ*
+‰‰2–˜¦˜8@2´default_oidw@status.generate_metrics(from_oid:  "2c6363c328126bdee83e9f8dd55ad1db3a2aa160", to_oid: @status.repository.default_oid)"
+ŠrŠ}*
+‰q‰|2ù˜„™8@2³
+repositoryw@status.generate_metrics(from_oid:  "2c6363c328126bdee83e9f8dd55ad1db3a2aa160", to_oid: @status.repository.default_oid)"
+ŠgŠq*
+‰f‰p2î˜ø˜8@2€testJtest "re-generates metrics from scratch if previous OID does not exist" do"
+	*
+ŒŒ2“™—™8@2kwith5@status.expects(:update!).with(last_indexed_oid: nil)"
+!%*
+ $2ş™‚š8@2nexpects5@status.expects(:update!).with(last_indexed_oid: nil)"
+*
+2ì™ó™8@2İraises @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+Š*
+‰2£›©›8@2äObjectMissing @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+‘¦*
+¥2ª›¿›8@2İGitRPC @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+‘—*
+–2ª›°›8@2×with @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+HL*
+GK2ášåš8@2àdefault_oid @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+}ˆ*
+|‡2–›¡›8@2İ
+repository @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+r|*
+q{2‹›•›8@2Úexpects @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+%*
+$2·š¾š8@2Örpc @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+*
+2³š¶š8@2İ
+repository @status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: "CAFE"*10, to_oid: @status.repository.default_oid).raises(GitRPC::ObjectMissing)"
+*
+2¨š²š8@2Æreturnsˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+„‹*
+ƒŠ2ÄœËœ8@2¿withˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+HL*
+GK2ˆœŒœ8@2Èdefault_oidˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+w‚*
+v2·œÂœ8@2Å
+repositoryˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+lv*
+ku2¬œ¶œ8@2Âexpectsˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+%*
+$2Ş›å›8@2¾rpcˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+*
+2Ú›İ›8@2Å
+repositoryˆ@status.repository.rpc.expects(:gh_graph_data_by_day_and_author).with(from_oid: nil, to_oid: @status.repository.default_oid).returns([])"
+*
+2Ï›Ù›8@2˜generate_metricsV@status.generate_metrics(from_oid:  "CAFE"*10, to_oid: @status.repository.default_oid)"
+’’*
+‘‘2ßœïœ8@2“default_oidV@status.generate_metrics(from_oid:  "CAFE"*10, to_oid: @status.repository.default_oid)"
+’Q’\*
+‘P‘[2¡¬8@2’
+repositoryV@status.generate_metrics(from_oid:  "CAFE"*10, to_oid: @status.repository.default_oid)"
+’F’P*
+‘E‘O2– 8@2Ztest$test "publishes an indexed event" do"
+••	*
+””2»¿8@2SstubsEventer::Event.stubs(:track)"
+––*
+••2õú8@2SEventEventer::Event.stubs(:track)"
+––*
+••2æô8@2UEventerEventer::Event.stubs(:track)"
+––*
+••2æí8@2Zwith$Eventer::Event.expects(:track).with("
+—&—**
+–%–)2¨¬8@2]INDEXED$GitHub::RepoGraph::Eventer::INDEXED,"
+˜	˜,*
+——+2¶Ù8@2]Eventer$GitHub::RepoGraph::Eventer::INDEXED,"
+˜	˜#*
+——"2¶Ğ8@2_	RepoGraph$GitHub::RepoGraph::Eventer::INDEXED,"
+˜	˜*
+——2¶Ç8@2\GitHub$GitHub::RepoGraph::Eventer::INDEXED,"
+˜	˜*
+——2¶¼8@2V
+repositoryowner: @status.repository,"
+™™"*
+˜˜!2òü8@2adefault_oid$tag: @status.repository.default_oid,"
+š!š,*
+™ ™+2Ÿ©Ÿ8@2`
+repository$tag: @status.repository.default_oid,"
+šš *
+™™2“ŸŸ8@2]expects$Eventer::Event.expects(:track).with("
+——*
+––2˜Ÿ8@2[Event$Eventer::Event.expects(:track).with("
+——*
+––2‰—8@2]Eventer$Eventer::Event.expects(:track).with("
+——*
+––2‰8@2‘generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+*
+2ØŸèŸ8@2Œdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+JU*
+IT2“  8@2‹
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+?I*
+>H2ˆ ’ 8@2btest,test "tracks the last indexed commit OID" do"
+¡¡	*
+  2­ ± 8@2_
+assert_nil#assert_nil @status.last_indexed_oid"
+¢¢*
+¡¡2à ê 8@2elast_indexed_oid#assert_nil @status.last_indexed_oid"
+¢¢**
+¡¡)2ó ƒ¡8@2‘generate_metricsO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¤¤*
+££2“¡£¡8@2Œdefault_oidO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¤J¤U*
+£I£T2Î¡Ù¡8@2‹
+repositoryO@status.generate_metrics(from_oid: nil, to_oid: @status.repository.default_oid)"
+¤?¤I*
+£>£H2Ã¡Í¡8@2ƒassert_equalEassert_equal @status.repository.default_oid, @status.last_indexed_oid"
+¦¦*
+¥¥2â¡î¡8@2‚default_oidEassert_equal @status.repository.default_oid, @status.last_indexed_oid"
+¦'¦2*
+¥&¥12‚¢¢8@2
+repositoryEassert_equal @status.repository.default_oid, @status.last_indexed_oid"
+¦¦&*
+¥¥%2÷¡¢8@2‡last_indexed_oidEassert_equal @status.repository.default_oid, @status.last_indexed_oid"
+¦<¦L*
+¥;¥K2—¢§¢8@2^context%context "#update_top_contributors" do"
+ªª
+*
+©©	2¹¢À¢8@2mtest7test "saves the top contributors for the repository" do"
+««	*
+ªª2ã¢ç¢8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+¬¬*
+««2¦£¬£8@2icreate1octo = create(:user, email: "octocat@github.com")"
+­­*
+¬¬2Ü£â£8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+¯¯3*
+®®22¢¤º¤8@2]assert%assert @contributor_status.persisted?"
+±±*
+°°2Â¤È¤8@2a
+persisted?%assert @contributor_status.persisted?"
+±"±,*
+°!°+2İ¤ç¤8@2…assert_emptyGassert_empty @contributor_status.top_contributor_ids - [sr.id, octo.id]"
+²²*
+±±2î¤ú¤8@2Œtop_contributor_idsGassert_empty @contributor_status.top_contributor_ids - [sr.id, octo.id]"
+²(²;*
+±'±:2¥¢¥8@2{idGassert_empty @contributor_status.top_contributor_ids - [sr.id, octo.id]"
+²B²D*
+±A±C2©¥«¥8@2{idGassert_empty @contributor_status.top_contributor_ids - [sr.id, octo.id]"
+²K²M*
+±J±L2²¥´¥8@2btest,test "ignores merge commit contributions" do"
+½½	*
+¼¼2¨’¨8@2pcreate8status = create(:contribution_graph_status, :git_backed,"
+¾¾*
+½½2Ê¨Ğ¨8@2sutc>repo_fixture: :empty, last_viewed_at: Time.utc(2012, 1, 1, 13)"
+¿4¿7*
+¾3¾62­©°©8@2tTime>repo_fixture: :empty, last_viewed_at: Time.utc(2012, 1, 1, 13)"
+¿/¿3*
+¾.¾22¨©¬©8@2T
+repositoryrepo = status.repository"
+ÁÁ*
+ÀÀ2İ©ç©8@2hcreate0user1 = create(:user, email: "user1@github.com")"
+ÂÂ*
+ÁÁ2ö©ü©8@2hcreate0user2 = create(:user, email: "user2@github.com")"
+ÃÃ*
+ÂÂ2­ª³ª8@2šcreatebroot = repo.commits.create({ message: "root", author: user1 }) { |files| files.add("foo", "bar") }"
+ÅÅ!*
+ÄÄ 2ñª÷ª8@2—addbroot = repo.commits.create({ message: "root", author: user1 }) { |files| files.add("foo", "bar") }"
+ÅVÅY*
+ÄUÄX2¬«¯«8@2›commitsbroot = repo.commits.create({ message: "root", author: user1 }) { |files| files.add("foo", "bar") }"
+ÅÅ*
+ÄÄ2éªğª8@2¡createic1 = repo.commits.create({ message: "C1", author: user1 }, root.oid) { |files| files.add("foo2", "bar") }"
+ÆÆ*
+ÅÅ2Ø«Ş«8@2oidic1 = repo.commits.create({ message: "C1", author: user1 }, root.oid) { |files| files.add("foo2", "bar") }"
+ÆGÆJ*
+ÅFÅI2†¬‰¬8@2addic1 = repo.commits.create({ message: "C1", author: user1 }, root.oid) { |files| files.add("foo2", "bar") }"
+Æ\Æ_*
+Å[Å^2›¬¬8@2¢commitsic1 = repo.commits.create({ message: "C1", author: user1 }, root.oid) { |files| files.add("foo2", "bar") }"
+ÆÆ*
+ÅÅ2Ğ«×«8@2¡createit1 = repo.commits.create({ message: "T1", author: user2 }, root.oid) { |files| files.add("foo3", "bar") }"
+ÇÇ*
+ÆÆ2È¬Î¬8@2oidit1 = repo.commits.create({ message: "T1", author: user2 }, root.oid) { |files| files.add("foo3", "bar") }"
+ÇGÇJ*
+ÆFÆI2ö¬ù¬8@2addit1 = repo.commits.create({ message: "T1", author: user2 }, root.oid) { |files| files.add("foo3", "bar") }"
+Ç\Ç_*
+Æ[Æ^2‹­­8@2¢commitsit1 = repo.commits.create({ message: "T1", author: user2 }, root.oid) { |files| files.add("foo3", "bar") }"
+ÇÇ*
+ÆÆ2À¬Ç¬8@2yfirstBt2 = repo.commits.create_merge_commit(user2, c1.oid, t1.oid).first"
+ÈDÈI*
+ÇCÇH2ã­è­8@2‡create_merge_commitBt2 = repo.commits.create_merge_commit(user2, c1.oid, t1.oid).first"
+ÈÈ,*
+ÇÇ+2¸­Ë­8@2woidBt2 = repo.commits.create_merge_commit(user2, c1.oid, t1.oid).first"
+È7È:*
+Ç6Ç92Ö­Ù­8@2woidBt2 = repo.commits.create_merge_commit(user2, c1.oid, t1.oid).first"
+È?ÈB*
+Ç>ÇA2Ş­á­8@2{commitsBt2 = repo.commits.create_merge_commit(user2, c1.oid, t1.oid).first"
+ÈÈ*
+ÇÇ2°­·­8@2yfirstBc2 = repo.commits.create_merge_commit(user2, c1.oid, t2.oid).first"
+ÉDÉI*
+ÈCÈH2¬®±®8@2‡create_merge_commitBc2 = repo.commits.create_merge_commit(user2, c1.oid, t2.oid).first"
+ÉÉ,*
+ÈÈ+2®”®8@2woidBc2 = repo.commits.create_merge_commit(user2, c1.oid, t2.oid).first"
+É7É:*
+È6È92Ÿ®¢®8@2woidBc2 = repo.commits.create_merge_commit(user2, c1.oid, t2.oid).first"
+É?ÉB*
+È>ÈA2§®ª®8@2{commitsBc2 = repo.commits.create_merge_commit(user2, c1.oid, t2.oid).first"
+ÉÉ*
+ÈÈ2ù­€®8@2^create&repo.heads.create("master", c2, user2)"
+ËË*
+ÊÊ2Ä®Ê®8@2]heads&repo.heads.create("master", c2, user2)"
+ËË*
+ÊÊ2¾®Ã®8@2iupdate_top_contributors!status.update_top_contributors!"
+ÍÍ&*
+ÌÌ%2î®†¯8@2{assert_equal=assert_equal [user1.id, user2.id], status.top_contributor_ids"
+ÏÏ*
+ÎÎ2¯š¯8@2qid=assert_equal [user1.id, user2.id], status.top_contributor_ids"
+ÏÏ*
+ÎÎ2¢¯¤¯8@2qid=assert_equal [user1.id, user2.id], status.top_contributor_ids"
+Ï%Ï'*
+Î$Î&2¬¯®¯8@2‚top_contributor_ids=assert_equal [user1.id, user2.id], status.top_contributor_ids"
+Ï1ÏD*
+Î0ÎC2¸¯Ë¯8@2ptest:test "limits to the TOP_CONTRIBUTOR_COUNT contributors" do"
+ÒÒ	*
+ÑÑ2Ù¯İ¯8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+ÓÓ*
+ÒÒ2Ÿ°¥°8@2icreate1octo = create(:user, email: "octocat@github.com")"
+ÔÔ*
+ÓÓ2Õ°Û°8@2ˆ
+stub_constLRepository::ContributionGraphStatus.stub_const(:TOP_CONTRIBUTOR_COUNT, 1) do"
+Ö+Ö5*
+Õ*Õ42«±µ±8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+××5*
+ÖÖ42ğ±ˆ²8@2•ContributionGraphStatusLRepository::ContributionGraphStatus.stub_const(:TOP_CONTRIBUTOR_COUNT, 1) do"
+ÖÖ**
+ÕÕ)2‡±ª±8@2ˆ
+RepositoryLRepository::ContributionGraphStatus.stub_const(:TOP_CONTRIBUTOR_COUNT, 1) do"
+ÖÖ*
+ÕÕ2‡±‘±8@2}assert_equal?assert_equal @contributor_status.top_contributor_ids, [octo.id]"
+ÚÚ*
+ÙÙ2š²¦²8@2„top_contributor_ids?assert_equal @contributor_status.top_contributor_ids, [octo.id]"
+Ú(Ú;*
+Ù'Ù:2»²Î²8@2sid?assert_equal @contributor_status.top_contributor_ids, [octo.id]"
+ÚCÚE*
+ÙBÙD2Ö²Ø²8@2jtest4test "excludes users blocked by the repo's owner" do"
+İİ	*
+ÜÜ2ç²ë²8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+ŞŞ*
+İİ2§³­³8@2icreate1octo = create(:user, email: "octocat@github.com")"
+ßß*
+ŞŞ2İ³ã³8@2gblock0@contributor_status.repository.owner.block(octo)"
+á,á1*
+à+à02´´¹´8@2gowner0@contributor_status.repository.owner.block(octo)"
+á&á+*
+à%à*2®´³´8@2l
+repository0@contributor_status.repository.owner.block(octo)"
+áá%*
+àà$2£´­´8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+ââ3*
+áá22Ú´ò´8@2{assert_equal=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ää*
+ãã2ú´†µ8@2qid=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ää*
+ãã2‹µµ8@2‚top_contributor_ids=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ä1äD*
+ã0ãC2¤µ·µ8@2Utesttest "excludes spammy users" do"
+çç	*
+ææ2ÅµÉµ8@2bskip,skip unless GitHub.spamminess_check_enabled?"
+èè*
+çç
+2ëµïµ8@2wspamminess_check_enabled?,skip unless GitHub.spamminess_check_enabled?"
+èè3*
+çç22şµ—¶8@2dGitHub,skip unless GitHub.spamminess_check_enabled?"
+èè*
+çç2÷µıµ8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+éé*
+èè2£¶©¶8@2icreate1octo = create(:user, email: "octocat@github.com")"
+êê*
+éé2Ù¶ß¶8@2Smark_as_spammyocto.mark_as_spammy"
+ìì*
+ëë2··8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+íí3*
+ìì22¹·Ñ·8@2{assert_equal=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ïï*
+îî2Ù·å·8@2qid=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ïï*
+îî2ê·ì·8@2‚top_contributor_ids=assert_equal [sr.id], @contributor_status.top_contributor_ids"
+ï1ïD*
+î0îC2ƒ¸–¸8@2dtest.test "reports shortlog failures to failbot" do"
+òò	*
+ññ2¤¸¨¸8@2‡raisesOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+ó;óA*
+ò:ò@2¹“¹8@2„newOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óRóU*
+òQòT2¤¹§¹8@2ˆTimeoutOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óBóQ*
+òAòP2”¹£¹8@2‡GitRPCOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óBóH*
+òAòG2”¹š¹8@2†stubsOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+ó#ó(*
+ò"ò'2õ¸ú¸8@2any_instanceOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óó"*
+òò!2è¸ô¸8@2‡ClientOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óó*
+òò2Ù¸ç¸8@2‡GitRPCOGitRPC::Client.any_instance.stubs(:contributor_log).raises(GitRPC::Timeout.new)"
+óó*
+òò2Ù¸ß¸8@2SonceFailbot.expects(:report).once"
+ô ô$*
+óó#2È¹Ì¹8@2VexpectsFailbot.expects(:report).once"
+ôô*
+óó2·¹¾¹8@2VFailbotFailbot.expects(:report).once"
+ôô*
+óó2¯¹¶¹8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+öö3*
+õõ22è¹€º8@2Qcontextcontext "#top_emails" do"
+úú
+*
+ùù	2’º™º8@2‚testLtest "returns an array of known email addresses for the top contributors" do"
+ûû	*
+úú2¯º³º8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+üü*
+ûû2‡»»8@2icreate1octo = create(:user, email: "octocat@github.com")"
+ıı*
+üü2½»Ã»8@2itap4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+ÿ/ÿ2*
+ş.ş12—¼š¼8@2inew4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+ÿ'ÿ**
+ş&ş)2¼’¼8@2rStealthEmail4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+ÿÿ&*
+şş%2‚¼¼8@2mtap8octo_stealth_email = StealthEmail.new(octo).tap(&:save!)"
+€3€6*
+ÿ2ÿ52Ö¼Ù¼8@2mnew8octo_stealth_email = StealthEmail.new(octo).tap(&:save!)"
+€)€,*
+ÿ(ÿ+2Ì¼Ï¼8@2vStealthEmail8octo_stealth_email = StealthEmail.new(octo).tap(&:save!)"
+€€(*
+ÿÿ'2¿¼Ë¼8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+‚‚3*
+22ş¼–½8@2ƒassert_includesBassert_includes @contributor_status.top_emails, "simon@rozet.name""
+„„*
+ƒƒ2½­½8@2~
+top_emailsBassert_includes @contributor_status.top_emails, "simon@rozet.name""
+„+„5*
+ƒ*ƒ42Â½Ì½8@2‡assert_includesFassert_includes @contributor_status.top_emails, sr_stealth_email.email"
+……*
+„„2ç½ö½8@2‚
+top_emailsFassert_includes @contributor_status.top_emails, sr_stealth_email.email"
+…+…5*
+„*„42‹¾•¾8@2}emailFassert_includes @contributor_status.top_emails, sr_stealth_email.email"
+…H…M*
+„G„L2¨¾­¾8@2assert_includesMassert_includes @contributor_status.top_emails, sr_stealth_email.legacy_email"
+††*
+……2´¾Ã¾8@2‰
+top_emailsMassert_includes @contributor_status.top_emails, sr_stealth_email.legacy_email"
+†+†5*
+…*…42Ø¾â¾8@2‹legacy_emailMassert_includes @contributor_status.top_emails, sr_stealth_email.legacy_email"
+†H†T*
+…G…S2õ¾¿8@2…assert_includesDassert_includes @contributor_status.top_emails, "octocat@github.com""
+‡‡*
+††2ˆ¿—¿8@2€
+top_emailsDassert_includes @contributor_status.top_emails, "octocat@github.com""
+‡+‡5*
+†*†42¬¿¶¿8@2‰assert_includesHassert_includes @contributor_status.top_emails, octo_stealth_email.email"
+ˆˆ*
+‡‡2Ó¿â¿8@2„
+top_emailsHassert_includes @contributor_status.top_emails, octo_stealth_email.email"
+ˆ+ˆ5*
+‡*‡42÷¿À8@2emailHassert_includes @contributor_status.top_emails, octo_stealth_email.email"
+ˆJˆO*
+‡I‡N2–À›À8@2assert_includesOassert_includes @contributor_status.top_emails, octo_stealth_email.legacy_email"
+‰‰*
+ˆˆ2¢À±À8@2‹
+top_emailsOassert_includes @contributor_status.top_emails, octo_stealth_email.legacy_email"
+‰+‰5*
+ˆ*ˆ42ÆÀĞÀ8@2legacy_emailOassert_includes @contributor_status.top_emails, octo_stealth_email.legacy_email"
+‰J‰V*
+ˆIˆU2åÀñÀ8@2|testFtest "includes a normalized version of their stealth email address" do"
+ŒŒ	*
+‹‹2ÿÀƒÁ8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+*
+ŒŒ2ÑÁ×Á8@2itap4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+/2*
+.12¨Â«Â8@2inew4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+'**
+&)2 Â£Â8@2rStealthEmail4sr_stealth_email = StealthEmail.new(sr).tap(&:save!)"
+&*
+%2“ÂŸÂ8@2vupdate_top_contributors!,@contributor_status.update_top_contributors!"
+3*
+22ĞÂèÂ8@2¦assert_includeseassert_includes @contributor_status.top_emails, "#{sr.id}+username@#{GitHub.stealth_email_host_name}""
+’’*
+‘‘2ğÂÿÂ8@2¡
+top_emailseassert_includes @contributor_status.top_emails, "#{sr.id}+username@#{GitHub.stealth_email_host_name}""
+’+’5*
+‘*‘42”ÃÃ8@2™ideassert_includes @contributor_status.top_emails, "#{sr.id}+username@#{GitHub.stealth_email_host_name}""
+’=’?*
+‘<‘>2¦Ã¨Ã8@2®stealth_email_host_nameeassert_includes @contributor_status.top_emails, "#{sr.id}+username@#{GitHub.stealth_email_host_name}""
+’S’j*
+‘R‘i2¼ÃÓÃ8@2GitHubeassert_includes @contributor_status.top_emails, "#{sr.id}+username@#{GitHub.stealth_email_host_name}""
+’L’R*
+‘K‘Q2µÃ»Ã8@2Zcontext!context "#data_fully_indexed?" do"
+––
+*
+••	2çÃîÃ8@2ptest:test "returns false if the data has never been indexed" do"
+——	*
+––2Ä‘Ä8@2nrefute_predicate,refute_predicate @status, :last_indexed_oid?"
+˜˜*
+——2ÎÄŞÄ8@2prefute_predicate.refute_predicate @status, :data_fully_indexed?"
+™™*
+˜˜2Å‘Å8@2rtest<test "returns false if it doesn't have the indexed event" do"
+œœ	*
+››2½ÅÁÅ8@2…returnsLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+EL*
+œDœK2¾ÆÅÆ8@2…expectsLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+/6*
+œ.œ52¨Æ¯Æ8@2Šany_instanceLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+".*
+œ!œ-2›Æ§Æ8@2…EventerLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+!*
+œœ 2€ÆšÆ8@2‡	RepoGraphLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+*
+œœ2€Æ‘Æ8@2„GitHubLGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(false)"
+*
+œœ2€Æ†Æ8@2yupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+*
+2ÛÆâÆ8@2}default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+<G*
+;F2ˆÇ“Ç8@2|
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+1;*
+0:2ıÆ‡Ç8@2prefute_predicate.refute_predicate @status, :data_fully_indexed?"
+ŸŸ*
+2šÇªÇ8@2htest2test "returns true if it has the indexed event" do"
+¢¢	*
+¡¡2ÖÇÚÇ8@2„returnsKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+£E£L*
+¢D¢K2ÍÈÔÈ8@2„expectsKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+£/£6*
+¢.¢52·È¾È8@2‰any_instanceKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+£"£.*
+¢!¢-2ªÈ¶È8@2„EventerKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+££!*
+¢¢ 2È©È8@2†	RepoGraphKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+££*
+¢¢2È È8@2ƒGitHubKGitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).returns(true)"
+££*
+¢¢2È•È8@2yupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+¤¤*
+££2éÈğÈ8@2}default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+¤<¤G*
+£;£F2–É¡É8@2|
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+¤1¤;*
+£0£:2‹É•É8@2passert_predicate.assert_predicate @status, :data_fully_indexed?"
+¥¥*
+¤¤2¨É¸É8@2Xcontextcontext "#serve_stale_data?" do"
+©©
+*
+¨¨	2èÉïÉ8@2gtest1test "is false if data has never been indexed" do"
+ªª	*
+©©2ŒÊÊ8@2_
+assert_nil#assert_nil @status.last_indexed_oid"
+««*
+ªª2ÄÊÎÊ8@2elast_indexed_oid#assert_nil @status.last_indexed_oid"
+««**
+ªª)2×ÊçÊ8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+¬¬*
+««2îÊşÊ8@2_test)test "is false if data_fully_indexed?" do"
+¯¯	*
+®®2¨Ë¬Ë8@2yupdate!@@status.update! last_indexed_oid: @status.repository.default_oid"
+°°*
+¯¯2àËçË8@2}default_oid@@status.update! last_indexed_oid: @status.repository.default_oid"
+°<°G*
+¯;¯F2Ì˜Ì8@2|
+repository@@status.update! last_indexed_oid: @status.repository.default_oid"
+°1°;*
+¯0¯:2‚ÌŒÌ8@2cexpects*@status.expects(data_fully_indexed?: true)"
+±±*
+°°2§Ì®Ì8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+²²*
+±±2ĞÌàÌ8@2‘test[test "true when eventer is lagging and current, and Eventer has previously indexed data" do"
+µµ	*
+´´2ŠÍÍ8@2ŠreturnsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶K¶R*
+µJµQ2°Î·Î8@2ŠexpectsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶/¶6*
+µ.µ52”Î›Î8@2any_instanceQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶"¶.*
+µ!µ-2‡Î“Î8@2ŠEventerQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶¶!*
+µµ 2ìÍ†Î8@2Œ	RepoGraphQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶¶*
+µµ2ìÍıÍ8@2‰GitHubQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+¶¶*
+µµ2ìÍòÍ8@2{returnsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+·;·B*
+¶:¶A2øÎÿÎ8@2at_least_onceB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+·-·:*
+¶,¶92êÎ÷Î8@2{expectsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+··*
+¶¶2ÌÎÓÎ8@2fcreate.job_status = JobStatus.create state: "success""
+¸¸$*
+··#2¤ÏªÏ8@2i	JobStatus.job_status = JobStatus.create state: "success""
+¸¸*
+··2šÏ£Ï8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹¹*
+¸¸2ÕÏØÏ8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹¹*
+¸¸2ĞÏÔÏ8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹ ¹`*
+¸¸_2ÛÏ›Ğ8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹ ¹C*
+¸¸B2ÛÏşÏ8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹ ¹**
+¸¸)2ÛÏåÏ8@2minuteseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+¹e¹l*
+¸d¸k2 Ğ§Ğ8@2µupdate!|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ºº*
+¹¹2¶Ğ½Ğ8@2¹default_oid|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+º<ºG*
+¹;¹F2ãĞîĞ8@2¸
+repository|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+º1º;*
+¹0¹:2ØĞâĞ8@2°id|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ºcºe*
+¹b¹d2ŠÑŒÑ8@2nassert_predicate,assert_predicate @status, :serve_stale_data?"
+¼¼*
+»»2²ÑÂÑ8@2•test_test "false when eventer is lagging and current, and Eventer has no previously indexed data" do"
+¿¿	*
+¾¾2ìÑğÑ8@2‹returnsRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ÀKÀR*
+¿J¿Q2–ÓÓ8@2‹expectsRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+À/À6*
+¿.¿52úÒÓ8@2any_instanceRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+À"À.*
+¿!¿-2íÒùÒ8@2‹EventerRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ÀÀ!*
+¿¿ 2ÒÒìÒ8@2	RepoGraphRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ÀÀ*
+¿¿2ÒÒãÒ8@2ŠGitHubRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ÀÀ*
+¿¿2ÒÒØÒ8@2{returnsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+Á;ÁB*
+À:ÀA2ßÓæÓ8@2at_least_onceB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+Á-Á:*
+À,À92ÑÓŞÓ8@2{expectsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+ÁÁ*
+ÀÀ2³ÓºÓ8@2fcreate.job_status = JobStatus.create state: "success""
+ÂÂ$*
+ÁÁ#2‹Ô‘Ô8@2i	JobStatus.job_status = JobStatus.create state: "success""
+ÂÂ*
+ÁÁ2ÔŠÔ8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+ÃÃ*
+ÂÂ2¼Ô¿Ô8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+ÃÃ*
+ÂÂ2·Ô»Ô8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+Ã Ã`*
+ÂÂ_2ÂÔ‚Õ8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+Ã ÃC*
+ÂÂB2ÂÔåÔ8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+Ã Ã**
+ÂÂ)2ÂÔÌÔ8@2minuteseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.minutes"
+ÃeÃl*
+ÂdÂk2‡ÕÕ8@2µupdate!|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ÄÄ*
+ÃÃ2Õ¤Õ8@2¹default_oid|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+Ä<ÄG*
+Ã;ÃF2ÊÕÕÕ8@2¸
+repository|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+Ä1Ä;*
+Ã0Ã:2¿ÕÉÕ8@2°id|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ÄcÄe*
+ÃbÃd2ñÕóÕ8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+ÆÆ*
+ÅÅ2™Ö©Ö8@2ŠtestTtest "false when eventer is slightly lagging but within the acceptable threshold" do"
+ÉÉ	*
+ÈÈ2ÓÖ×Ö8@2{returnsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+Ê;ÊB*
+É:ÉA2â×é×8@2at_least_onceB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+Ê-Ê:*
+É,É92Ô×á×8@2{expectsB@status.expects(:data_fully_indexed?).at_least_once.returns(false)"
+ÊÊ*
+ÉÉ2¶×½×8@2fcreate.job_status = JobStatus.create state: "success""
+ËË$*
+ÊÊ#2Ø”Ø8@2i	JobStatus.job_status = JobStatus.create state: "success""
+ËË*
+ÊÊ2„ØØ8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+ÌÌ*
+ËË2¿ØÂØ8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+ÌÌ*
+ËË2ºØ¾Ø8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+Ì Ì`*
+ËË_2ÅØ…Ù8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+Ì ÌC*
+ËËB2ÅØèØ8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+Ì Ì**
+ËË)2ÅØÏØ8@2secondseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 5.seconds"
+ÌeÌl*
+ËdËk2ŠÙ‘Ù8@2µupdate!|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ÍÍ*
+ÌÌ2 Ù§Ù8@2¹default_oid|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+Í<ÍG*
+Ì;ÌF2ÍÙØÙ8@2¸
+repository|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+Í1Í;*
+Ì0Ì:2ÂÙÌÙ8@2°id|@status.update! last_indexed_oid: @status.repository.default_oid, job_status_id: job_status.id, job_enqueued_at: enqueued_at"
+ÍcÍe*
+ÌbÌd2ôÙöÙ8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+ÏÏ*
+ÎÎ2œÚ¬Ú8@2­testwtest "is true when data is not current but the job has been queued too long and Eventer has previously indexed data" do"
+ÒÒ	*
+ÑÑ2ÖÚÚÚ8@2ŠreturnsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+ÓKÓR*
+ÒJÒQ2˜ÜŸÜ8@2ŠexpectsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+Ó/Ó6*
+Ò.Ò52üÛƒÜ8@2any_instanceQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+Ó"Ó.*
+Ò!Ò-2ïÛûÛ8@2ŠEventerQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+ÓÓ!*
+ÒÒ 2ÔÛîÛ8@2Œ	RepoGraphQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+ÓÓ*
+ÒÒ2ÔÛåÛ8@2‰GitHubQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+ÓÓ*
+ÒÒ2ÔÛÚÛ8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ÔÔ*
+ÓÓ2¿ÜÂÜ8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ÔÔ*
+ÓÓ2ºÜ¾Ü8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+Ô Ô`*
+ÓÓ_2ÅÜ…İ8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+Ô ÔC*
+ÓÓB2ÅÜèÜ8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+Ô Ô**
+ÓÓ)2ÅÜÏÜ8@2secondseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ÔeÔl*
+ÓdÓk2Šİ‘İ8@2Ucreatejob_status = JobStatus.create"
+ÕÕ$*
+ÔÔ#2¯İµİ8@2X	JobStatusjob_status = JobStatus.create"
+ÕÕ*
+ÔÔ2¥İ®İ8@2hassert_predicate&assert_predicate job_status, :pending?"
+ÖÖ*
+ÕÕ2¼İÌİ8@2Iupdate!@status.update!("
+××*
+ÖÖ2ñİøİ8@2Qidjob_status_id: job_status.id,"
+Ù#Ù%*
+Ø"Ø$2âŞäŞ8@2nassert_predicate,assert_predicate @status, :serve_stale_data?"
+İİ*
+ÜÜ2›ß«ß8@2®testxtest "is true when data is not current but the job has been running too long and Eventer has previously indexed data" do"
+àà	*
+ßß2ÕßÙß8@2ŠreturnsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+áKáR*
+àJàQ2˜áŸá8@2ŠexpectsQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+á/á6*
+à.à52üàƒá8@2any_instanceQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+á"á.*
+à!à-2ïàûà8@2ŠEventerQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+áá!*
+àà 2Ôàîà8@2Œ	RepoGraphQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+áá*
+àà2Ôàåà8@2‰GitHubQGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(true)"
+áá*
+àà2ÔàÚà8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ââ*
+áá2¿áÂá8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ââ*
+áá2ºá¾á8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+â â`*
+áá_2Åá…â8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+â âC*
+ááB2Åáèá8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+â â**
+áá)2ÅáÏá8@2secondseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+âeâl*
+ádák2Šâ‘â8@2fcreate.job_status = JobStatus.create state: "started""
+ãã$*
+ââ#2¯âµâ8@2i	JobStatus.job_status = JobStatus.create state: "started""
+ãã*
+ââ2¥â®â8@2hassert_predicate&assert_predicate job_status, :started?"
+ää*
+ãã2Íâİâ8@2Iupdate!@status.update!("
+åå*
+ää2‚ã‰ã8@2Qidjob_status_id: job_status.id,"
+ç#ç%*
+æ"æ$2óãõã8@2nassert_predicate,assert_predicate @status, :serve_stale_data?"
+ëë*
+êê2¬ä¼ä8@2±test{test "is false when data is not current but the job has been queued too long and Eventer has NO previously indexed data" do"
+îî	*
+íí2æäêä8@2‹returnsRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ïKïR*
+îJîQ2¬æ³æ8@2‹expectsRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ï/ï6*
+î.î52æ—æ8@2any_instanceRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ï"ï.*
+î!î-2ƒææ8@2‹EventerRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ïï!*
+îî 2èå‚æ8@2	RepoGraphRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ïï*
+îî2èåùå8@2ŠGitHubRGitHub::RepoGraph::Eventer.any_instance.expects(:has_indexed_data?).returns(false)"
+ïï*
+îî2èåîå8@2šnoweenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğğ*
+ïï2Ôæ×æ8@2›Timeeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğğ*
+ïï2ÏæÓæ8@2²INDEXING_TOO_LONG_THRESHOLDeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğ ğ`*
+ïï_2Úæšç8@2®ContributionGraphStatuseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğ ğC*
+ïïB2Úæıæ8@2¡
+Repositoryeenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğ ğ**
+ïï)2Úæäæ8@2secondseenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD - 5.seconds"
+ğeğl*
+ïdïk2Ÿç¦ç8@2Ucreatejob_status = JobStatus.create"
+ññ$*
+ğğ#2ÄçÊç8@2X	JobStatusjob_status = JobStatus.create"
+ññ*
+ğğ2ºçÃç8@2Iupdate!@status.update!("
+òò*
+ññ2Ùçàç8@2Qidjob_status_id: job_status.id,"
+ô#ô%*
+ó"ó$2ÊèÌè8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+øø*
+÷÷2ƒé“é8@2testYtest "is false when data is not current but the job has been queued only a short time" do"
+ûû	*
+úú2½éÁé8@2›nowfenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+üü*
+ûû2°ê³ê8@2œTimefenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+üü*
+ûû2«ê¯ê8@2³INDEXING_TOO_LONG_THRESHOLDfenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+ü ü`*
+ûû_2¶êöê8@2¯ContributionGraphStatusfenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+ü üC*
+ûûB2¶êÙê8@2¢
+Repositoryfenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+ü ü**
+ûû)2¶êÀê8@2Ÿsecondsfenqueued_at = Time.now - Repository::ContributionGraphStatus::INDEXING_TOO_LONG_THRESHOLD + 30.seconds"
+üfüm*
+ûeûl2üêƒë8@2Ucreatejob_status = JobStatus.create"
+ıı$*
+üü#2¡ë§ë8@2X	JobStatusjob_status = JobStatus.create"
+ıı*
+üü2—ë ë8@2Iupdate!@status.update!("
+şş*
+ıı2¶ë½ë8@2Qidjob_status_id: job_status.id,"
+€#€%*
+ÿ"ÿ$2§ì©ì8@2nrefute_predicate,refute_predicate @status, :serve_stale_data?"
+„„*
+ƒƒ2àìğì8@2Mcontextcontext "#ready?" do"
+ˆˆ
+*
+‡‡	2í¥í8@2”test^test "returns false when data is not fully indexed and we're not ready to serve stale data" do"
+‰‰	*
+ˆˆ2·í»í8@2`stubs)@status.stubs(data_fully_indexed?: false)"
+ŠŠ*
+‰‰2¤î©î8@2^stubs'@status.stubs(serve_stale_data?: false)"
+‹‹*
+ŠŠ2ÔîÙî8@2crefute_predicate!refute_predicate @status, :ready?"
+*
+ŒŒ2ûî‹ï8@2gtest1test "returns true when data is fully indexed" do"
+	*
+2ªï®ï8@2_stubs(@status.stubs(data_fully_indexed?: true)"
+‘‘*
+2êïïï8@2cassert_predicate!assert_predicate @status, :ready?"
+““*
+’’2’ğ¢ğ8@2testYtest "returns true when data is not fully indexed but we're ready to serve stale data" do"
+––	*
+••2ÁğÅğ8@2`stubs)@status.stubs(data_fully_indexed?: false)"
+——*
+––2©ñ®ñ8@2]stubs&@status.stubs(serve_stale_data?: true)"
+˜˜*
+——2ÙñŞñ8@2cassert_predicate!assert_predicate @status, :ready?"
+šš*
+™™2ÿñò8@2Vcontextcontext "#last_indexed_at" do"
+
+*
+	2²ò¹ò8@2vtest@test "backfills to updated_at on-initialize if it wasn't set" do"
+ŸŸ	*
+2ÔòØò8@2^freeze&Timecop.freeze(5.minutes.ago) do |now|"
+  *
+ŸŸ2£ó©ó8@2[ago&Timecop.freeze(5.minutes.ago) do |now|"
+   #*
+ŸŸ"2´ó·ó8@2_minutes&Timecop.freeze(5.minutes.ago) do |now|"
+  *
+ŸŸ2¬ó³ó8@2®update_columnsn@status.update_columns last_indexed_oid: @status.repository.default_oid, last_indexed_at: nil, updated_at: now"
+¡¡*
+  2Òóàó8@2«default_oidn@status.update_columns last_indexed_oid: @status.repository.default_oid, last_indexed_at: nil, updated_at: now"
+¡E¡P*
+ D O2†ô‘ô8@2ª
+repositoryn@status.update_columns last_indexed_oid: @status.repository.default_oid, last_indexed_at: nil, updated_at: now"
+¡:¡D*
+ 9 C2ûó…ô8@2_Timecop&Timecop.freeze(5.minutes.ago) do |now|"
+  *
+ŸŸ2›ó¢ó8@2Y
+updated_atexpected = @status.updated_at"
+¤¤$*
+££#2İôçô8@2™assert_equal[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥¥*
+¤¤2îôúô8@2œlast_indexed_at[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥S¥b*
+¤R¤a2ºõÉõ8@2‘find[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥B¥F*
+¤A¤E2©õ­õ8@2id[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥O¥Q*
+¤N¤P2¶õ¸õ8@2¤ContributionGraphStatus[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥¥A*
+¤¤@2…õ¨õ8@2—
+Repository[assert_equal expected, Repository::ContributionGraphStatus.find(@status.id).last_indexed_at"
+¥¥(*
+¤¤'2…õõ8@2Ncontextcontext "#viewed!" do"
+©©
+*
+¨¨	2Ûõâõ8@2atest+test "updates the last_viewed_at column" do"
+ªª	*
+©©2õõùõ8@2kfreeze3Timecop.freeze(@status.last_viewed_at + 5.hours) do"
+««*
+ªª2¯öµö8@2slast_viewed_at3Timecop.freeze(@status.last_viewed_at + 5.hours) do"
+««,*
+ªª+2¾öÌö8@2jhours3Timecop.freeze(@status.last_viewed_at + 5.hours) do"
+«1«6*
+ª0ª52ÑöÖö8@2urefute_equal7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬	¬*
+««2ãöïö8@2mto_i7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬-¬1*
+«,«02‡÷‹÷8@2wlast_viewed_at7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬¬,*
+««+2øö†÷8@2mto_i7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬<¬@*
+«;«?2–÷š÷8@2lnow7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬8¬;*
+«7«:2’÷•÷8@2mTime7refute_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¬3¬7*
+«2«62÷‘÷8@2Hviewed!@status.viewed!"
+­­*
+¬¬2«÷²÷8@2uassert_equal7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯	¯*
+®®2¼÷È÷8@2mto_i7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯-¯1*
+®,®02à÷ä÷8@2wlast_viewed_at7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯¯,*
+®®+2Ñ÷ß÷8@2mto_i7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯<¯@*
+®;®?2ï÷ó÷8@2lnow7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯8¯;*
+®7®:2ë÷î÷8@2mTime7assert_equal @status.last_viewed_at.to_i, Time.now.to_i"
+¯3¯7*
+®2®62æ÷ê÷8@2lTimecop3Timecop.freeze(@status.last_viewed_at + 5.hours) do"
+««*
+ªª2§ö®ö8@2 testjtest "doesn't update the last_viewed_at column when current time is within an hour of the stored value" do"
+³³	*
+²²2‹øø8@2nfreeze6Timecop.freeze(@status.last_viewed_at + 15.minutes) do"
+´´*
+³³2„ùŠù8@2vlast_viewed_at6Timecop.freeze(@status.last_viewed_at + 15.minutes) do"
+´´,*
+³³+2“ù¡ù8@2ominutes6Timecop.freeze(@status.last_viewed_at + 15.minutes) do"
+´2´9*
+³1³82§ù®ù8@2_last_viewed_atbefore = @status.last_viewed_at"
+µµ(*
+´´'2ÌùÚù8@2Hviewed!@status.viewed!"
+¶¶*
+µµ2ëùòù8@2iassert_equal+assert_equal before, @status.last_viewed_at"
+·	·*
+¶¶2ûù‡ú8@2klast_viewed_at+assert_equal before, @status.last_viewed_at"
+·&·4*
+¶%¶32˜ú¦ú8@2oTimecop6Timecop.freeze(@status.last_viewed_at + 15.minutes) do"
+´´*
+³³2üøƒù8@2Xcontextcontext "#contributors_data" do"
+¼¼
+*
+»»	2ÂúÉú8@2ntest8test "fetches data from Eventer if enabled and ready" do"
+½½	*
+¼¼2æúêú8@2a
+repository%repo = @contributor_status.repository"
+¾"¾,*
+½!½+2ÀûÊû8@2ecreate-sr = create(:user, email: "simon@rozet.name")"
+ÀÀ*
+¿¿2×ûİû8@2bcreate!)sr.emails.create!(email: "sr@github.com")"
+ÁÁ*
+ÀÀ2ü—ü8@2aemails)sr.emails.create!(email: "sr@github.com")"
+Á
+Á*
+À	À2‰üü8@2icreate1octo = create(:user, email: "octocat@github.com")"
+ÂÂ*
+ÁÁ2½üÃü8@2top_contributor_ids:@contributor_status.top_contributor_ids = [sr.id, octo.id]"
+ÄÄ.*
+ÃÃ-2ƒı–ı8@2nid:@contributor_status.top_contributor_ids = [sr.id, octo.id]"
+Ä5Ä7*
+Ã4Ã62ıŸı8@2nid:@contributor_status.top_contributor_ids = [sr.id, octo.id]"
+Ä>Ä@*
+Ã=Ã?2¦ı¨ı8@2ˆreturnsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ÆIÆP*
+ÅHÅO2óıúı8@2ˆexpectsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+Æ8Æ?*
+Å7Å>2âıéı8@2any_instanceORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+Æ+Æ7*
+Å*Å62Õıáı8@2˜ContributionGraphStatusORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ÆÆ**
+ÅÅ)2±ıÔı8@2‹
+RepositoryORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ÆÆ*
+ÅÅ2±ı»ı8@2rlast_viewed_at2now = @contributor_status.last_viewed_at + 5.hours"
+È!È/*
+Ç Ç.2¢ş°ş8@2ihours2now = @contributor_status.last_viewed_at + 5.hours"
+È4È9*
+Ç3Ç82µşºş8@2NfreezeTimecop.freeze(now) do"
+ÉÉ*
+ÈÈ2ÉşÏş8@2‡pluckPemails = sr.emails.pluck(:email) + ["#{sr}@#{GitHub.stealth_email_host_name}"] +"
+ËË!*
+ÊÊ 2ôşùş8@2ˆemailsPemails = sr.emails.pluck(:email) + ["#{sr}@#{GitHub.stealth_email_host_name}"] +"
+ËË*
+ÊÊ2íşóş8@2™stealth_email_host_namePemails = sr.emails.pluck(:email) + ["#{sr}@#{GitHub.stealth_email_host_name}"] +"
+Ë=ËT*
+Ê<ÊS2•ÿ¬ÿ8@2ˆGitHubPemails = sr.emails.pluck(:email) + ["#{sr}@#{GitHub.stealth_email_host_name}"] +"
+Ë6Ë<*
+Ê5Ê;2ÿ”ÿ8@2€pluckIocto.emails.pluck(:email) + ["#{octo}@#{GitHub.stealth_email_host_name}"]"
+ÌÌ*
+ËË2ÈÿÍÿ8@2emailsIocto.emails.pluck(:email) + ["#{octo}@#{GitHub.stealth_email_host_name}"]"
+ÌÌ*
+ËË2ÁÿÇÿ8@2’stealth_email_host_nameIocto.emails.pluck(:email) + ["#{octo}@#{GitHub.stealth_email_host_name}"]"
+Ì:ÌQ*
+Ë9ËP2ëÿ‚€8@2GitHubIocto.emails.pluck(:email) + ["#{octo}@#{GitHub.stealth_email_host_name}"]"
+Ì3Ì9*
+Ë2Ë82äÿêÿ8@2kreturns2with(emails).returns(@sample_contribution_metrics)"
+ÏÏ*
+ÎÎ2ñ€ø€8@2hwith2with(emails).returns(@sample_contribution_metrics)"
+ÏÏ*
+Î
+Î2ä€è€8@2ƒexpectsJGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data)."
+Î1Î8*
+Í0Í72·€¾€8@2ˆany_instanceJGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data)."
+Î$Î0*
+Í#Í/2ª€¶€8@2ƒEventerJGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data)."
+Î	Î#*
+ÍÍ"2€©€8@2…	RepoGraphJGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data)."
+Î	Î*
+ÍÍ2€ €8@2‚GitHubJGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data)."
+Î	Î*
+ÍÍ2€•€8@2ocontributors_data,data = @contributor_status.contributors_data"
+Ñ$Ñ5*
+Ğ#Ğ42»Ì8@2|assert_equal>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+Ó	Ó*
+ÒÒ2Öâ8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+ÓÓ*
+ÒÒ2çë8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+ÓCÓG*
+ÒBÒF2‚”‚8@2~last_viewed_at>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+Ó4ÓB*
+Ò3ÒA2‚‚8@2|assert_equal>assert_equal 2, data.size, "contributors who are github users""
+Õ	Õ*
+ÔÔ2‚ª‚8@2tsize>assert_equal 2, data.size, "contributors who are github users""
+ÕÕ"*
+ÔÔ!2³‚·‚8@2vdetect>octocat = data.detect { |i| i[:author][:login] == octo.login }"
+××*
+ÖÖ2õ‚û‚8@2ulogin>octocat = data.detect { |i| i[:author][:login] == octo.login }"
+×@×E*
+Ö?ÖD2ƒ¢ƒ8@2cassert_equal%assert_equal 61, octocat[:weeks].size"
+Ø	Ø*
+××2­ƒ¹ƒ8@2[size%assert_equal 61, octocat[:weeks].size"
+Ø*Ø.*
+×)×-2ÎƒÒƒ8@2passert_equal2assert_equal 3, octocat[:weeks].sum { |w| w[:c] },"
+Ù	Ù*
+ØØ2Ûƒçƒ8@2gsum2assert_equal 3, octocat[:weeks].sum { |w| w[:c] },"
+Ù)Ù,*
+Ø(Ø+2ûƒşƒ8@2qassert_equal3assert_equal 98, octocat[:weeks].sum { |w| w[:a] },"
+Û	Û*
+ÚÚ2°„¼„8@2hsum3assert_equal 98, octocat[:weeks].sum { |w| w[:a] },"
+Û*Û-*
+Ú)Ú,2Ñ„Ô„8@2passert_equal2assert_equal 3, octocat[:weeks].sum { |w| w[:d] },"
+İ	İ*
+ÜÜ2ˆ…”…8@2gsum2assert_equal 3, octocat[:weeks].sum { |w| w[:d] },"
+İ)İ,*
+Ü(Ü+2¨…«…8@2odetect7sr = data.detect { |i| i[:author][:login] == sr.login }"
+àà*
+ßß2ê…ğ…8@2nlogin7sr = data.detect { |i| i[:author][:login] == sr.login }"
+à9à>*
+ß8ß=2†•†8@2^assert_equal assert_equal 61, sr[:weeks].size"
+á	á*
+àà2 †¬†8@2Vsize assert_equal 61, sr[:weeks].size"
+á%á)*
+à$à(2¼†À†8@2{assert_equal=assert_equal 3, sr[:weeks].sum { |w| w[:c] }, "total commits""
+â	â*
+áá2É†Õ†8@2rsum=assert_equal 3, sr[:weeks].sum { |w| w[:c] }, "total commits""
+â$â'*
+á#á&2ä†ç†8@2OTimecopTimecop.freeze(now) do"
+ÉÉ*
+ÈÈ2ÁşÈş8@2Xtest"test "handles empty graph data" do"
+ææ	*
+åå2‡¢‡8@2–returns]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ìQìX*
+ëPëW2‰¥‰8@2–expects]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ì/ì6*
+ë.ë52üˆƒ‰8@2›any_instance]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ì"ì.*
+ë!ë-2ïˆûˆ8@2–Eventer]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ìì!*
+ëë 2Ôˆîˆ8@2˜	RepoGraph]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ìì*
+ëë2Ôˆåˆ8@2•GitHub]GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_contributors_data).returns(empty_data)"
+ìì*
+ëë2ÔˆÚˆ8@2kreturns2@contributor_status.expects(:ready?).returns(true)"
+í,í3*
+ì+ì22İ‰ä‰8@2kexpects2@contributor_status.expects(:ready?).returns(true)"
+íí"*
+ìì!2Ì‰Ó‰8@2tassert_equal6assert_equal [], @contributor_status.contributors_data"
+ïï*
+îî2ò‰ş‰8@2ycontributors_data6assert_equal [], @contributor_status.contributors_data"
+ï,ï=*
+î+î<2—Š¨Š8@2otest9test "returns empty data when there are no top emails" do"
+òò	*
+ññ2¶ŠºŠ8@2ˆreturnsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+óIóP*
+òHòO2¸‹¿‹8@2ˆexpectsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ó8ó?*
+ò7ò>2§‹®‹8@2any_instanceORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ó+ó7*
+ò*ò62š‹¦‹8@2˜ContributionGraphStatusORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+óó**
+òò)2öŠ™‹8@2‹
+RepositoryORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+óó*
+òò2öŠ€‹8@2ocontributors_data,data = @contributor_status.contributors_data"
+ô"ô3*
+ó!ó22ç‹ø‹8@2Oassert_emptyassert_empty data"
+õõ*
+ôô2ÿ‹‹Œ8@2xtestBtest "returns fresh data instead of stale when it is available" do"
+øø	*
+÷÷2Œ¢Œ8@2icreate1octo = create(:user, email: "octocat@github.com")"
+ÿÿ*
+şş2ü‚8@2·!assert_fresh_data_overrides_staledassert_fresh_data_overrides_stale(:contributors, stale_data, @sample_contribution_metrics) do |data|"
+(*
+€€'2®Ï8@2Wassert_equalassert_equal 1, data.size"
+‚	‚*
+2›§8@2Osizeassert_equal 1, data.size"
+‚‚"*
+!2°´8@2lassert_equal.assert_equal data.first[:author][:id], octo.id"
+ƒ	ƒ*
+‚‚2½É8@2efirst.assert_equal data.first[:author][:id], octo.id"
+ƒƒ *
+‚‚2ÏÔ8@2bid.assert_equal data.first[:author][:id], octo.id"
+ƒ5ƒ7*
+‚4‚62éë8@2dassert_equal&assert_equal weeks, data.first[:weeks]"
+‰	‰*
+ˆˆ2‘ª‘8@2]first&assert_equal weeks, data.first[:weeks]"
+‰"‰'*
+ˆ!ˆ&2·‘¼‘8@2Wcontextcontext "graph preparation" do"
+
+*
+	2à‘ç‘8@2zeachD%w(code_frequency contributors commit_activity).each do |graph_name|"
+59*
+482³’·’8@2testYtest "##{graph_name}_data enqueues data gathering job once when status is not current" do"
+*
+
+2Î’Ò’8@2llast_indexed_oid*@contributor_status.last_indexed_oid = nil"
+‘‘-*
+,2Ä“Ô“8@2sonce=RepositoryContributionMetricsJob.expects(:perform_later).once"
+’B’F*
+‘A‘E2œ” ”8@2vexpects=RepositoryContributionMetricsJob.expects(:perform_later).once"
+’*’1*
+‘)‘02„”‹”8@2 RepositoryContributionMetricsJob=RepositoryContributionMetricsJob.expects(:perform_later).once"
+’	’)*
+‘‘(2ã“ƒ”8@2ato_sym)method_name = "#{graph_name}_data".to_sym"
+“,“2*
+’+’12Ì”Ò”8@2[send%@contributor_status.send(method_name)"
+””!*
+““ 2ï”ó”8@2[send%@contributor_status.send(method_name)"
+••!*
+”” 2•¡•8@2–test`test "##{graph_name}_data returns nil without marking as viewed if eventer is not up to date" do"
+˜˜*
+——
+2À•Ä•8@2IfreezeTimecop.freeze do"
+™™*
+˜˜2±–·–8@2Uupdate!@contributor_status.update!("
+šš&*
+™™%2Ù–à–8@2zdefault_oid=last_indexed_oid: @contributor_status.repository.default_oid,"
+›>›I*
+š=šH2Ÿ—ª—8@2y
+repository=last_indexed_oid: @contributor_status.repository.default_oid,"
+›3›=*
+š2š<2”——8@2Qagolast_viewed_at: 5.hours.ago,"
+œ%œ(*
+›$›'2Ğ—Ó—8@2Shourslast_viewed_at: 5.hours.ago,"
+œœ$*
+››#2Ê—Ï—8@2Sagolast_indexed_at: 1.minute.ago,"
+'**
+œ&œ)2û—ş—8@2Vminutelast_indexed_at: 1.minute.ago,"
+ &*
+œœ%2ô—ú—8@2xstubsAGitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: false)"
+Ÿ3Ÿ8*
+272¾˜Ã˜8@2any_instanceAGitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: false)"
+Ÿ&Ÿ2*
+%12±˜½˜8@2zEventerAGitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: false)"
+ŸŸ%*
+
+$2–˜°˜8@2|	RepoGraphAGitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: false)"
+ŸŸ*
+
+2–˜§˜8@2yGitHubAGitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: false)"
+ŸŸ*
+
+2–˜œ˜8@2klast_viewed_at+before = @contributor_status.last_viewed_at"
+ ( 6*
+Ÿ'Ÿ52ÿ˜™8@2|
+assert_nil@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+¢¢*
+¡
+¡2™™£™8@2vsend@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+¢*¢.*
+¡)¡-2¸™¼™8@2xto_sym@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+¢D¢J*
+¡C¡I2Ò™Ø™8@2uassert_equal7assert_equal before, @contributor_status.last_viewed_at"
+££*
+¢
+¢2ä™ğ™8@2wlast_viewed_at7assert_equal before, @contributor_status.last_viewed_at"
+£4£B*
+¢3¢A2š›š8@2JTimecopTimecop.freeze do"
+™	™*
+˜˜2©–°–8@2btest,test "##{graph_name}_data tracks metrics" do"
+§§*
+¦¦
+2¹š½š8@2ureturns<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨!¨(*
+§ §'2†››8@2qnew<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨A¨D*
+§@§C2¦›©›8@2}MemoryDogstatsD<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨)¨@*
+§(§?2›¥›8@2tGitHub<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨)¨/*
+§(§.2›”›8@2sstubs<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨¨*
+§§2õšúš8@2tGitHub<GitHub.stubs(:dogstats).returns(GitHub::MemoryDogstatsD.new)"
+¨	¨*
+§§2îšôš8@2“last_indexed_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+©©-*
+¨¨,2Ç›×›8@2default_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+©O©Z*
+¨N¨Y2ù›„œ8@2
+repositoryQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+©D©N*
+¨C¨M2î›ø›8@2wstubs@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+ª1ª6*
+©0©52µœºœ8@2~any_instance@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+ª$ª0*
+©#©/2¨œ´œ8@2yEventer@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+ª	ª#*
+©©"2œ§œ8@2{	RepoGraph@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+ª	ª*
+©©2œœ8@2xGitHub@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+ª	ª*
+©©2œ“œ8@2—returns^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«\«c*
+ª[ªb2©°8@2—expects^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«1«8*
+ª0ª72şœ…8@2–to_sym^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«T«Z*
+ªSªY2¡§8@2œany_instance^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«$«0*
+ª#ª/2ñœıœ8@2—Eventer^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«	«#*
+ªª"2Öœğœ8@2™	RepoGraph^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«	«*
+ªª2Öœçœ8@2–GitHub^GitHub::RepoGraph::Eventer.any_instance.expects("fetch_#{graph_name}_data".to_sym).returns({})"
+«	«*
+ªª2ÖœÜœ8@2ksend5@contributor_status.send("#{graph_name}_data".to_sym)"
+­­!*
+¬¬ 2ÒÖ8@2mto_sym5@contributor_status.send("#{graph_name}_data".to_sym)"
+­7­=*
+¬6¬<2ìò8@2ynewDexpected_tags = Set.new(["graph_name:#{graph_name}", "stale:false"])"
+¯¯ *
+®®2‘”8@2ySetDexpected_tags = Set.new(["graph_name:#{graph_name}", "stale:false"])"
+¯¯*
+®®28@2o
+increments3ops = GitHub.dogstats.increments("repographs.view")"
+°°)*
+¯¯(2àê8@2mdogstats3ops = GitHub.dogstats.increments("repographs.view")"
+°°*
+¯¯2×ß8@2kGitHub3ops = GitHub.dogstats.increments("repographs.view")"
+°°*
+¯¯2ĞÖ8@2Wassert_equalassert_equal 1, ops.count"
+±	±*
+°°2†Ÿ’Ÿ8@2Pcountassert_equal 1, ops.count"
+±±"*
+°°!2šŸŸŸ8@2hassert_equal*assert_equal expected_tags, ops.first.tags"
+²	²*
+±±2¨Ÿ´Ÿ8@2`tags*assert_equal expected_tags, ops.first.tags"
+²/²3*
+±.±22ÎŸÒŸ8@2afirst*assert_equal expected_tags, ops.first.tags"
+²)².*
+±(±-2ÈŸÍŸ8@2wassert_timing8assert_timing("repographs.display", tags: expected_tags)"
+´	´*
+³³2ÜŸéŸ8@2rtest<test "##{graph_name}_data handles Eventer::Client::Error" do"
+··*
+¶¶
+2¦ ª 8@2“last_indexed_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+¸¸-*
+··,2ÿ ¡8@2default_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+¸O¸Z*
+·N·Y2±¡¼¡8@2
+repositoryQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+¸D¸N*
+·C·M2¦¡°¡8@2”raises\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹G¹M*
+¸F¸L2ƒ¢‰¢8@2“Error\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹N¹d*
+¸M¸c2Š¢ ¢8@2”Client\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹N¹]*
+¸M¸\2Š¢™¢8@2•Eventer\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹N¹U*
+¸M¸T2Š¢‘¢8@2•expects\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹1¹8*
+¸0¸72í¡ô¡8@2šany_instance\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹$¹0*
+¸#¸/2à¡ì¡8@2•Eventer\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹	¹#*
+¸¸"2Å¡ß¡8@2—	RepoGraph\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹	¹*
+¸¸2Å¡Ö¡8@2”GitHub\GitHub::RepoGraph::Eventer.any_instance.expects(:up_to_date?).raises(Eventer::Client::Error)"
+¹	¹*
+¸¸2Å¡Ë¡8@2xwithBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º"º&*
+¹!¹%2Ã¢Ç¢8@2instance_ofBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º'º2*
+¹&¹12È¢Ó¢8@2yErrorBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º3ºI*
+¹2¹H2Ô¢ê¢8@2zClientBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º3ºB*
+¹2¹A2Ô¢ã¢8@2{EventerBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º3º:*
+¹2¹92Ô¢Û¢8@2{expectsBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+ºº*
+¹¹2²¢¹¢8@2{FailbotBFailbot.expects(:report).with(instance_of(Eventer::Client::Error))"
+º	º*
+¹¹2ª¢±¢8@2_assert_nothing_raisedassert_nothing_raised do"
+¼	¼*
+»»2ö¢‹£8@2|
+assert_nil@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+½½*
+¼
+¼2™£££8@2vsend@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+½*½.*
+¼)¼-2¸£¼£8@2xto_sym@assert_nil @contributor_status.send("#{graph_name}_data".to_sym)"
+½D½J*
+¼C¼I2Ò£Ø£8@2„testNtest "##{graph_name}_data cache key includes the last_indexed_at timestamp" do"
+ÁÁ*
+ÀÀ
+2÷£û£8@2Xfreeze Timecop.freeze(5.minutes.ago) do"
+ÂÂ*
+ÁÁ2Ö¤Ü¤8@2Uago Timecop.freeze(5.minutes.ago) do"
+Â"Â%*
+Á!Á$2ç¤ê¤8@2Yminutes Timecop.freeze(5.minutes.ago) do"
+ÂÂ!*
+ÁÁ 2ß¤æ¤8@2“last_indexed_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+ÃÃ/*
+ÂÂ.2¥¥8@2default_oidQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+ÃQÃ\*
+ÂPÂ[2¿¥Ê¥8@2
+repositoryQ@contributor_status.last_indexed_oid = @contributor_status.repository.default_oid"
+ÃFÃP*
+ÂEÂO2´¥¾¥8@2YTimecop Timecop.freeze(5.minutes.ago) do"
+Â	Â*
+ÁÁ2Î¤Õ¤8@2wstubs@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+Æ1Æ6*
+Å0Å52ˆ¦¦8@2~any_instance@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+Æ$Æ0*
+Å#Å/2û¥‡¦8@2yEventer@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+Æ	Æ#*
+ÅÅ"2à¥ú¥8@2{	RepoGraph@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+Æ	Æ*
+ÅÅ2à¥ñ¥8@2xGitHub@GitHub::RepoGraph::Eventer.any_instance.stubs(up_to_date?: true)"
+Æ	Æ*
+ÅÅ2à¥æ¥8@2Ywith_cache_enabledwith_cache_enabled do"
+È	È*
+ÇÇ2ª¦¼¦8@2‘returnsXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ÉXÉ_*
+ÈWÈ^2—§§8@2‘expectsXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+É3É:*
+È2È92ò¦ù¦8@2–any_instanceXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+É&É2*
+È%È12å¦ñ¦8@2‘EventerXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ÉÉ%*
+È
+È$2Ê¦ä¦8@2“	RepoGraphXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ÉÉ*
+È
+È2Ê¦Û¦8@2GitHubXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ÉÉ*
+È
+È2Ê¦Ğ¦8@2esend/@contributor_status.send(:"#{graph_name}_data")"
+ÊÊ#*
+ÉÉ"2Á§Å§8@2‰neverRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+ÌXÌ]*
+ËWË\2µ¨º¨8@2‹expectsRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+Ì3Ì:*
+Ë2Ë92¨—¨8@2any_instanceRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+Ì&Ì2*
+Ë%Ë12ƒ¨¨8@2‹EventerRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+ÌÌ%*
+Ë
+Ë$2è§‚¨8@2	RepoGraphRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+ÌÌ*
+Ë
+Ë2è§ù§8@2ŠGitHubRGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").never"
+ÌÌ*
+Ë
+Ë2è§î§8@2esend/@contributor_status.send(:"#{graph_name}_data")"
+ÍÍ#*
+ÌÌ"2Ù¨İ¨8@2olast_indexed_at.@contributor_status.last_indexed_at = Time.now"
+ÏÏ.*
+ÎÎ-2”©£©8@2cnow.@contributor_status.last_indexed_at = Time.now"
+Ï6Ï9*
+Î5Î82«©®©8@2dTime.@contributor_status.last_indexed_at = Time.now"
+Ï1Ï5*
+Î0Î42¦©ª©8@2‘returnsXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ĞXĞ_*
+ÏWÏ^2†ªª8@2‘expectsXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+Ğ3Ğ:*
+Ï2Ï92á©è©8@2–any_instanceXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+Ğ&Ğ2*
+Ï%Ï12Ô©à©8@2‘EventerXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ĞĞ%*
+Ï
+Ï$2¹©Ó©8@2“	RepoGraphXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ĞĞ*
+Ï
+Ï2¹©Ê©8@2GitHubXGitHub::RepoGraph::Eventer.any_instance.expects(:"fetch_#{graph_name}_data").returns({})"
+ĞĞ*
+Ï
+Ï2¹©¿©8@2esend/@contributor_status.send(:"#{graph_name}_data")"
+ÒÒ#*
+ÑÑ"2±ªµª8@2testWtest "#code_frequency_data returns fresh data instead of stale when it is available" do"
+ØØ*
+××2ôªøª8@2rto_i<"RepoGraphs_Additions" => [[Time.utc(2011, 2, 4).to_i, 90]],"
+Ş8Ş<*
+İ7İ;2÷¬û¬8@2qutc<"RepoGraphs_Additions" => [[Time.utc(2011, 2, 4).to_i, 90]],"
+Ş(Ş+*
+İ'İ*2ç¬ê¬8@2rTime<"RepoGraphs_Additions" => [[Time.utc(2011, 2, 4).to_i, 90]],"
+Ş#Ş'*
+İ"İ&2â¬æ¬8@2§!assert_fresh_data_overrides_staleTassert_fresh_data_overrides_stale(:code_frequency, stale_data, fresh_data) do |data|"
+ãã&*
+ââ%2ÿ­ ®8@2Yassert_equalassert_equal expected, data"
+ää*
+ãã2Ú®æ®8@2ƒtestMtest "#code_frequency_data fetches data from Eventer if enabled and ready" do"
+èè*
+çç2‡¯‹¯8@2a
+repository%repo = @contributor_status.repository"
+é é**
+èè)2ô¯ş¯8@2ˆupdate_columnI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+êê&*
+éé%2—°¤°8@2~utcI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+ê=ê@*
+é<é?2»°¾°8@2TimeI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+ê8ê<*
+é7é;2¶°º°8@2ˆreturnsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ìGìN*
+ëFëM2”±›±8@2ˆexpectsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ì6ì=*
+ë5ë<2ƒ±Š±8@2any_instanceORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ì)ì5*
+ë(ë42ö°‚±8@2˜ContributionGraphStatusORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ìì(*
+ëë'2Ò°õ°8@2‹
+RepositoryORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+ìì*
+ëë2Ò°Ü°8@2rlast_viewed_at2now = @contributor_status.last_viewed_at + 5.hours"
+îî-*
+íí,2Á±Ï±8@2ihours2now = @contributor_status.last_viewed_at + 5.hours"
+î2î7*
+í1í62Ô±Ù±8@2NfreezeTimecop.freeze(now) do"
+ïï*
+îî2æ±ì±8@2Vto_i [Time.utc(2011, 2, 4).to_i, 90],"
+ò!ò%*
+ñ ñ$2Ó²×²8@2Uutc [Time.utc(2011, 2, 4).to_i, 90],"
+òò*
+ññ2Ã²Æ²8@2VTime [Time.utc(2011, 2, 4).to_i, 90],"
+òò*
+ññ2¾²Â²8@2Uto_i[Time.utc(2011, 2, 6).to_i, 7],"
+ó!ó%*
+ò ò$2ş²‚³8@2Tutc[Time.utc(2011, 2, 6).to_i, 7],"
+óó*
+òò2î²ñ²8@2UTime[Time.utc(2011, 2, 6).to_i, 7],"
+óó*
+òò2é²í²8@2Uto_i[Time.utc(2011, 2, 7).to_i, 1],"
+ô!ô%*
+ó ó$2¨³¬³8@2Tutc[Time.utc(2011, 2, 7).to_i, 1],"
+ôô*
+óó2˜³›³8@2UTime[Time.utc(2011, 2, 7).to_i, 1],"
+ôô*
+óó2“³—³8@2Wto_i![Time.utc(2011, 2, 23).to_i, 38],"
+õ"õ&*
+ô!ô%2Ó³×³8@2Vutc![Time.utc(2011, 2, 23).to_i, 38],"
+õõ*
+ôô2Â³Å³8@2WTime![Time.utc(2011, 2, 23).to_i, 38],"
+õõ*
+ôô2½³Á³8@2Uto_i[Time.utc(2011, 2, 6).to_i, 8],"
+ø!ø%*
+÷ ÷$2­´±´8@2Tutc[Time.utc(2011, 2, 6).to_i, 8],"
+øø*
+÷÷2´ ´8@2UTime[Time.utc(2011, 2, 6).to_i, 8],"
+øø*
+÷÷2˜´œ´8@2Xto_i"[Time.utc(2011, 2, 24).to_i, 453],"
+ù"ù&*
+ø!ø%2Ø´Ü´8@2Wutc"[Time.utc(2011, 2, 24).to_i, 453],"
+ùù*
+øø2Ç´Ê´8@2XTime"[Time.utc(2011, 2, 24).to_i, 453],"
+ùù*
+øø2Â´Æ´8@2returnsdGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ıSıZ*
+üRüY2ÊµÑµ8@2expectsdGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ı/ı6*
+ü.ü52¦µ­µ8@2¢any_instancedGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ı"ı.*
+ü!ü-2™µ¥µ8@2EventerdGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ıı!*
+üü 2ş´˜µ8@2Ÿ	RepoGraphdGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ıı*
+üü2ş´µ8@2œGitHubdGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(eventer_metrics)"
+ıı*
+üü2ş´„µ8@2scode_frequency_data.data = @contributor_status.code_frequency_data"
+ÿ"ÿ5*
+ş!ş42…¶˜¶8@2|assert_equal>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+*
+€€2 ¶¬¶8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+*
+€€2±¶µ¶8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+AE*
+€@€D2Ú¶Ş¶8@2~last_viewed_at>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+2@*
+€1€?2Ë¶Ù¶8@2Yassert_equalassert_equal expected, data"
+*
+ŒŒ2Ì¸Ø¸8@2OTimecopTimecop.freeze(now) do"
+ïï*
+îî2Ş±å±8@2utest?test "#code_frequency_data handles empty eventer result set" do"
+‘‘*
+2ù¸ı¸8@2˜returns_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+–Q–X*
+•P•W2êºñº8@2˜expects_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+–-–4*
+•,•32ÆºÍº8@2any_instance_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+– –,*
+••+2¹ºÅº8@2˜Eventer_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+––*
+••2º¸º8@2š	RepoGraph_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+––*
+••2º¯º8@2—GitHub_GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_code_frequency_data).returns(empty_data)"
+––*
+••
+2º¤º8@2kreturns2@contributor_status.expects(:ready?).returns(true)"
+—*—1*
+–)–02§»®»8@2kexpects2@contributor_status.expects(:ready?).returns(true)"
+—— *
+––2–»»8@2vassert_equal8assert_equal [], @contributor_status.code_frequency_data"
+™™*
+˜˜2º»Æ»8@2}code_frequency_data8assert_equal [], @contributor_status.code_frequency_data"
+™*™=*
+˜)˜<2ß»ò»8@2testXtest "#commit_activity_data returns fresh data instead of stale when it is available" do"
+œœ*
+››2ü»€¼8@2to_iIfresh_data = { "RepoGraphs_Commits" => [[Time.utc(2019, 3, 3).to_i, 7]] }"
+CG*
+BF2Ç½Ë½8@2~utcIfresh_data = { "RepoGraphs_Commits" => [[Time.utc(2019, 3, 3).to_i, 7]] }"
+36*
+252·½º½8@2TimeIfresh_data = { "RepoGraphs_Commits" => [[Time.utc(2019, 3, 3).to_i, 7]] }"
+.2*
+-12²½¶½8@2Tutcnow = Time.utc(2019, 3, 15, 10)"
+  *
+ŸŸ2ã½æ½8@2UTimenow = Time.utc(2019, 3, 15, 10)"
+  *
+Ÿ
+Ÿ2Ş½â½8@2!assert_fresh_data_overrides_staleKassert_fresh_data_overrides_stale(:commit_activity, stale_data, fresh_data,"
+¡¡&*
+  %2ü½¾8@2zempty_commit_activity_data.parsed_stale: empty_commit_activity_data(now),"
+¢¢/*
+¡¡.2Ü¾ö¾8@2Xassert_equalassert_equal 52, data.size"
+¥¥*
+¤¤2¢¿®¿8@2Psizeassert_equal 52, data.size"
+¥¥!*
+¤¤ 2¸¿¼¿8@2assert_equalRassert_equal({total: 7, week: 1551571200, days: [7, 0, 0, 0, 0, 0, 0] }, data[50])"
+¦¦*
+¥¥2Ã¿Ï¿8@2„testNtest "#commit_activity_data fetches data from Eventer if enabled and ready" do"
+ªª*
+©©2§À«À8@2a
+repository%repo = @contributor_status.repository"
+« «**
+ªª)2•ÁŸÁ8@2ˆupdate_columnI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+¬¬&*
+««%2¸ÁÅÁ8@2~utcI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+¬=¬@*
+«<«?2ÜÁßÁ8@2TimeI@contributor_status.update_column(:last_viewed_at, Time.utc(2011, 3, 15))"
+¬8¬<*
+«7«;2×ÁÛÁ8@2ˆreturnsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+®G®N*
+­F­M2µÂ¼Â8@2ˆexpectsORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+®6®=*
+­5­<2¤Â«Â8@2any_instanceORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+®)®5*
+­(­42—Â£Â8@2˜ContributionGraphStatusORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+®®(*
+­­'2óÁ–Â8@2‹
+RepositoryORepository::ContributionGraphStatus.any_instance.expects(:ready?).returns(true)"
+®®*
+­­2óÁıÁ8@2rlast_viewed_at2now = @contributor_status.last_viewed_at + 5.hours"
+°°-*
+¯¯,2âÂğÂ8@2ihours2now = @contributor_status.last_viewed_at + 5.hours"
+°2°7*
+¯1¯62õÂúÂ8@2NfreezeTimecop.freeze(now) do"
+±±*
+°°2‡ÃÃ8@2Vto_i [Time.utc(2011, 2, 4).to_i, 90],"
+´!´%*
+³ ³$2òÃöÃ8@2Uutc [Time.utc(2011, 2, 4).to_i, 90],"
+´´*
+³³2âÃåÃ8@2VTime [Time.utc(2011, 2, 4).to_i, 90],"
+´´*
+³³2İÃáÃ8@2Uto_i[Time.utc(2011, 2, 6).to_i, 7],"
+µ!µ%*
+´ ´$2Ä¡Ä8@2Tutc[Time.utc(2011, 2, 6).to_i, 7],"
+µµ*
+´´2ÄÄ8@2UTime[Time.utc(2011, 2, 6).to_i, 7],"
+µµ*
+´´2ˆÄŒÄ8@2Uto_i[Time.utc(2011, 2, 7).to_i, 1],"
+¶!¶%*
+µ µ$2ÇÄËÄ8@2Tutc[Time.utc(2011, 2, 7).to_i, 1],"
+¶¶*
+µµ2·ÄºÄ8@2UTime[Time.utc(2011, 2, 7).to_i, 1],"
+¶¶*
+µµ2²Ä¶Ä8@2Wto_i![Time.utc(2011, 2, 23).to_i, 38],"
+·"·&*
+¶!¶%2òÄöÄ8@2Vutc![Time.utc(2011, 2, 23).to_i, 38],"
+··*
+¶¶2áÄäÄ8@2WTime![Time.utc(2011, 2, 23).to_i, 38],"
+··*
+¶¶2ÜÄàÄ8@2returnseGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»T»[*
+ºSºZ2äÅëÅ8@2expectseGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»/»6*
+º.º52¿ÅÆÅ8@2£any_instanceeGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»"».*
+º!º-2²Å¾Å8@2EventereGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»»!*
+ºº 2—Å±Å8@2 	RepoGrapheGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»»*
+ºº2—Å¨Å8@2GitHubeGitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(eventer_metrics)"
+»»*
+ºº2—ÅÅ8@2{commit_activity_data5weeks_data = @contributor_status.commit_activity_data"
+½(½<*
+¼'¼;2¥Æ¹Æ8@2|assert_equal>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+¾¾*
+½½2ÀÆÌÆ8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+¾¾*
+½½2ÑÆÕÆ8@2tto_i>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+¾A¾E*
+½@½D2úÆşÆ8@2~last_viewed_at>assert_equal now.to_i, @contributor_status.last_viewed_at.to_i"
+¾2¾@*
+½1½?2ëÆùÆ8@2^assert_equal assert_equal 52, weeks_data.size"
+ÀÀ*
+¿¿2†Ç’Ç8@2Vsize assert_equal 52, weeks_data.size"
+À#À'*
+¿"¿&2¢Ç¦Ç8@2~assert_equal@assert_equal Time.utc(2010, 3, 21).to_i, weeks_data.first[:week]"
+ÁÁ*
+ÀÀ2­Ç¹Ç8@2vto_i@assert_equal Time.utc(2010, 3, 21).to_i, weeks_data.first[:week]"
+Á*Á.*
+À)À-2ĞÇÔÇ8@2uutc@assert_equal Time.utc(2010, 3, 21).to_i, weeks_data.first[:week]"
+ÁÁ*
+ÀÀ2¿ÇÂÇ8@2vTime@assert_equal Time.utc(2010, 3, 21).to_i, weeks_data.first[:week]"
+ÁÁ*
+ÀÀ2ºÇ¾Ç8@2wfirst@assert_equal Time.utc(2010, 3, 21).to_i, weeks_data.first[:week]"
+Á;Á@*
+À:À?2áÇæÇ8@2}assert_equal?assert_equal Time.utc(2011, 3, 13).to_i, weeks_data.last[:week]"
+ÂÂ*
+ÁÁ2ôÇ€È8@2uto_i?assert_equal Time.utc(2011, 3, 13).to_i, weeks_data.last[:week]"
+Â*Â.*
+Á)Á-2—È›È8@2tutc?assert_equal Time.utc(2011, 3, 13).to_i, weeks_data.last[:week]"
+ÂÂ*
+ÁÁ2†È‰È8@2uTime?assert_equal Time.utc(2011, 3, 13).to_i, weeks_data.last[:week]"
+ÂÂ*
+ÁÁ2È…È8@2ulast?assert_equal Time.utc(2011, 3, 13).to_i, weeks_data.last[:week]"
+Â;Â?*
+Á:Á>2¨È¬È8@2ydetectAweek_of_jan_30 = weeks_data.detect { |w| w[:week] == 1296345600 }"
+Ä#Ä)*
+Ã"Ã(2×ÈİÈ8@2eassert_equal'assert_equal 90, week_of_jan_30[:total]"
+ÅÅ*
+ÄÄ2ƒÉÉ8@2xassert_equal:assert_equal [0, 0, 0, 0, 0, 90, 0], week_of_jan_30[:days]"
+ÆÆ*
+ÅÅ2±É½É8@2ydetectAweek_of_feb_06 = weeks_data.detect { |w| w[:week] == 1296950400 }"
+È#È)*
+Ç"Ç(2Ê•Ê8@2dassert_equal&assert_equal 8, week_of_feb_06[:total]"
+ÉÉ*
+ÈÈ2»ÊÇÊ8@2wassert_equal9assert_equal [7, 1, 0, 0, 0, 0, 0], week_of_feb_06[:days]"
+ÊÊ*
+ÉÉ2èÊôÊ8@2ydetectAweek_of_feb_20 = weeks_data.detect { |w| w[:week] == 1298160000 }"
+Ì#Ì)*
+Ë"Ë(2ÅËËË8@2eassert_equal'assert_equal 38, week_of_feb_20[:total]"
+ÍÍ*
+ÌÌ2ñËıË8@2xassert_equal:assert_equal [0, 0, 0, 38, 0, 0, 0], week_of_feb_20[:days]"
+ÎÎ*
+ÍÍ2ŸÌ«Ì8@2OTimecopTimecop.freeze(now) do"
+±±*
+°°2ÿÂ†Ã8@2vtest@test "#commit_activity_data handles empty eventer result set" do"
+ÒÒ*
+ÑÑ2ëÌïÌ8@2™returns`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+ÖRÖY*
+ÕQÕX2¸Î¿Î8@2™expects`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+Ö-Ö4*
+Õ,Õ32“ÎšÎ8@2any_instance`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+Ö Ö,*
+ÕÕ+2†Î’Î8@2™Eventer`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+ÖÖ*
+ÕÕ2ëÍ…Î8@2›	RepoGraph`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+ÖÖ*
+ÕÕ2ëÍüÍ8@2˜GitHub`GitHub::RepoGraph::Eventer.any_instance.expects(:fetch_commit_activity_data).returns(empty_data)"
+ÖÖ*
+ÕÕ
+2ëÍñÍ8@2kreturns2@contributor_status.expects(:ready?).returns(true)"
+×*×1*
+Ö)Ö02õÎüÎ8@2kexpects2@contributor_status.expects(:ready?).returns(true)"
+×× *
+ÖÖ2äÎëÎ8@2Tutcnow = Time.utc(2019, 3, 15, 10)"
+ÙÙ*
+ØØ2“Ï–Ï8@2UTimenow = Time.utc(2019, 3, 15, 10)"
+ÙÙ*
+Ø
+Ø2Ï’Ï8@2NfreezeTimecop.freeze(now) do"
+ÚÚ*
+ÙÙ2´ÏºÏ8@2”assert_equalVassert_equal empty_commit_activity_data(now), @contributor_status.commit_activity_data"
+ÛÛ*
+ÚÚ2ÉÏÕÏ8@2¢empty_commit_activity_dataVassert_equal empty_commit_activity_data(now), @contributor_status.commit_activity_data"
+ÛÛ.*
+ÚÚ-2ÖÏğÏ8@2œcommit_activity_dataVassert_equal empty_commit_activity_data(now), @contributor_status.commit_activity_data"
+ÛIÛ]*
+ÚHÚ\2‹ĞŸĞ8@2OTimecopTimecop.freeze(now) do"
+ÚÚ*
+ÙÙ2¬Ï³Ï8@2‹empty_commit_activity_data?def empty_commit_activity_data(now = Time.utc(2019, 3, 15, 10))"
+ßß!*
+ŞŞ 2µĞÏĞ8@2tutc?def empty_commit_activity_data(now = Time.utc(2019, 3, 15, 10))"
+ß-ß0*
+Ş,Ş/2ÛĞŞĞ8@2uTime?def empty_commit_activity_data(now = Time.utc(2019, 3, 15, 10))"
+ß(ß,*
+Ş'Ş+2ÖĞÚĞ8@2rto_i<first_week = (now.beginning_of_day - 52.weeks + 2.days).to_i"
+â=âA*
+á<á@2ÛÒßÒ8@2~beginning_of_day<first_week = (now.beginning_of_day - 52.weeks + 2.days).to_i"
+ââ'*
+áá&2µÒÅÒ8@2sweeks<first_week = (now.beginning_of_day - 52.weeks + 2.days).to_i"
+â-â2*
+á,á12ËÒĞÒ8@2rdays<first_week = (now.beginning_of_day - 52.weeks + 2.days).to_i"
+â7â;*
+á6á:2ÕÒÙÒ8@2Lto_ione_week = 1.week.to_i"
+ãã*
+ââ2öÒúÒ8@2Lweekone_week = 1.week.to_i"
+ãã*
+ââ2ñÒõÒ8@2Umap expected = 0.upto(51).map do |i|"
+åå*
+ää2¨Ó«Ó8@2Vupto expected = 0.upto(51).map do |i|"
+åå*
+ää2ŸÓ£Ó8@2assert_metrics_published7def assert_metrics_published(date:, author:, **metrics)"
+ëë*
+êê2–Ô®Ô8@2l	ADDITIONS1additions: GitHub::RepoGraph::Eventer::ADDITIONS,"
+íí7*
+ìì62íÔ’Õ8@2jEventer1additions: GitHub::RepoGraph::Eventer::ADDITIONS,"
+íí,*
+ìì+2íÔ‡Õ8@2l	RepoGraph1additions: GitHub::RepoGraph::Eventer::ADDITIONS,"
+íí#*
+ìì"2íÔşÔ8@2iGitHub1additions: GitHub::RepoGraph::Eventer::ADDITIONS,"
+íí*
+ìì2íÔóÔ8@2l	DELETIONS1deletions: GitHub::RepoGraph::Eventer::DELETIONS,"
+îî7*
+íí62¥ÕÊÕ8@2jEventer1deletions: GitHub::RepoGraph::Eventer::DELETIONS,"
+îî,*
+íí+2¥Õ¿Õ8@2l	RepoGraph1deletions: GitHub::RepoGraph::Eventer::DELETIONS,"
+îî#*
+íí"2¥Õ¶Õ8@2iGitHub1deletions: GitHub::RepoGraph::Eventer::DELETIONS,"
+îî*
+íí2¥Õ«Õ8@2fCOMMITS-commits: GitHub::RepoGraph::Eventer::COMMITS,"
+ïï3*
+îî22ÛÕşÕ8@2fEventer-commits: GitHub::RepoGraph::Eventer::COMMITS,"
+ïï**
+îî)2ÛÕõÕ8@2h	RepoGraph-commits: GitHub::RepoGraph::Eventer::COMMITS,"
+ïï!*
+îî 2ÛÕìÕ8@2eGitHub-commits: GitHub::RepoGraph::Eventer::COMMITS,"
+ïï*
+îî2ÛÕáÕ8@2\each&event_map.each do |metric, event_name|"
+òò*
+ññ2•Ö™Ö8@2Jzero?next if delta.zero?"
+ôô*
+óó2äÖéÖ8@2Zwith$Eventer::Event.expects(:track).with("
+õ&õ**
+ô%ô)2×“×8@2V
+repositoryowner: @status.repository,"
+÷÷"*
+öö!2À×Ê×8@2Sparsetimestamp: Date.parse(date),"
+øø*
+÷÷2ä×é×8@2RDatetimestamp: Date.parse(date),"
+øø*
+÷÷2ß×ã×8@2]expects$Eventer::Event.expects(:track).with("
+õõ*
+ôô2ÿÖ†×8@2[Event$Eventer::Event.expects(:track).with("
+õõ*
+ôô2ğÖşÖ8@2]Eventer$Eventer::Event.expects(:track).with("
+õõ*
+ôô2ğÖ÷Ö8@

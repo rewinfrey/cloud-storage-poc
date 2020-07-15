@@ -1,0 +1,24 @@
+
+(0a6ba070bd60dceca8eb131f20bc3d40c1e892664db/migrate/20190305182253_add_product_uuid_fields.rbRuby"02lAddProductUUIDFields.class AddProductUUIDFields < GitHub::Migration"
+*
+2%98@2a	Migration.class AddProductUUIDFields < GitHub::Migration"
+/*
+.2<M8@2^GitHub.class AddProductUUIDFields < GitHub::Migration"
+$*
+#2<B8@2<change
+def change"
+*
+2¡§8@2r
+add_column<add_column :product_uuids, :product_type, :string, limit: 32"
+*
+2¬¶8@2q
+add_column;add_column :product_uuids, :product_key, :string, limit: 64"
+*
+2í÷8@2i
+add_column3add_column :product_uuids, :billing_cycle, :integer"
+		*
+2­·8@2l	add_index7add_index :product_uuids, [:product_type, :product_key]"
+*
+
+
+2æï8@

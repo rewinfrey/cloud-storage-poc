@@ -1,0 +1,57 @@
+
+(0a0cc703dc5c264ab086bd9e7fe8ce248a3a182a,lib/platform/objects/node_count_breakdown.rbRuby"02APlatformmodule Platform"
+*
+2%-8@2?Objectsmodule Objects"
+
+*
+	27>8@2nNodeCountBreakdown2class NodeCountBreakdown < Platform::Objects::Base"
+*
+
+2I[8@2`Base2class NodeCountBreakdown < Platform::Objects::Base"
+ 7*
+62^u8@2cObjects2class NodeCountBreakdown < Platform::Objects::Base"
+ 1*
+02^o8@2dPlatform2class NodeCountBreakdown < Platform::Objects::Base"
+ (*
+'2^f8@2qdescription;description "Per-type breakdown of possible nodes accessed""
+*
+2|‡8@2iareas_of_responsibility&areas_of_responsibility :ecosystem_api"
+*
+2¾Õ8@2pasync_api_can_access?/def self.async_api_can_access?(permission, obj)"
+%*
+
+
+$2èý8@2¥hidden_from_public?fpermission.hidden_from_public?(self) # Update this authorization if we ever go public with this object"
+'*
+&2¢µ8@2sasync_viewer_can_see?2def self.async_viewer_can_see?(permission, object)"
+%*
+$2³È8@2J
+visibilityvisibility :internal"
+*
+2û…8@2bscopeless_tokens_as_minimumscopeless_tokens_as_minimum"
+"*
+!2–±8@2€fieldOfield :type_name, String, "The type of node which may be accessed", null: false"
+*
+2¹¾8@2StringOfield :type_name, String, "The type of node which may be accessed", null: false"
+*
+2ËÑ8@2œfieldkfield :count, Integer, "The maximum number of nodes that this field may access", method: :cost, null: false"
+*
+2”8@2žIntegerkfield :count, Integer, "The maximum number of nodes that this field may access", method: :cost, null: false"
+*
+2¤8@2fieldPfield :field_name, String, "The field which may access these nodes", null: false"
+*
+2	†	8@2‚StringPfield :field_name, String, "The field which may access these nodes", null: false"
+ *
+2”	š	8@2‚fieldQfield :line, Integer, "The line number where this field was written", null: false"
+*
+2Ø	Ý	8@2„IntegerQfield :line, Integer, "The line number where this field was written", null: false"
+*
+2å	ì	8@2†fieldUfield :column, Integer, "The column number where this field was written", null: false"
+*
+2°
+µ
+8@2ˆIntegerUfield :column, Integer, "The column number where this field was written", null: false"
+*
+2¿
+Æ
+8@

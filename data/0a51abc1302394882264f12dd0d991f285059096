@@ -1,0 +1,993 @@
+
+(0a51abc1302394882264f12dd0d991f2850590969test/integration/repos/project_columns_controller_test.rbRuby"02ô%ReposProjectColumnsControllerHttpTestIclass ReposProjectColumnsControllerHttpTest < GitHub::IntegrationTestCase"
+,*
++2dâ8@2àIntegrationTestCaseIclass ReposProjectColumnsControllerHttpTest < GitHub::IntegrationTestCase"
+/J*
+.I2åß8@2{GitHubIclass ReposProjectColumnsControllerHttpTest < GitHub::IntegrationTestCase"
+/5*
+.42åí8@2?fixturesfixtures do"
+*
+
+2™≤8@2Hcreate@owner = create(:user)"
+*
+2√…8@2\create*@repo = create(:repository, owner: @owner)"
+		*
+2›„8@2zcreateH@priv_user = create(:credit_card_user, plan: GitHub::Plan.find("micro"))"
+
+
+*
+		2ëó8@2xfindH@priv_user = create(:credit_card_user, plan: GitHub::Plan.find("micro"))"
+
+?
+C*
+	>	B2æ¬8@2xPlanH@priv_user = create(:credit_card_user, plan: GitHub::Plan.find("micro"))"
+
+2
+>*
+	1	=2±Ω8@2zGitHubH@priv_user = create(:credit_card_user, plan: GitHub::Plan.find("micro"))"
+
+2
+8*
+	1	72±∑8@2ncreate<@priv_repo  = create(:private_repository, owner: @priv_user)"
+*
+
+
+2ﬂÂ8@2ecreate3@priv_project = create(:project, owner: @priv_repo)"
+*
+2¢®8@2ÇcreateP@priv_column = create(:project_column, project: @priv_project, name: "Column 1")"
+*
+2Ÿﬂ8@2[create)@project = create(:project, owner: @repo)"
+*
+2™∞8@2zcreateH@column_1 = create(:project_column, project: @project, name: "Column 1")"
+*
+2Ÿﬂ8@2zcreateH@column_2 = create(:project_column, project: @project, name: "Column 2")"
+*
+2¶¨8@29setupsetup do"
+*
+2ÏÒ8@2<reset_kvreset_kv"
+*
+2˘Å8@2Icontextcontext "GET :show" do"
+
+*
+	2ãí8@2Mtesttest "works as repo owner" do"
+	*
+2¶™8@27as	as @owner"
+	*
+2 Ã8@2|getMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+
+*
+	2⁄›8@2numberMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+4:*
+392áç8@2{idMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+PR*
+OQ2£•8@2Nassert_responseassert_response 200"
+*
+2Øæ8@2lassert_template1assert_template "project_columns/_project_column""
+*
+2…ÿ8@2xtestHtest "doesn't show column page when projects are disabled for a repo" do"
+  	*
+2àå8@2|disable_repository_projects5@repo.disable_repository_projects(actor: @repo.owner)"
+!!(*
+  '2›¯8@2fowner5@repo.disable_repository_projects(actor: @repo.owner)"
+!6!;*
+ 5 :2Ü	ã	8@2|getMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+##
+*
+""	2î	ó	8@2numberMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+#4#:*
+"3"92¡	«	8@2{idMget "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+#P#R*
+"O"Q2›	ﬂ	8@2Nassert_responseassert_response 404"
+%%*
+$$2È	¯	8@2Wcontext$context "GET :automation_options" do"
+))
+*
+((	2é
+ï
+8@2]test-test "works as repo owner on private repo" do"
+**	*
+))2∑
+ª
+8@2;asas @priv_user"
+++	*
+**2Î
+Ì
+8@2ÖgetVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+,,
+*
+++	2ˇ
+Ç8@2ànumberVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+,B,H*
++A+G2∫¿8@2Nassert_responseassert_response 200"
+--*
+,,2‹Î8@2dassert_template)assert_template "project_workflows/_form""
+..*
+--2ˆÖ8@2`test0test "works as repo collab on a private repo" do"
+11	*
+002≠±8@2Hcreatecollab = create(:user)"
+22*
+112ÌÛ8@2S
+add_member@priv_repo.add_member(collab)"
+33*
+222åñ8@27as	as collab"
+44	*
+332•ß8@2ÖgetVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+55
+*
+44	2µ∏8@2ànumberVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+5B5H*
+4A4G2ˆ8@2Nassert_responseassert_response 200"
+66*
+552í°8@2dassert_template)assert_template "project_workflows/_form""
+77*
+662¨ª8@2gtest7test "does not work as non-collab on a private repo" do"
+::	*
+992„Á8@2>asas create(:user)"
+;;	*
+::2°£8@2Bcreateas create(:user)"
+;
+;*
+:	:2§™8@2ÖgetVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+<<
+*
+;;	2∏ª8@2ànumberVget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options""
+<B<H*
+;A;G2Û˘8@2Nassert_responseassert_response 404"
+==*
+<<2ï§8@2Ztest*test "does not work when not logged in" do"
+@@	*
+??2∂∫8@24asas nil"
+AA	*
+@@2ÁÈ8@2{getLget "/#{@priv_user}/#{@repo}/projects/#{@project.number}/automation_options""
+BB
+*
+AA	2Ù˜8@2~numberLget "/#{@priv_user}/#{@repo}/projects/#{@project.number}/automation_options""
+B8B>*
+A7A=2•´8@2Nassert_responseassert_response 404"
+CC*
+BB2«÷8@2Stest#test "TODO options review_state" do"
+FF	*
+EE2ËÏ8@2;asas @priv_user"
+GG	*
+FF2íî8@2ígetcget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?purpose=TODO""
+HH
+*
+GG	2¶©8@2ïnumbercget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?purpose=TODO""
+HBHH*
+GAGG2·Á8@2Nassert_responseassert_response 200"
+JJ*
+II2ë†8@2dassert_template)assert_template "project_workflows/_form""
+KK*
+JJ2´∫8@2õassert_includes`assert_includes response.body, "Issues will automatically move here when added to this project.""
+LL*
+KK2€Í8@2êbody`assert_includes response.body, "Issues will automatically move here when added to this project.""
+L L$*
+KK#2Ù¯8@2îresponse`assert_includes response.body, "Issues will automatically move here when added to this project.""
+LL*
+KK2ÎÛ8@2¢assert_includesgassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+MM*
+LL2¬—8@2óbodygassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+M M$*
+LL#2€ﬂ8@2õresponsegassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+MM*
+LL2“⁄8@2ßassert_includeslassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+NN*
+MM2∞ø8@2úbodylassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+N N$*
+MM#2…Õ8@2†responselassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+NN*
+MM2¿»8@2Æassert_includessassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+OO*
+NN2£≤8@2£bodysassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+O O$*
+NN#2º¿8@2ßresponsesassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+OO*
+NN2≥ª8@2Ztest*test "IN_PROGRESS options review_state" do"
+RR	*
+QQ2§®8@2;asas @priv_user"
+SS	*
+RR2’◊8@2ôgetjget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?purpose=IN_PROGRESS""
+TT
+*
+SS	2ÈÏ8@2únumberjget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?purpose=IN_PROGRESS""
+TBTH*
+SASG2§™8@2Nassert_responseassert_response 200"
+VV*
+UU2€Í8@2dassert_template)assert_template "project_workflows/_form""
+WW*
+VV2ıÑ8@2¢assert_includesgassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+XX*
+WW2•¥8@2óbodygassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+X X$*
+WW#2æ¬8@2õresponsegassert_includes response.body, "Pull requests will automatically move here when added to this project.""
+XX*
+WW2µΩ8@2ßassert_includeslassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+YY*
+XX2ì¢8@2úbodylassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+Y Y$*
+XX#2¨∞8@2†responselassert_includes response.body, "If a closed issue in this project reopens, it will automatically move here.""
+YY*
+XX2£´8@2Æassert_includessassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+ZZ*
+YY2Üï8@2£bodysassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+Z Z$*
+YY#2ü£8@2ßresponsesassert_includes response.body, "If a closed pull request in this project reopens, it will automatically move here.""
+ZZ*
+YY2ñû8@2ÿassert_includesúassert_includes response.body, "Pull requests in this project will automatically move here when they meet the minimum number of required approving reviews.""
+[[*
+ZZ2Äè8@2Õbodyúassert_includes response.body, "Pull requests in this project will automatically move here when they meet the minimum number of required approving reviews.""
+[ [$*
+ZZ#2ôù8@2—responseúassert_includes response.body, "Pull requests in this project will automatically move here when they meet the minimum number of required approving reviews.""
+[[*
+ZZ2êò8@2assert_includes¥assert_includes response.body, "Pull requests in this project will automatically move here when a reviewer requests changes, or it no longer meets the minimum number of required ap"
+\\*
+[[2£≤8@2ﬂbodyÆasbody, "Pull requests in this project will automatically move here when a reviewer requests changes, or it no longer meets the minimum number of required approving reviews.""
+\ \$*
+[[#2º¿8@2Èresponse¥response.body, "Pull requests in this project will automatically move here when a reviewer requests changes, or it no longer meets the minimum number of required approving reviews."
+\\*
+[[2≥ª8@2ÇtestRtest "with a column id returns the automation_options scoped to column purpose" do"
+__	*
+^^2ˆ˙8@2;asas @priv_user"
+``	*
+__2œ—8@2kupdate_attribute/@priv_column.update_attribute(:purpose, "done")"
+aa$*
+``#2Ä 8@2õgetlget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?id=#{@priv_column.id}""
+bb
+*
+aa	2ô ú 8@2ûnumberlget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?id=#{@priv_column.id}""
+bBbH*
+aAaG2‘ ⁄ 8@2öidlget "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/automation_options?id=#{@priv_column.id}""
+bobq*
+anap2Å!É!8@2Nassert_responseassert_response 200"
+cc*
+bb2å!õ!8@2dassert_template)assert_template "project_workflows/_form""
+dd*
+cc2¶!µ!8@2bassert_includes'assert_includes response.body, "merged""
+ee*
+dd2÷!Â!8@2Wbody'assert_includes response.body, "merged""
+e e$*
+dd#2Ô!Û!8@2[response'assert_includes response.body, "merged""
+ee*
+dd2Ê!Ó!8@2grefute_includes,refute_includes response.body, "newly added""
+ff*
+ee2Ñ"ì"8@2\body,refute_includes response.body, "newly added""
+f f$*
+ee#2ù"°"8@2`response,refute_includes response.body, "newly added""
+ff*
+ee2î"ú"8@2Tcontext!context "PUT :update_workflow" do"
+jj
+*
+ii	2¬"…"8@2Mtesttest "works as repo owner" do"
+kk	*
+jj2Ë"Ï"8@2U
+assert_nilassert_nil @priv_column.purpose"
+ll*
+kk2å#ñ#8@2Rpurposeassert_nil @priv_column.purpose"
+ll&*
+kk%2§#´#8@2cassert_empty+assert_empty @priv_column.project_workflows"
+mm*
+ll2≤#æ#8@2hproject_workflows+assert_empty @priv_column.project_workflows"
+m!m2*
+l l12Ã#›#8@2;asas @priv_user"
+oo	*
+nn2Â#Á#8@2‰put¥put "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["ISSUE_CL"
+pp
+*
+oo	2˘#¸#8@2·numberÆput "/#{@priv_user}/#{@priv_repo}/projects/number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["ISSUE_CLOSED"] } }"
+pBpH*
+oAoG2¥$∫$8@2›idÆput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columnsid}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["ISSUE_CLOSED"] } }"
+papc*
+o`ob2”$’$8@2Nassert_responseassert_response 200"
+qq*
+pp2æ%Õ%8@2lassert_template1assert_template "project_columns/_project_column""
+rr*
+qq2ÿ%Á%8@2hassert_equal0assert_equal "done", @priv_column.reload.purpose"
+ss*
+rr2ê&ú&8@2cpurpose0assert_equal "done", @priv_column.reload.purpose"
+s0s7*
+r/r62π&¿&8@2breload0assert_equal "done", @priv_column.reload.purpose"
+s)s/*
+r(r.2≤&∏&8@2§assert_equallassert_equal [ProjectWorkflow::ISSUE_CLOSED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+tt*
+ss2«&”&8@2¨ISSUE_CLOSED_TRIGGERlassert_equal [ProjectWorkflow::ISSUE_CLOSED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+tt:*
+ss92’&˙&8@2ßProjectWorkflowlassert_equal [ProjectWorkflow::ISSUE_CLOSED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+tt$*
+ss#2’&‰&8@2ücollectlassert_equal [ProjectWorkflow::ISSUE_CLOSED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+t\tc*
+s[sb2ú'£'8@2©project_workflowslassert_equal [ProjectWorkflow::ISSUE_CLOSED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+tJt[*
+sIsZ2ä'õ'8@2Ntesttest "works as repo collab" do"
+ww	*
+vv2¡'≈'8@2U
+assert_nilassert_nil @priv_column.purpose"
+xx*
+ww2Ê''8@2Rpurposeassert_nil @priv_column.purpose"
+xx&*
+ww%2˛'Ö(8@2cassert_empty+assert_empty @priv_column.project_workflows"
+yy*
+xx2å(ò(8@2hproject_workflows+assert_empty @priv_column.project_workflows"
+y!y2*
+x x12¶(∑(8@2Hcreatecollab = create(:user)"
+{{*
+zz2»(Œ(8@2S
+add_member@priv_repo.add_member(collab)"
+||*
+{{2Á(Ò(8@27as	as collab"
+}}	*
+||2Ä)Ç)8@2‰put¥put "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["PR_CLOSE"
+~~
+*
+}}	2ê)ì)8@2·numberÆput "/#{@priv_user}/#{@priv_repo}/pnumber}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["PR_CLOSED_NOT_MERGED"] } }"
+~B~H*
+}A}G2À)—)8@2›idÆput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}id}/workflow", params: { project_column: { purpose: "DONE", automation_options: ["PR_CLOSED_NOT_MERGED"] } }"
+~a~c*
+}`}b2Í)Ï)8@2Nassert_responseassert_response 200"
+*
+~~2›*Ï*8@2nassert_template1assert_template "project_columns/_project_column""
+ÄÄ*
+2˜*Ü+8@2lassert_equal0assert_equal "done", @priv_column.reload.purpose"
+ÅÅ*
+ÄÄ2Ø+ª+8@2gpurpose0assert_equal "done", @priv_column.reload.purpose"
+Å0Å7*
+Ä/Ä62ÿ+ﬂ+8@2freload0assert_equal "done", @priv_column.reload.purpose"
+Å)Å/*
+Ä(Ä.2—+◊+8@2∞assert_equaltassert_equal [ProjectWorkflow::PR_CLOSED_NOT_MERGED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+ÇÇ*
+ÅÅ2Ê+Ú+8@2¿PR_CLOSED_NOT_MERGED_TRIGGERtassert_equal [ProjectWorkflow::PR_CLOSED_NOT_MERGED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+ÇÇB*
+ÅÅA2Ù+°,8@2≥ProjectWorkflowtassert_equal [ProjectWorkflow::PR_CLOSED_NOT_MERGED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+ÇÇ$*
+ÅÅ#2Ù+É,8@2´collecttassert_equal [ProjectWorkflow::PR_CLOSED_NOT_MERGED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+ÇdÇk*
+ÅcÅj2√, ,8@2µproject_workflowstassert_equal [ProjectWorkflow::PR_CLOSED_NOT_MERGED_TRIGGER], @priv_column.project_workflows.collect(&:trigger_type)"
+ÇRÇc*
+ÅQÅb2±,¬,8@2Ytest%test "does not work as non-collab" do"
+ÖÖ	*
+ÑÑ2Ë,Ï,8@2Basas create(:user)"
+ÜÜ	*
+ÖÖ2î-ñ-8@2Fcreateas create(:user)"
+Ü
+Ü*
+Ö	Ö2ó-ù-8@2Õputôput "/#{@priv_owner}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+áá
+*
+ÜÜ	2´-Æ-8@2–numberôput "/#{@priv_owner}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+áCáI*
+ÜBÜH2Á-Ì-8@2Ãidôput "/#{@priv_owner}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+ábád*
+ÜaÜc2Ü.à.8@2Rassert_responseassert_response 404"
+àà*
+áá2À.⁄.8@2^test*test "does not work when not logged in" do"
+ãã	*
+ää2Ï..8@28asas nil"
+åå	*
+ãã2ù/ü/8@2ªputáput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+çç
+*
+åå	2™/≠/8@2ænumberáput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+ç4ç:*
+å3å92◊/›/8@2∫idáput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/workflow", params: { project_column: { purpose: "DONE" } }"
+çPçR*
+åOåQ2Û/ı/8@2Rassert_responseassert_response 404"
+éé*
+çç2∏0«08@2Pcontextcontext "POST :create" do"
+íí
+*
+ëë	2›0‰08@2Qtesttest "works as repo owner" do"
+ìì	*
+íí2˚0ˇ08@2;as	as @owner"
+îî	*
+ìì2ü1°18@2ßpostspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ïï*
+îî
+2Ø1≥18@2©numberspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ï5ï;*
+î4î:2›1„18@2Rassert_responseassert_response 200"
+ññ*
+ïï2©2∏28@2passert_template1assert_template "project_columns/_project_column""
+óó*
+ññ2√2“28@2rassert_equal6assert_equal "Cool Column", @project.columns.last.name"
+òò*
+óó2˚2á38@2jname6assert_equal "Cool Column", @project.columns.last.name"
+ò9ò=*
+ó8ó<2≠3±38@2jlast6assert_equal "Cool Column", @project.columns.last.name"
+ò4ò8*
+ó3ó72®3¨38@2mcolumns6assert_equal "Cool Column", @project.columns.last.name"
+ò,ò3*
+ó+ó22†3ß38@2Rtesttest "works as repo collab" do"
+õõ	*
+öö2ø3√38@2Lcreatecollab = create(:user)"
+úú*
+õõ2Ì3Û38@2R
+add_member@repo.add_member(collab)"
+ùù*
+úú2á4ë48@2;as	as collab"
+ûû	*
+ùù2†4¢48@2ßpostspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+üü*
+ûû
+2∞4¥48@2©numberspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ü5ü;*
+û4û:2ﬁ4‰48@2Rassert_responseassert_response 200"
+††*
+üü2™5π58@2passert_template1assert_template "project_columns/_project_column""
+°°*
+††2ƒ5”58@2rassert_equal6assert_equal "Cool Column", @project.columns.last.name"
+¢¢*
+°°2¸5à68@2jname6assert_equal "Cool Column", @project.columns.last.name"
+¢9¢=*
+°8°<2Æ6≤68@2jlast6assert_equal "Cool Column", @project.columns.last.name"
+¢4¢8*
+°3°72©6≠68@2mcolumns6assert_equal "Cool Column", @project.columns.last.name"
+¢,¢3*
+°+°22°6®68@2btest.test "does not work when no name is passed" do"
+••	*
+§§2¿6ƒ68@2?asas @priv_user"
+¶¶	*
+••2ı6˜68@2™postvpost "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns", params: { project_column: { name: "" } }"
+ßß*
+¶¶
+2â7ç78@2¨numbervpost "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns", params: { project_column: { name: "" } }"
+ßCßI*
+¶B¶H2≈7À78@2eassert_template&assert_template "project_columns/_add""
+©©*
+®®2á8ñ88@2hrefute_empty,refute_empty @priv_project.columns.last.name"
+™™*
+©©2¥8¿88@2`name,refute_empty @priv_project.columns.last.name"
+™/™3*
+©.©22‹8‡88@2`last,refute_empty @priv_project.columns.last.name"
+™*™.*
+©)©-2◊8€88@2ccolumns,refute_empty @priv_project.columns.last.name"
+™"™)*
+©!©(2œ8÷88@2ntest:test "does not work when column name is already in use" do"
+≠≠	*
+¨¨2Ó8Ú88@2?asas @priv_user"
+ÆÆ	*
+≠≠2Ø9±98@2≥postpost "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/", params: { project_column: { name: "Column 1" } }"
+ØØ*
+ÆÆ
+2√9«98@2µnumberpost "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/", params: { project_column: { name: "Column 1" } }"
+ØCØI*
+ÆBÆH2ˇ9Ö:8@2Rassert_responseassert_response 200"
+∞∞*
+ØØ2…:ÿ:8@2eassert_template&assert_template "project_columns/_add""
+≤≤*
+±±2‰:Û:8@2vassert_match:assert_match "Name has already been taken", @response.body"
+≥≥*
+≤≤2ë;ù;8@2nbody:assert_match "Name has already been taken", @response.body"
+≥=≥A*
+≤<≤@2«;À;8@2Ytest%test "does not work as non-collab" do"
+∂∂	*
+µµ2Ÿ;›;8@2Basas create(:user)"
+∑∑	*
+∂∂2Ö<á<8@2Fcreateas create(:user)"
+∑
+∑*
+∂	∂2à<é<8@2ßpostspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+∏∏*
+∑∑
+2ú<†<8@2©numberspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+∏5∏;*
+∑4∑:2 <–<8@2Rassert_responseassert_response 404"
+ππ*
+∏∏2ñ=•=8@2bassert_equal&assert_equal 2, @project.columns.count"
+∫∫*
+ππ2∞=º=8@2[count&assert_equal 2, @project.columns.count"
+∫(∫-*
+π'π,2—=÷=8@2]columns&assert_equal 2, @project.columns.count"
+∫ ∫'*
+ππ&2…=–=8@2^test*test "does not work when not logged in" do"
+ΩΩ	*
+ºº2‰=Ë=8@28asas nil"
+ææ	*
+ΩΩ2ï>ó>8@2ßpostspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+øø*
+ææ
+2¢>¶>8@2©numberspost "/#{@owner}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ø5ø;*
+æ4æ:2–>÷>8@2Rassert_responseassert_response 404"
+¿¿*
+øø2ú?´?8@2bassert_equal&assert_equal 2, @project.columns.count"
+¡¡*
+¿¿2∂?¬?8@2[count&assert_equal 2, @project.columns.count"
+¡(¡-*
+¿'¿,2◊?‹?8@2]columns&assert_equal 2, @project.columns.count"
+¡ ¡'*
+¿¿&2œ?÷?8@2Ocontextcontext "PUT :update" do"
+≈≈
+*
+ƒƒ	2Ó?ı?8@2Qtesttest "works as repo owner" do"
+∆∆	*
+≈≈2ã@è@8@2;as	as @owner"
+««	*
+∆∆2Ø@±@8@2∂putÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+»»
+*
+««	2ø@¬@8@2πnumberÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+»4»:*
+«3«92Ï@Ú@8@2µidÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+»P»R*
+«O«Q2àAäA8@2Rassert_responseassert_response 200"
+  *
+……2…AÿA8@2passert_template1assert_template "project_columns/_project_column""
+ÀÀ*
+  2„AÚA8@2massert_equal1assert_equal "Cool Column", @column_1.reload.name"
+ÃÃ*
+ÀÀ2õBßB8@2ename1assert_equal "Cool Column", @column_1.reload.name"
+Ã4Ã8*
+À3À72»BÃB8@2greload1assert_equal "Cool Column", @column_1.reload.name"
+Ã-Ã3*
+À,À22¡B«B8@2Rtesttest "works as repo collab" do"
+œœ	*
+ŒŒ2⁄BﬁB8@2Lcreatecollab = create(:user)"
+––*
+œœ2àCéC8@2R
+add_member@repo.add_member(collab)"
+——*
+––2¢C¨C8@2;as	as collab"
+””	*
+““2ºCæC8@2∂putÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+‘‘
+*
+””	2ÃCœC8@2πnumberÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+‘4‘:*
+”3”92˘CˇC8@2µidÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+‘P‘R*
+”O”Q2ïDóD8@2Rassert_responseassert_response 200"
+÷÷*
+’’2÷DÂD8@2passert_template1assert_template "project_columns/_project_column""
+◊◊*
+÷÷2DˇD8@2massert_equal1assert_equal "Cool Column", @column_1.reload.name"
+ÿÿ*
+◊◊2®E¥E8@2ename1assert_equal "Cool Column", @column_1.reload.name"
+ÿ4ÿ8*
+◊3◊72’EŸE8@2greload1assert_equal "Cool Column", @column_1.reload.name"
+ÿ-ÿ3*
+◊,◊22ŒE‘E8@2btest.test "does not work when no name is passed" do"
+€€	*
+⁄⁄2ÁEÎE8@2?asas @priv_user"
+‹‹	*
+€€2úFûF8@2ºputàput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "" } }"
+››
+*
+‹‹	2∞F≥F8@2ønumberàput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "" } }"
+›B›H*
+‹A‹G2ÎFÒF8@2ªidàput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "" } }"
+›a›c*
+‹`‹b2äGåG8@2fassert_template'assert_template "project_columns/_edit""
+ﬂﬂ*
+ﬁﬁ2¿GœG8@2arefute_empty%refute_empty @priv_column.reload.name"
+‡‡*
+ﬂﬂ2ÓG˙G8@2Yname%refute_empty @priv_column.reload.name"
+‡(‡,*
+ﬂ'ﬂ+2èHìH8@2[reload%refute_empty @priv_column.reload.name"
+‡!‡'*
+ﬂ ﬂ&2àHéH8@2ntest:test "does not work when column name is already in use" do"
+„„	*
+‚‚2°H•H8@2wcreateAcreate(:project_column, project: @priv_project, name: "Column 2")"
+‰‰*
+„„2‚HËH8@2?asas @priv_user"
+ÂÂ	*
+‰‰2™I¨I8@2ƒputêput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "Column 2" } }"
+ÊÊ
+*
+ÂÂ	2æI¡I8@2«numberêput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "Column 2" } }"
+ÊBÊH*
+ÂAÂG2˘IˇI8@2√idêput "/#{@priv_user}/#{@priv_repo}/projects/#{@priv_project.number}/columns/#{@priv_column.id}", params: { project_column: { name: "Column 2" } }"
+ÊaÊc*
+Â`Âb2òJöJ8@2Rassert_responseassert_response 200"
+ÁÁ*
+ÊÊ2’J‰J8@2fassert_template'assert_template "project_columns/_edit""
+ÈÈ*
+ËË2JˇJ8@2vassert_match:assert_match "Name has already been taken", @response.body"
+ÍÍ*
+ÈÈ2ûK™K8@2nbody:assert_match "Name has already been taken", @response.body"
+Í=ÍA*
+È<È@2‘KÿK8@2massert_equal1assert_equal "Column 1", @priv_column.reload.name"
+ÎÎ*
+ÍÍ2ﬂKÎK8@2ename1assert_equal "Column 1", @priv_column.reload.name"
+Î4Î8*
+Í3Í72åLêL8@2greload1assert_equal "Column 1", @priv_column.reload.name"
+Î-Î3*
+Í,Í22ÖLãL8@2Ytest%test "does not work as non-collab" do"
+ÓÓ	*
+ÌÌ2ûL¢L8@2Basas create(:user)"
+ÔÔ	*
+ÓÓ2 LÃL8@2Fcreateas create(:user)"
+Ô
+Ô*
+Ó	Ó2ÕL”L8@2∂putÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+
+*
+ÔÔ	2·L‰L8@2πnumberÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+4:*
+Ô3Ô92éMîM8@2µidÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+PR*
+ÔOÔQ2™M¨M8@2Rassert_responseassert_response 404"
+ÚÚ*
+ÒÒ2ÎM˙M8@2mrefute_equal1refute_equal "Cool Column", @column_1.reload.name"
+ÛÛ*
+ÚÚ2ÖNëN8@2ename1refute_equal "Cool Column", @column_1.reload.name"
+Û4Û8*
+Ú3Ú72≤N∂N8@2greload1refute_equal "Cool Column", @column_1.reload.name"
+Û-Û3*
+Ú,Ú22´N±N8@2^test*test "does not work when not logged in" do"
+ˆˆ	*
+ıı2ƒN»N8@28asas nil"
+˜˜	*
+ˆˆ2ıN˜N8@2∂putÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+¯¯
+*
+˜˜	2ÇOÖO8@2πnumberÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+¯4¯:*
+˜3˜92ØOµO8@2µidÇput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}", params: { project_column: { name: "Cool Column" } }"
+¯P¯R*
+˜O˜Q2ÀOÕO8@2Rassert_responseassert_response 404"
+˙˙*
+˘˘2åPõP8@2mrefute_equal1refute_equal "Cool Column", @column_1.reload.name"
+˚˚*
+˙˙2¶P≤P8@2ename1refute_equal "Cool Column", @column_1.reload.name"
+˚4˚8*
+˙3˙72”P◊P8@2greload1refute_equal "Cool Column", @column_1.reload.name"
+˚-˚3*
+˙,˙22ÃP“P8@2Pcontextcontext "PUT :reorder" do"
+ˇˇ
+*
+˛˛	2ÈPP8@2Qtesttest "works as repo owner" do"
+ÄÄ	*
+ˇˇ2áQãQ8@2;as	as @owner"
+ÅÅ	*
+ÄÄ2´Q≠Q8@2¿putåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ÇÇ
+*
+ÅÅ	2ªQæQ8@2√numberåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+Ç4Ç:*
+Å3Å92ËQÓQ8@2øidåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ÇmÇo*
+ÅlÅn2°R£R8@2√idåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ÇèÇë*
+ÅéÅê2√R≈R8@2Rassert_responseassert_response 200"
+ÉÉ*
+ÇÇ2ŒR›R8@2áassert_equalKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+ÑÑ*
+ÉÉ2ËRÙR8@2ÄorderKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+Ñ=ÑB*
+É<ÉA2ûS£S8@2ÇcolumnsKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+Ñ5Ñ<*
+É4É;2ñSùS8@2Rtesttest "works as repo collab" do"
+áá	*
+ÜÜ2¡S≈S8@2Lcreatecollab = create(:user)"
+àà*
+áá2ÔSıS8@2R
+add_member@repo.add_member(collab)"
+ââ*
+àà2âTìT8@2;as	as collab"
+ää	*
+ââ2¢T§T8@2¿putåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ãã
+*
+ää	2≤TµT8@2√numberåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ã4ã:*
+ä3ä92ﬂTÂT8@2øidåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ãmão*
+älän2òUöU8@2√idåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ãèãë*
+äéäê2∫UºU8@2Rassert_responseassert_response 200"
+åå*
+ãã2≈U‘U8@2áassert_equalKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+çç*
+åå2ﬂUÎU8@2ÄorderKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+ç=çB*
+å<åA2ïVöV8@2ÇcolumnsKassert_equal [@column_2, @column_1], @project.columns.order("position ASC")"
+ç5ç<*
+å4å;2çVîV8@2Ytest%test "does not work as non-collab" do"
+êê	*
+èè2∏VºV8@2Basas create(:user)"
+ëë	*
+êê2‰VÊV8@2Fcreateas create(:user)"
+ë
+ë*
+ê	ê2ÁVÌV8@2¿putåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+íí
+*
+ëë	2˚V˛V8@2√numberåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+í4í:*
+ë3ë92®WÆW8@2øidåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ímío*
+ëlën2·W„W8@2√idåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+íèíë*
+ëéëê2ÉXÖX8@2Rassert_responseassert_response 404"
+ìì*
+íí2éXùX8@2áassert_equalKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+îî*
+ìì2®X¥X8@2ÄorderKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+î=îB*
+ì<ìA2ﬁX„X8@2ÇcolumnsKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+î5î<*
+ì4ì;2÷X›X8@2^test*test "does not work when not logged in" do"
+óó	*
+ññ2ÅYÖY8@28asas nil"
+òò	*
+óó2≤Y¥Y8@2¿putåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ôô
+*
+òò	2øY¬Y8@2√numberåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ô4ô:*
+ò3ò92ÏYÚY8@2øidåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ômôo*
+òlòn2•ZßZ8@2√idåput "/#{@owner}/#{@repo}/projects/#{@project.number}/reorder_columns", params: { column_id: @column_1.id, previous_column_id: @column_2.id }"
+ôèôë*
+òéòê2«Z…Z8@2Rassert_responseassert_response 404"
+öö*
+ôô2“Z·Z8@2áassert_equalKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+õõ*
+öö2ÏZ¯Z8@2ÄorderKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+õ=õB*
+ö<öA2¢[ß[8@2ÇcolumnsKassert_equal [@column_1, @column_2], @project.columns.order("position ASC")"
+õ5õ<*
+ö4ö;2ö[°[8@2Scontextcontext "DELETE :destroy" do"
+üü
+*
+ûû	2…[–[8@2Qtesttest "works as repo owner" do"
+††	*
+üü2Í[Ó[8@2;as	as @owner"
+°°	*
+††2é\ê\8@2ÜdeletePdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¢¢*
+°°2û\§\8@2ÜnumberPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¢7¢=*
+°6°<2Œ\‘\8@2ÇidPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¢S¢U*
+°R°T2Í\Ï\8@2Rassert_responseassert_response 200"
+££*
+¢¢2ı\Ñ]8@2k
+assert_nil1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+§§*
+££2è]ô]8@2k
+find_by_id1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+§ §**
+££)2®]≤]8@2cid1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+§5§7*
+£4£62Ω]ø]8@2nProjectColumn1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+§§*
+££2ö]ß]8@2eassert_equal)assert_equal 0, @column_2.reload.position"
+••*
+§§2«]”]8@2aposition)assert_equal 0, @column_2.reload.position"
+•(•0*
+§'§/2Ë]]8@2_reload)assert_equal 0, @column_2.reload.position"
+•!•'*
+§ §&2·]Á]8@2Rtesttest "works as repo collab" do"
+®®	*
+ßß2˛]Ç^8@2Lcreatecollab = create(:user)"
+©©*
+®®2¨^≤^8@2R
+add_member@repo.add_member(collab)"
+™™*
+©©2∆^–^8@2;as	as collab"
+´´	*
+™™2ﬂ^·^8@2ÜdeletePdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¨¨*
+´´2Ô^ı^8@2ÜnumberPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¨7¨=*
+´6´<2ü_•_8@2ÇidPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¨S¨U*
+´R´T2ª_Ω_8@2Rassert_responseassert_response 200"
+≠≠*
+¨¨2∆_’_8@2k
+assert_nil1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+ÆÆ*
+≠≠2‡_Í_8@2k
+find_by_id1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+Æ Æ**
+≠≠)2˘_É`8@2cid1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+Æ5Æ7*
+≠4≠62é`ê`8@2nProjectColumn1assert_nil ProjectColumn.find_by_id(@column_1.id)"
+ÆÆ*
+≠≠2Î_¯_8@2eassert_equal)assert_equal 0, @column_2.reload.position"
+ØØ*
+ÆÆ2ò`§`8@2aposition)assert_equal 0, @column_2.reload.position"
+Ø(Ø0*
+Æ'Æ/2π`¡`8@2_reload)assert_equal 0, @column_2.reload.position"
+Ø!Ø'*
+Æ Æ&2≤`∏`8@2Ytest%test "does not work as non-collab" do"
+≤≤	*
+±±2œ`”`8@2Basas create(:user)"
+≥≥	*
+≤≤2˚`˝`8@2Fcreateas create(:user)"
+≥
+≥*
+≤	≤2˛`Ña8@2ÜdeletePdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¥¥*
+≥≥2íaòa8@2ÜnumberPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¥7¥=*
+≥6≥<2¬a»a8@2ÇidPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¥S¥U*
+≥R≥T2ﬁa‡a8@2Rassert_responseassert_response 404"
+µµ*
+¥¥2Èa¯a8@2^test*test "does not work when not logged in" do"
+∏∏	*
+∑∑2äbéb8@28asas nil"
+ππ	*
+∏∏2ªbΩb8@2ÜdeletePdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+∫∫*
+ππ2»bŒb8@2ÜnumberPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+∫7∫=*
+π6π<2¯b˛b8@2ÇidPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+∫S∫U*
+πRπT2îcñc8@2Rassert_responseassert_response 404"
+ªª*
+∫∫2ücÆc8@2`test,test "does not work if project is locked" do"
+ææ	*
+ΩΩ2¿cƒc8@2Ñlock!O@project.lock!(lock_type: Project::ProjectLock::PROJECT_CLONING, actor: @owner)"
+øø*
+ææ2¸cÅd8@2éPROJECT_CLONINGO@project.lock!(lock_type: Project::ProjectLock::PROJECT_CLONING, actor: @owner)"
+ø!øF*
+æ æE2çd≤d8@2äProjectLockO@project.lock!(lock_type: Project::ProjectLock::PROJECT_CLONING, actor: @owner)"
+ø!ø5*
+æ æ42çd°d8@2ÜProjectO@project.lock!(lock_type: Project::ProjectLock::PROJECT_CLONING, actor: @owner)"
+ø!ø(*
+æ æ'2çdîd8@2;as	as @owner"
+¿¿	*
+øø2…dÀd8@2ÜdeletePdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¡¡*
+¿¿2Ÿdﬂd8@2ÜnumberPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¡7¡=*
+¿6¿<2âeèe8@2ÇidPdelete "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}""
+¡S¡U*
+¿R¿T2•eße8@2Rassert_responseassert_response 422"
+¬¬*
+¡¡2∞eøe8@2wassert_includes8assert_includes response.body, "Project has been locked""
+√√*
+¬¬2 eŸe8@2lbody8assert_includes response.body, "Project has been locked""
+√ √$*
+¬¬#2„eÁe8@2presponse8assert_includes response.body, "Project has been locked""
+√√*
+¬¬2⁄e‚e8@2k
+refute_nil1refute_nil ProjectColumn.find_by_id(@column_1.id)"
+ƒƒ*
+√√2âfìf8@2k
+find_by_id1refute_nil ProjectColumn.find_by_id(@column_1.id)"
+ƒ ƒ**
+√√)2¢f¨f8@2cid1refute_nil ProjectColumn.find_by_id(@column_1.id)"
+ƒ5ƒ7*
+√4√62∑fπf8@2nProjectColumn1refute_nil ProjectColumn.find_by_id(@column_1.id)"
+ƒƒ*
+√√2îf°f8@2Pcontextcontext "PUT :archive" do"
+»»
+*
+««	2Ãf”f8@2Qtesttest "works as repo owner" do"
+……	*
+»»2ÍfÓf8@2;as	as @owner"
+  	*
+……2égêg8@2àputUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+ÀÀ
+*
+  	2ûg°g8@2ãnumberUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+À4À:*
+ 3 92Àg—g8@2áidUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+ÀPÀR*
+ O Q2ÁgÈg8@2Rassert_responseassert_response 200"
+ÕÕ*
+ÃÃ2˚gäh8@2Rtesttest "works as repo collab" do"
+––	*
+œœ2úh†h8@2Lcreatecollab = create(:user)"
+——*
+––2 h–h8@2R
+add_member@repo.add_member(collab)"
+““*
+——2‰hÓh8@2;as	as collab"
+‘‘	*
+””2˛hÄi8@2àputUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+’’
+*
+‘‘	2éiëi8@2ãnumberUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+’4’:*
+‘3‘92ªi¡i8@2áidUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+’P’R*
+‘O‘Q2◊iŸi8@2Rassert_responseassert_response 200"
+◊◊*
+÷÷2Îi˙i8@2Ttest test "404s if read only user" do"
+⁄⁄	*
+ŸŸ2åjêj8@2eupdate_attribute%@repo.update_attribute(:public, true)"
+€€*
+⁄⁄2πj…j8@2Aasas preview_user"
+››	*
+‹‹2‡j‚j8@2Kpreview_useras preview_user"
+›
+›*
+‹	‹2„jÔj8@2àputUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+ﬁﬁ
+*
+››	2ˆj˘j8@2ãnumberUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+ﬁ4ﬁ:*
+›3›92£k©k8@2áidUput "/#{@owner}/#{@repo}/projects/#{@project.number}/columns/#{@column_1.id}/archive""
+ﬁPﬁR*
+›O›Q2øk¡k8@2Rassert_responseassert_response 404"
+‡‡*
+ﬂﬂ2”k‚k8@2ñ.external_identity_session_enforcement_enabled?8if GitHub.external_identity_session_enforcement_enabled?"
+ÂÂ9*
+‰
+‰82Ñl≤l8@2nGitHub8if GitHub.external_identity_session_enforcement_enabled?"
+ÂÂ
+*
+‰‰	2˝kÉl8@2‰HProjectColumnsControllerActiveExternalIdentitySessionEnforcementHttpTestlclass ProjectColumnsControllerActiveExternalIdentitySessionEnforcementHttpTest < GitHub::IntegrationTestCase"
+Ê	ÊQ*
+ÂÂP2ªlÉm8@2ØIntegrationTestCaselclass ProjectColumnsControllerActiveExternalIdentitySessionEnforcementHttpTest < GitHub::IntegrationTestCase"
+ÊTÊo*
+ÂSÂn2Üm°m8@2¢GitHublclass ProjectColumnsControllerActiveExternalIdentitySessionEnforcementHttpTest < GitHub::IntegrationTestCase"
+ÊTÊZ*
+ÂSÂY2Ümåm8@2Zinclude#include AuthenticationHelpers::SAML"
+ÁÁ*
+ÊÊ2¶m≠m8@2WSAML#include AuthenticationHelpers::SAML"
+ÁÁ(*
+ÊÊ'2Æm…m8@2hAuthenticationHelpers#include AuthenticationHelpers::SAML"
+ÁÁ"*
+ÊÊ!2Æm√m8@2Cfixturesfixtures do"
+ÈÈ*
+ËË2œm◊m8@2`create*@saml_identity = create :external_identity"
+ÎÎ*
+ÍÍ2ânèn8@2Uuser!@saml_admin = @saml_identity.user"
+Ï$Ï(*
+Î#Î'2∆n n8@2Wtarget!@saml_org = @saml_identity.target"
+Ì"Ì(*
+Ï!Ï'2ÏnÚn8@2qupdate_member4@saml_org.update_member(@saml_admin, action: :admin)"
+ÓÓ*
+ÌÌ2Éoêo8@2ccreate-@repo = create(:repository, owner: @saml_org)"
+*
+ÔÔ2Ωo√o8@2_create)@project = create(:project, owner: @repo)"
+ÒÒ*
+2Ùo˙o8@2rcreate<create(:project_column, project: @project, name: "Column 1")"
+ÚÚ*
+ÒÒ2ôpüp8@2rcreate<create(:project_column, project: @project, name: "Column 2")"
+ÛÛ*
+ÚÚ2‹p‚p8@2Pcontextcontext "POST :create" do"
+ˆˆ*
+ıı2¶q≠q8@2ltest8test "without a valid session, requires SAML session" do"
+˜˜*
+ˆˆ
+2∆q q8@2@asas @saml_admin"
+¯	¯*
+˜˜
+2árâr8@2™postvpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+˙	˙*
+˘˘2ür£r8@2¨numbervpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+˙:˙@*
+˘9˘?2–r÷r8@2`assert_saml_sso_requiredassert_saml_sso_required"
+¸	¸!*
+˚˚ 2üs∑s8@2stest?test "with a valid session, does not require a SAML session" do"
+ˇˇ*
+˛˛
+2…sÕs8@2eas3as @saml_admin, external_identities: @saml_identity"
+Ä	Ä*
+ˇˇ
+2ëtìt8@2™postvpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+Ç	Ç*
+ÅÅ2Œt“t8@2¨numbervpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+Ç:Ç@*
+Å9Å?2ˇtÖu8@2vrefute_saml_sso_required.refute_saml_sso_required(expected_status: 200)"
+Ñ	Ñ!*
+ÉÉ 2ŒuÊu8@2utestAtest "with an anonymous user, does not require a SAML session" do"
+áá*
+ÜÜ
+2évív8@2™postvpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+à	à*
+áá2ÿv‹v8@2¨numbervpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+à:à@*
+á9á?2âwèw8@2Rassert_responseassert_response 404"
+ä	ä*
+ââ2ÿwÁw8@2ÅtestMtest "with a non-org member user session, does not require a SAML session" do"
+çç*
+åå
+2˝wÅx8@2Basas create(:user)"
+é	é*
+çç
+2”x’x8@2Fcreateas create(:user)"
+éé*
+çç2÷x‹x8@2™postvpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ê	ê*
+èè2ÌxÒx8@2¨numbervpost "/#{@saml_org}/#{@repo}/projects/#{@project.number}/columns", params: { project_column: { name: "Cool Column" } }"
+ê:ê@*
+è9è?2ûy§y8@2Rassert_responseassert_response 404"
+í	í*
+ëë2Ìy¸y8@

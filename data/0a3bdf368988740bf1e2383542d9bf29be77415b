@@ -1,0 +1,46 @@
+
+(0a3bdf368988740bf1e2383542d9bf29be77415b,test/factories/repository_image_factories.rbRuby"02DdefineFactoryBot.define do"
+*
+2*08@2Mfactoryfactory :repository_image do"
+
+*
+	26=8@2>
+repository
+repository"
+*
+2Wa8@2Ouploaderuploader { repository.owner }"
+*
+2fn8@2Mowneruploader { repository.owner }"
+ *
+2|Å8@2Q
+repositoryuploader { repository.owner }"
+*
+2q{8@2Dstorage_blobstorage_blob"
+*
+2àî8@2Goidoid { storage_blob.oid }"
+*
+2ôú8@2Goidoid { storage_blob.oid }"
+*
+2¨Ø8@2Pstorage_bloboid { storage_blob.oid }"
+*
+
+2ü´8@2Jsizesize { storage_blob.size }"
+			*
+2∂∫8@2Jsizesize { storage_blob.size }"
+		*
+2 Œ8@2Rstorage_blobsize { storage_blob.size }"
+		*
+2Ω…8@2Tcontent_typecontent_type { "image/png" }"
+
+
+*
+		2’·8@2Rname"name { "my-fancy-repo-promo.png" }"
+	*
+
+
+2ˆ˙8@2F
+FactoryBotFactoryBot.define do"
+*
+
+
+2)8@

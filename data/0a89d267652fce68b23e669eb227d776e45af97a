@@ -1,0 +1,209 @@
+
+(0a89d267652fce68b23e669eb227d776e45af97a'app/models/team_sync/business_tenant.rbRuby"02ATeamSyncmodule TeamSync"
+*
+2%-8@2hBusinessTenant0class BusinessTenant < ApplicationRecord::Notify"
+	*
+26D8@2`Notify0class BusinessTenant < ApplicationRecord::Notify"
+3*
+22G`8@2kApplicationRecord0class BusinessTenant < ApplicationRecord::Notify"
++*
+*2GX8@2careas_of_responsibility"areas_of_responsibility :team_sync"
+*
+2e|8@2^include+include GitHub::Relay::GlobalIdentification"
+*
+2Œ“8@2kGlobalIdentification+include GitHub::Relay::GlobalIdentification"
+0*
+/2”·8@2\Relay+include GitHub::Relay::GlobalIdentification"
+*
+2”¡8@2]GitHub+include GitHub::Relay::GlobalIdentification"
+*
+2”š8@2Qincludeinclude Instrumentation::Model"
+*
+2¼Ã8@2OModelinclude Instrumentation::Model"
+#*
+"2ÄÚ8@2YInstrumentationinclude Instrumentation::Model"
+*
+2ÄÓ8@2_extend-extend GitHub::Earthsmoke::EncryptedAttribute"
+*
+
+2ßå8@2kEncryptedAttribute-extend GitHub::Earthsmoke::EncryptedAttribute"
+2*
+12æŒ8@2c
+Earthsmoke-extend GitHub::Earthsmoke::EncryptedAttribute"
+*
+2æø8@2_GitHub-extend GitHub::Earthsmoke::EncryptedAttribute"
+*
+2æì8@2d
+table_name.self.table_name = "team_sync_business_tenants""
+	
+	*
+	2—¡8@2
+belongs_togbelongs_to :business, foreign_key: "business_id", class_name: "Business", inverse_of: :team_sync_tenant"
+*
+
+
+2ÆĞ8@2¤encrypted_attributeeencrypted_attribute :encrypted_ssws_token, :plain_ssws_token, read_error: :raise, write_error: :raise"
+*
+2³Æ8@2after_update_commitNafter_update_commit :instrument_status_change, if: :status_previously_changed?"
+*
+2±8@2¥after_update_commitfafter_update_commit :instrument_okta_credentials_change, if: :encrypted_ssws_token_previously_changed?"
+*
+2ñ„8@2>enumenum status: {"
+	*
+2İá8@2Eenumenum provider_type: {"
+	*
+2Š8@2calias_method+alias_method :team_sync_enabled?, :enabled?"
+*
+2ÌØ8@2eregister1def register(service_client:  GroupSyncer.client)"
+!	!*
+  2	‰	8@2cclient1def register(service_client:  GroupSyncer.client)"
+!/!5*
+ . 42§	­	8@2hGroupSyncer1def register(service_client:  GroupSyncer.client)"
+!#!.*
+ " -2›	¦	8@2`register_tenant%res = service_client.register_tenant("
+&&+*
+%%*2Øç8@2[to_s+org_id: self.business.global_relay_id.to_s,"
+'/'3*
+&.&22—›8@2fglobal_relay_id+org_id: self.business.global_relay_id.to_s,"
+''.*
+&&-2‡–8@2_business+org_id: self.business.global_relay_id.to_s,"
+''*
+&&2ş†8@2ÀresolveŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(G(N*
+'F'M2ãê8@2ÊPROVIDER_TYPE_MAPŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(O(r*
+'N'q2ë8@2¿TenantŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(O(_*
+'N'^2ëû8@2ÁTeamSyncŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(O(W*
+'N'V2ëó8@2Èprovider_typeŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(x(…*
+'w'„2”¡8@2ÍExternalProviderTypeŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(!(F*
+' 'E2½â8@2»V1Œexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(!(0*
+' '/2½Ì8@2ÄGroupSyncerŒexternal_provider_type: GroupSyncer::V1::ExternalProviderType.resolve(TeamSync::Tenant::PROVIDER_TYPE_MAP[self.provider_type || "unknown"]),"
+(!(,*
+' '+2½È8@2^provider_id'external_provider_id: self.provider_id,"
+)$)/*
+(#(.2Õà8@2™resolvefstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+*/*6*
+).)52—8@2œ
+STATUS_MAPfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+*7*S*
+)6)R2˜´8@2˜Tenantfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+*7*G*
+)6)F2˜¨8@2šTeamSyncfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+*7*?*
+)6)>2˜ 8@2˜statusfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+*Y*_*
+)X)^2ºÀ8@2TenantStatusfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+**.*
+))-2ò8@2”V1fstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+** *
+))2ò8@2GroupSyncerfstatus: GroupSyncer::V1::TenantStatus.resolve(TeamSync::Tenant::STATUS_MAP[self.status || "unknown"]),"
+***
+))2òı8@2Yplain_ssws_tokentoken: self.plain_ssws_token,"
+++%*
+**$2åõ8@2=urlurl: self.url,"
+,,*
+++2‰Œ8@2Werror&return res.error if res.error.present?"
+..*
+--2§¬8@2Zpresent?&return res.error if res.error.present?"
+.%.-*
+-$-,2ºÂ8@2Werror&return res.error if res.error.present?"
+..$*
+--#2´¹8@2>datares = res.data"
+11*
+002ı8@2`update.self.update(setup_url_template: res.setup_url)"
+22*
+112“8@2c	setup_url.self.update(setup_url_template: res.setup_url)"
+2+24*
+1*132¬µ8@2>disabledef disable"
+7	7*
+662Úá8@2@each.each(&:disable)"
+::*
+992½Á8@2Scompact .map(&:team_sync_tenant).compact"
+9(9/*
+8'8.2¦­8@2Omap .map(&:team_sync_tenant).compact"
+99*
+882‘8@2Oorganizationsbusiness.organizations"
+88*
+772ñş8@2Jbusinessbusiness.organizations"
+88*
+772èğ8@2Lupdateupdate(status: "disabled")"
+;;*
+::2ÓÙ8@2dperform_later+UpdateTeamSyncTenantJob.perform_later(self)"
+<<,*
+;;+2Œ™8@2nUpdateTeamSyncTenantJob+UpdateTeamSyncTenantJob.perform_later(self)"
+<<*
+;;2ô‹8@2isaml_settings_changed(def saml_settings_changed(saml_provider)"
+?	?*
+>>2±Æ8@2„disableQdisable if saml_provider.destroyed? || provider_settings_diverged?(saml_provider)"
+@@*
+??2Üã8@2‡
+destroyed?Qdisable if saml_provider.destroyed? || provider_settings_diverged?(saml_provider)"
+@ @**
+??)2õÿ8@2˜provider_settings_diverged?Qdisable if saml_provider.destroyed? || provider_settings_diverged?(saml_provider)"
+@.@I*
+?-?H2ƒ8@2Lprovider_labeldef provider_label"
+C	C*
+BB2¿Í8@2ƒPROVIDER_LABEL_MAPETeamSync::Tenant::PROVIDER_LABEL_MAP[self.provider_type || "unknown"]"
+DD+*
+CC*2Ôø8@2wTenantETeamSync::Tenant::PROVIDER_LABEL_MAP[self.provider_type || "unknown"]"
+DD*
+CC2Ôä8@2yTeamSyncETeamSync::Tenant::PROVIDER_LABEL_MAP[self.provider_type || "unknown"]"
+DD*
+CC2ÔÜ8@2~provider_typeETeamSync::Tenant::PROVIDER_LABEL_MAP[self.provider_type || "unknown"]"
+D1D>*
+C0C=2ş‹8@2Hevent_prefixdef event_prefix"
+G	G*
+FF2«·8@2Jevent_payloaddef event_payload"
+K	K*
+JJ2áî8@2Lbusinessbusiness: self.business,"
+NN *
+MM2·¿8@2_plain_ssws_token#plain_ssws_token: plain_ssws_token,"
+OO+*
+NN*2Ûë8@28url	url: url,"
+PP*
+OO2úı8@2:privateprivate"
+TT*
+SS2”›8@2uprovider_settings_diverged?.def provider_settings_diverged?(saml_provider)"
+V	V$*
+UU#2¥À8@2vdetectDprovider = ::TeamSync::Provider.detect(issuer: saml_provider.issuer)"
+W'W-*
+V&V,2öü8@2vissuerDprovider = ::TeamSync::Provider.detect(issuer: saml_provider.issuer)"
+WDWJ*
+VCVI2“™8@2xProviderDprovider = ::TeamSync::Provider.detect(issuer: saml_provider.issuer)"
+WW&*
+VV%2áõ8@2xTeamSyncDprovider = ::TeamSync::Provider.detect(issuer: saml_provider.issuer)"
+WW*
+VV2áë8@2Lnil?return true if provider.nil?"
+YY#*
+XX"2º¾8@2btype2return true if provider.type != self.provider_type"
+ZZ#*
+YY"2İá8@2kprovider_type2return true if provider.type != self.provider_type"
+Z,Z9*
+Y+Y82ê÷8@2Midprovider.id != self.provider_id"
+[[*
+ZZ2‡‰8@2Vprovider_idprovider.id != self.provider_id"
+[[&*
+ZZ%2’8@2`instrument_status_changedef instrument_status_change"
+^	^!*
+]] 2¯Ç8@2u
+instrument?GlobalInstrumenter.instrument "team_sync_tenant.status_change","
+__$*
+^^#2áë8@2Lbusinessbusiness: self.business,"
+aa *
+``2ÎÖ8@2lstatus_before_last_save)previous_status: status_before_last_save,"
+bb1*
+aa02ñˆ8@2Hstatuscurrent_status: status"
+cc*
+bb2¢¨8@2}GlobalInstrumenter?GlobalInstrumenter.instrument "team_sync_tenant.status_change","
+__*
+^^2Îà8@2t"instrument_okta_credentials_change&def instrument_okta_credentials_change"
+f	f+*
+ee*2ºÜ8@2Y
+instrument#instrument :update_okta_credentials"
+gg*
+ff2ãí8@

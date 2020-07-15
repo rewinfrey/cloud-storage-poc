@@ -1,0 +1,406 @@
+
+(0a84ce70cc78460e0ec5f743c65af216c0b232ffMtest/lib/platform/mutations/mark_repository_dependency_update_errored_test.rbRuby"02¬)MarkRepositoryDependencyUpdateErroredTestWclass Platform::Mutations::MarkRepositoryDependencyUpdateErroredTest < GitHub::TestCase"
+E*
+D2 É8@2Œ	MutationsWclass Platform::Mutations::MarkRepositoryDependencyUpdateErroredTest < GitHub::TestCase"
+*
+2‹8@2‹PlatformWclass Platform::Mutations::MarkRepositoryDependencyUpdateErroredTest < GitHub::TestCase"
+*
+2‹“8@2‹TestCaseWclass Platform::Mutations::MarkRepositoryDependencyUpdateErroredTest < GitHub::TestCase"
+HX*
+GW2ÌÜ8@2‰GitHubWclass Platform::Mutations::MarkRepositoryDependencyUpdateErroredTest < GitHub::TestCase"
+HN*
+GM2ÌÒ8@2Kincludeinclude HydroTestHelpers"
+
+*
+	2ßæ8@2THydroTestHelpersinclude HydroTestHelpers"
+*
+
+2ç÷8@2Uinclude"include Platform::InterfaceHelpers"
+
+*
+	2ú8@2^InterfaceHelpers"include Platform::InterfaceHelpers"
+%*
+
+$2‚œ8@2VPlatform"include Platform::InterfaceHelpers"
+*
+
+2‚Š8@2\include)include PullRequestIntegrationTestHelpers"
+		
+*
+	2Ÿ¦8@2v!PullRequestIntegrationTestHelpers)include PullRequestIntegrationTestHelpers"
+		,*
+
++2§È8@2?fixturesfixtures do"
+*
+
+
+
+2ÌÔ8@2fmake_trusted_oauth_apps_ownermake_trusted_oauth_apps_owner"
+"*
+!2ü™8@2ccreate1@dependabot_app = create(:dependabot_integration)"
+*
+2°¶8@2Screate!@repository = create(:repository)"
+*
+2ãé8@2dexample_repo,example_repo :pull_request_fork, @repository"
+*
+2üˆ8@2pcreate>@pull_request = create(:pull_request, repository: @repository)"
+*
+2½Ã8@2kcreate9@requested_update = create(:repository_dependency_update,"
+*
+2…‹8@2kcreate9@completed_update = create(:repository_dependency_update,"
+*
+2›¡8@2kcreate9@errored_update   = create(:repository_dependency_update,"
+""*
+!!2è	î	8@2^context+context "as the dependabot app bot user" do"
+77
+*
+66	2ËÒ8@2\test,test "marks requested updates as errored" do"
+88	*
+772ûÿ8@2c
+install_on-@dependabot_app.install_on(@repository.owner,"
+99!*
+88 2¾È8@2^owner-@dependabot_app.install_on(@repository.owner,"
+9.93*
+8-822ÕÚ8@2Nownerinstaller: @repository.owner)"
+; ;%*
+::$2•š8@2passert_predicate4assert_predicate @repository, :dependabot_installed?"
+==*
+<<2£³8@2kassert_predicate/assert_predicate @requested_update, :requested?"
+>>*
+==2Şî8@2xexecute_query?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+@@*
+??2Ÿ¬8@2nbot?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+@B@E*
+?A?D2ĞÓ8@2Tid&"$databaseId" => @requested_update.id,"
+AJAL*
+@I@K2 8@2Jreload@requested_update.reload"
+FF*
+EE2½Ã8@2gassert_predicate+assert_predicate @requested_update, :error?"
+HH*
+GG2ËÛ8@2€assert_equalHassert_equal "Cannot open pod bay doors.", @requested_update.error_title"
+II*
+HH2ı‰8@2error_titleHassert_equal "Cannot open pod bay doors.", @requested_update.error_title"
+IDIO*
+HCHN2ºÅ8@2‘assert_equalYassert_equal "I'm sorry, Dave. I'm afraid I can't do that.", @requested_update.error_body"
+JJ*
+II2ÌØ8@2
+error_bodyYassert_equal "I'm sorry, Dave. I'm afraid I can't do that.", @requested_update.error_body"
+JVJ`*
+IUI_2›¥8@2rassert_equal:assert_equal "unknown_error", @requested_update.error_type"
+KK*
+JJ2¬¸8@2p
+error_type:assert_equal "unknown_error", @requested_update.error_type"
+K7KA*
+J6J@2Üæ8@2Fassert_equalassert_equal({"
+MM*
+LL2îú8@2kwith_indifferent_access(}.with_indifferent_access, results.data)"
+Q	Q *
+PP2×î8@2Xdata(}.with_indifferent_access, results.data)"
+Q*Q.*
+P)P-2øü8@2Zassert_hydro_publishedassert_hydro_published({"
+SS*
+RR2…›8@2…hydro_entity_payloadErepository_dependency_update: @requested_update.hydro_entity_payload,"
+T9TM*
+S8SL2Öê8@2r
+repository<repository: Hydro::EntitySerializer.repository(@repository),"
+U-U7*
+T,T62˜¢8@2xEntitySerializer<repository: Hydro::EntitySerializer.repository(@repository),"
+UU,*
+TT+2€—8@2mHydro<repository: Hydro::EntitySerializer.repository(@repository),"
+UU*
+TT2€…8@2wtestGtest "returns an error for updates that have already been completed" do"
+YY	*
+XX2ş‚8@2c
+install_on-@dependabot_app.install_on(@repository.owner,"
+ZZ!*
+YY 2Üæ8@2^owner-@dependabot_app.install_on(@repository.owner,"
+Z.Z3*
+Y-Y22óø8@2Nownerinstaller: @repository.owner)"
+\ \%*
+[[$2³¸8@2passert_predicate4assert_predicate @repository, :dependabot_installed?"
+^^*
+]]2ÁÑ8@2jassert_predicate.assert_predicate @completed_update, :complete?"
+``*
+__2ı8@2execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+bb)*
+aa(2¼Õ8@2ybotJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+bMbP*
+aLaO2ùü8@2Tid&"$databaseId" => @completed_update.id,"
+cMcO*
+bLbN2ÊÌ8@2jassert_predicate.assert_predicate @completed_update, :complete?"
+hh*
+gg2á!ñ!8@2Êassert_error_responseˆassert_error_response errors, message: "Update ID '#{@completed_update.id}' cannot be marked as errored as it is currently 'complete'.","
+jj*
+ii2—"¬"8@2·idˆassert_error_response errors, message: "Update ID '#{@completed_update.id}' cannot be marked as errored as it is currently 'complete'.","
+jNjP*
+iMiO2Ş"à"8@2refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+mm*
+ll2÷#Œ$8@2ytestItest "acts idempotently if the advisory receives the same error twice" do"
+pp	*
+oo2Ñ$Õ$8@2c
+install_on-@dependabot_app.install_on(@repository.owner,"
+qq!*
+pp 2±%»%8@2^owner-@dependabot_app.install_on(@repository.owner,"
+q.q3*
+p-p22È%Í%8@2Nownerinstaller: @repository.owner)"
+s s%*
+rr$2ˆ&&8@2passert_predicate4assert_predicate @repository, :dependabot_installed?"
+uu*
+tt2–&¦&8@2eassert_predicate)assert_predicate @errored_update, :error?"
+ww*
+vv2Ò&â&8@2xexecute_query?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+yy*
+xx2'š'8@2nbot?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+yByE*
+xAxD2¾'Á'8@2Rid$"$databaseId" => @errored_update.id,"
+z@zB*
+y?yA2‚(„(8@2eassert_predicate)assert_predicate @errored_update, :error?"
+*
+~~2ø)ˆ*8@2Jassert_equalassert_equal({"
+‚‚*
+2É*Õ*8@2owith_indifferent_access(}.with_indifferent_access, results.data)"
+†	† *
+……2²+É+8@2\data(}.with_indifferent_access, results.data)"
+†*†.*
+…)…-2Ó+×+8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+‰‰*
+ˆˆ2œ,±,8@2 testltest "returns an error for updates that have already been marked as errored with a different error title" do"
+ŒŒ	*
+‹‹2ö,ú,8@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+!*
+ŒŒ 2ù-ƒ.8@2bowner-@dependabot_app.install_on(@repository.owner,"
+.3*
+Œ-Œ22.•.8@2Rownerinstaller: @repository.owner)"
+ %*
+$2Ğ.Õ.8@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+‘‘*
+2Ş.î.8@2iassert_predicate)assert_predicate @errored_update, :error?"
+““*
+’’2š/ª/8@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+••)*
+””(2Ô/í/8@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+•M•P*
+”L”O2‘0”08@2Vid$"$databaseId" => @errored_update.id,"
+–K–M*
+•J•L2à0â08@2iassert_predicate)assert_predicate @errored_update, :error?"
+››*
+šš2ù2‰38@2¯assert_error_responsejassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+*
+œœ2ª3¿38@2œidjassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+LN*
+œKœM2ï3ñ38@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+  *
+ŸŸ2ì458@2Ÿtestktest "returns an error for updates that have already been marked as errored with a different error body" do"
+££	*
+¢¢2Æ5Ê58@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+¤¤!*
+££ 2È6Ò68@2bowner-@dependabot_app.install_on(@repository.owner,"
+¤.¤3*
+£-£22ß6ä68@2Rownerinstaller: @repository.owner)"
+¦ ¦%*
+¥¥$2Ÿ7¤78@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+¨¨*
+§§2­7½78@2iassert_predicate)assert_predicate @errored_update, :error?"
+ªª*
+©©2é7ù78@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+¬¬)*
+««(2£8¼88@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+¬M¬P*
+«L«O2à8ã88@2Vid$"$databaseId" => @errored_update.id,"
+­K­M*
+¬J¬L2¯9±98@2iassert_predicate)assert_predicate @errored_update, :error?"
+²²*
+±±2É;Ù;8@2¯assert_error_responsejassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+´´*
+³³2ú;<8@2œidjassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+´L´N*
+³K³M2¿<Á<8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+··*
+¶¶2¼=Ñ=8@2Ÿtestktest "returns an error for updates that have already been marked as errored with a different error type" do"
+ºº	*
+¹¹2–>š>8@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+»»!*
+ºº 2˜?¢?8@2bowner-@dependabot_app.install_on(@repository.owner,"
+».»3*
+º-º22¯?´?8@2Rownerinstaller: @repository.owner)"
+½ ½%*
+¼¼$2ï?ô?8@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+¿¿*
+¾¾2ı?@8@2iassert_predicate)assert_predicate @errored_update, :error?"
+ÁÁ*
+ÀÀ2¹@É@8@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+ÃÃ)*
+ÂÂ(2ó@ŒA8@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+ÃMÃP*
+ÂLÂO2°A³A8@2Vid$"$databaseId" => @errored_update.id,"
+ÄKÄM*
+ÃJÃL2ÿAB8@2iassert_predicate)assert_predicate @errored_update, :error?"
+ÉÉ*
+ÈÈ2œD¬D8@2¯assert_error_responsejassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+ËË*
+ÊÊ2ÍDâD8@2œidjassert_error_response errors, message: "Update ID '#{@errored_update.id}' has already received an error.","
+ËLËN*
+ÊKÊM2’E”E8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+ÎÎ*
+ÍÍ2F¤F8@2htest4test "permits timed_out errors to be overwritten" do"
+ÑÑ	*
+ĞĞ2éFíF8@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+ÒÒ!*
+ÑÑ 2´G¾G8@2bowner-@dependabot_app.install_on(@repository.owner,"
+Ò.Ò3*
+Ñ-Ñ22ËGĞG8@2Rownerinstaller: @repository.owner)"
+Ô Ô%*
+ÓÓ$2‹HH8@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+ÖÖ*
+ÕÕ2™H©H8@2Oupdate!@errored_update.update!("
+ØØ*
+××2åHìH8@2€DEFAULT_ERROR_TITLE=error_title: RepositoryDependencyUpdate::DEFAULT_ERROR_TITLE,"
+ÙÙE*
+ØØD2ƒI²I8@2‡RepositoryDependencyUpdate=error_title: RepositoryDependencyUpdate::DEFAULT_ERROR_TITLE,"
+ÙÙ0*
+ØØ/2ƒII8@2}DEFAULT_ERROR_BODY;error_body: RepositoryDependencyUpdate::DEFAULT_ERROR_BODY,"
+ÚÚC*
+ÙÙB2ÈIöI8@2…RepositoryDependencyUpdate;error_body: RepositoryDependencyUpdate::DEFAULT_ERROR_BODY,"
+ÚÚ/*
+ÙÙ.2ÈIâI8@2}TIMEOUT_ERROR_TYPE;error_type: RepositoryDependencyUpdate::TIMEOUT_ERROR_TYPE,"
+ÛÛC*
+ÚÚB2ŒJºJ8@2…RepositoryDependencyUpdate;error_type: RepositoryDependencyUpdate::TIMEOUT_ERROR_TYPE,"
+ÛÛ/*
+ÚÚ.2ŒJ¦J8@2massert_predicate-assert_predicate @errored_update, :timed_out?"
+ŞŞ*
+İİ2ËJÛJ8@2|execute_query?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+àà*
+ßß2ŠK—K8@2rbot?results = execute_query(@query, :viewer => @dependabot_app.bot,"
+àBàE*
+ßAßD2»K¾K8@2Vid$"$databaseId" => @errored_update.id,"
+á*á,*
+à)à+2éKëK8@2Lreload@errored_update.reload"
+ææ*
+åå2³M¹M8@2iassert_predicate)assert_predicate @errored_update, :error?"
+èè*
+çç2ÁMÑM8@2‚assert_equalFassert_equal "Cannot open pod bay doors.", @errored_update.error_title"
+éé*
+èè2ñMıM8@2error_titleFassert_equal "Cannot open pod bay doors.", @errored_update.error_title"
+éBéM*
+èAèL2¬N·N8@2“assert_equalWassert_equal "I'm sorry, Dave. I'm afraid I can't do that.", @errored_update.error_body"
+êê*
+éé2¾NÊN8@2‘
+error_bodyWassert_equal "I'm sorry, Dave. I'm afraid I can't do that.", @errored_update.error_body"
+êTê^*
+éSé]2‹O•O8@2zassert_equal>assert_equal "update_not_possible", @errored_update.error_type"
+ëë*
+êê2œO¨O8@2x
+error_type>assert_equal "update_not_possible", @errored_update.error_type"
+ë;ëE*
+ê:êD2ĞOÚO8@2Jassert_equalassert_equal({"
+íí*
+ìì2âOîO8@2owith_indifferent_access(}.with_indifferent_access, results.data)"
+ñ	ñ *
+ğğ2ËPâP8@2\data(}.with_indifferent_access, results.data)"
+ñ*ñ.*
+ğ)ğ-2ìPğP8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+ôô*
+óó2¾QÓQ8@2jtest6test "returns an error if the update doesn't exist" do"
+÷÷	*
+öö2˜RœR8@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+øø!*
+÷÷ 2åRïR8@2bowner-@dependabot_app.install_on(@repository.owner,"
+ø.ø3*
+÷-÷22üRS8@2Rownerinstaller: @repository.owner)"
+ú ú%*
+ùù$2¼SÁS8@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+üü*
+ûû2ÊSÚS8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+şş*
+ıı2†T–T8@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+€€)*
+ÿÿ(2ÆTßT8@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+€M€P*
+ÿLÿO2ƒU†U8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+††*
+……2ŞWîW8@2‘assert_error_responseLassert_error_response errors, message: "Update ID '999999' does not exist.","
+ˆˆ*
+‡‡2•XªX8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+‹‹*
+ŠŠ2¹YÎY8@2ztestFtest "returns an error if the update's repository has been deleted" do"
+	*
+2“Z—Z8@2Hdelete@repository.delete"
+*
+2ìZòZ8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+‘‘*
+2úZŠ[8@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+““)*
+’’(2º[Ó[8@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+“M“P*
+’L’O2÷[ú[8@2Xid&"$databaseId" => @requested_update.id,"
+”M”O*
+“L“N2È\Ê\8@2Nreload@requested_update.reload"
+™™*
+˜˜2ñ^÷^8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+››*
+šš2ÿ^_8@2 assert_error_response[assert_error_response errors, message: "Repository ID '#{@repository.id}' does not exist.","
+*
+œœ2¶_Ë_8@2id[assert_error_response errors, message: "Repository ID '#{@repository.id}' does not exist.","
+LN*
+œKœM2û_ı_8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+  *
+ŸŸ2é`ş`8@2‹testWtest "returns an error if the trusted app is not installed on the target repository" do"
+££	*
+¢¢2ÃaÇa8@2trefute_predicate4refute_predicate @repository, :dependabot_installed?"
+¤¤*
+££2¡b±b8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+¦¦*
+¥¥2İbíb8@2“execute_query_with_errorsJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+¨¨)*
+§§(2c¶c8@2}botJerrors = execute_query_with_errors(@query, :viewer => @dependabot_app.bot,"
+¨M¨P*
+§L§O2Úcİc8@2Xid&"$databaseId" => @requested_update.id,"
+©M©O*
+¨L¨N2«d­d8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+®®*
+­­2ÂfÒf8@2¸assert_error_responsesassert_error_response errors, message: "The Dependabot app is not installed on Repository ID '#{@repository.id}'.","
+°°*
+¯¯2ùfg8@2¥idsassert_error_response errors, message: "The Dependabot app is not installed on Repository ID '#{@repository.id}'.","
+°s°u*
+¯r¯t2ågçg8@2‘refute_hydro_messagesLrefute_hydro_messages(schema: "github.v1.RepositoryDependencyUpdateErrored")"
+³³*
+²²2ÄhÙh8@2[context$context "as the repository owner" do"
+··
+*
+¶¶	2¢i©i8@2Stesttest "access is not allowed" do"
+¸¸	*
+··2ËiÏi8@2g
+install_on-@dependabot_app.install_on(@repository.owner,"
+¹¹!*
+¸¸ 2j‹j8@2bowner-@dependabot_app.install_on(@repository.owner,"
+¹.¹3*
+¸-¸22˜jj8@2Rownerinstaller: @repository.owner)"
+» »%*
+ºº$2Øjİj8@2tassert_predicate4assert_predicate @repository, :dependabot_installed?"
+½½*
+¼¼2æjöj8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+¿¿*
+¾¾2¢k²k8@2‘execute_query_with_errorsHerrors = execute_query_with_errors(@query, :viewer => @repository.owner,"
+ÁÁ)*
+ÀÀ(2âkûk8@2}ownerHerrors = execute_query_with_errors(@query, :viewer => @repository.owner,"
+ÁIÁN*
+ÀHÀM2›l l8@2Xid&"$databaseId" => @requested_update.id,"
+ÂMÂO*
+ÁLÁN2îlğl8@2oassert_predicate/assert_predicate @requested_update, :requested?"
+ÇÇ*
+ÆÆ2…o•o8@2ãassert_error_responseassert_error_response errors, message: "#{@repository.owner.login} does not have the correct permissions to execute `MarkRepositoryDependencyUpdateErrored`","
+ÉÉ*
+ÈÈ2¼oÑo8@2Óloginassert_error_response errors, message: "#{@repository.owner.login} does not have the correct permissions to execute `MarkRepositoryDependencyUpdateErrored`","
+ÉCÉH*
+ÈBÈG2øoıo8@2Óownerassert_error_response errors, message: "#{@repository.owner.login} does not have the correct permissions to execute `MarkRepositoryDependencyUpdateErrored`","
+É=ÉB*
+È<ÈA2òo÷o8@2Xenterprise?end unless GitHub.enterprise?"
+ÍÍ*
+ÌÌ2ÊqÕq8@2SGitHubend unless GitHub.enterprise?"
+ÍÍ*
+ÌÌ2ÃqÉq8@

@@ -1,0 +1,19 @@
+
+(0a4faccc78c8155540f511eb28c7a2bb8e377361.app/models/team/parent_change/pending_queue.rbRuby"02QParentChangemodule Team::ParentChange"
+***
+))2îú8@2ITeammodule Team::ParentChange"
+***
+))2èì8@2zPendingQueueBclass PendingQueue < GitHub::DataStructures::PersistentAtomicQueue"
++	+*
+**2ƒ8@2ƒPersistentAtomicQueueBclass PendingQueue < GitHub::DataStructures::PersistentAtomicQueue"
+++E*
+**D2’¿8@2|DataStructuresBclass PendingQueue < GitHub::DataStructures::PersistentAtomicQueue"
+++.*
+**-2’¨8@2tGitHubBclass PendingQueue < GitHub::DataStructures::PersistentAtomicQueue"
+++*
+**2’˜8@2M
+initializedef initialize(org_id:)"
+,	,*
+++2ÈÒ8@2ŽPayload[super(queue_type: "team/parent_change/pending", queue_name: org_id, payload_class: Payload)"
+-Z-a*
+,Y,`2µ¼8@

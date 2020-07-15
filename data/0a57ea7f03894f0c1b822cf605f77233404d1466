@@ -1,0 +1,181 @@
+
+(0a57ea7f03894f0c1b822cf605f77233404d14660vendor/bundler/lib/bundler/settings/validator.rbRuby"02?Bundlermodule Bundler"
+*
+2&-8@2@Settingsclass Settings"
+	*
+26>8@2B	Validatorclass Validator"
+*
+
+2IR8@28Rule
+class Rule"
+*
+2_c8@2Mattr_readerattr_reader :description"
+	*
+2lw8@2b
+initialize,def initialize(keys, description, &validate)"
+		*
+2íú8@2X	validate!#def validate!(key, value, settings)"
+*
+2Ø∏8@2hinstance_exec/instance_exec(key, value, settings, &@validate)"
+*
+
+2ŸÊ8@2Pfail!def fail!(key, value, *reasons)"
+*
+2¢ß8@2Ounshiftreasons.unshift @description"
+*
+2–◊8@2†raiseoraise InvalidOption, "Setting `#{key}` to #{value.inspect} failed:\n#{reasons.map {|r| " - #{r}" }.join("\n")}""
+*
+
+2ÔÙ8@2®InvalidOptionoraise InvalidOption, "Setting `#{key}` to #{value.inspect} failed:\n#{reasons.map {|r| " - #{r}" }.join("\n")}""
+*
+2ıÇ8@2¢inspectoraise InvalidOption, "Setting `#{key}` to #{value.inspect} failed:\n#{reasons.map {|r| " - #{r}" }.join("\n")}""
+=D*
+<C2°®8@2üjoinoraise InvalidOption, "Setting `#{key}` to #{value.inspect} failed:\n#{reasons.map {|r| " - #{r}" }.join("\n")}""
+nr*
+mq2“÷8@2ûmaporaise InvalidOption, "Setting `#{key}` to #{value.inspect} failed:\n#{reasons.map {|r| " - #{r}" }.join("\n")}""
+Y\*
+X[2Ω¿8@2Vset'def set(settings, key, value, *reasons)"
+*
+2¯˚8@2>khash_key = k(key)"
+*
+2±≤8@2Ounshiftreasons.unshift @description"
+*
+2˙Å8@2ÉinfoSBundler.ui.info "Setting `#{key}` to #{value.inspect}, since #{reasons.join(", ")}""
+*
+2§®8@2ÜinspectSBundler.ui.info "Setting `#{key}` to #{value.inspect}, since #{reasons.join(", ")}""
+8?*
+7>2∆Õ8@2ÉjoinSBundler.ui.info "Setting `#{key}` to #{value.inspect}, since #{reasons.join(", ")}""
+RV*
+QU2‡‰8@2ÅuiSBundler.ui.info "Setting `#{key}` to #{value.inspect}, since #{reasons.join(", ")}""
+*
+2°£8@2ÜBundlerSBundler.ui.info "Setting `#{key}` to #{value.inspect}, since #{reasons.join(", ")}""
+*
+
+2ô†8@2=nil?if value.nil?"
+*
+2ÄÑ8@2Kdeletesettings.delete(hash_key)"
+*
+2ö†8@27k
+def k(key)"
+$$*
+##2àâ8@2Pkey_forBundler.settings.key_for(key)"
+%%#*
+$$"2™±8@2QsettingsBundler.settings.key_for(key)"
+%%*
+$$2°©8@2PBundlerBundler.settings.key_for(key)"
+%%*
+$
+$2ô†8@2?rulesdef self.rules"
+))*
+((2›‚8@2Vnew'@rules ||= Hash.new {|h, k| h[k] = [] }"
+***
+))2˚˛8@2WHash'@rules ||= Hash.new {|h, k| h[k] = [] }"
+***
+))2ˆ˙8@2[private_class_methodprivate_class_method :rules"
+,,*
+++2£	∑	8@2Vrule&def self.rule(keys, description, &blk)"
+..*
+--2œ	”	8@2Wnew(rule = Rule.new(keys, description, &blk)"
+//*
+..2Å
+Ñ
+8@2XRule(rule = Rule.new(keys, description, &blk)"
+//*
+..2¸	Ä
+8@2Qeach!keys.each {|k| rules[k] << rule }"
+00*
+//2´
+Ø
+8@2Rrules!keys.each {|k| rules[k] << rule }"
+00*
+//2µ
+∫
+8@2Zprivate_class_methodprivate_class_method :rule"
+22*
+112ÿ
+Ï
+8@2]	validate!(def self.validate!(key, value, settings)"
+44*
+332Éå8@2Orulesrules_to_validate = rules[key]"
+55"*
+44!2øƒ8@2ueachErules_to_validate.each {|rule| rule.validate!(key, value, settings) }"
+66*
+552‰Ë8@2z	validate!Erules_to_validate.each {|rule| rule.validate!(key, value, settings) }"
+6-66*
+5,552ˆˇ8@2írulebrule %w[path path.system], "path and path.system are mutually exclusive" do |key, value, settings|"
+99*
+88
+2©≠8@2Pset!set(settings, "path.system", nil)"
+;;*
+:
+:2∏ª8@2Hsetset(settings, :path, nil)"
+==*
+<
+<2êì8@2ûrulenrule %w[with without], "a group cannot be in both `with` & `without` simultaneously" do |key, value, settings|"
+AA*
+@@
+2«À8@2kmap<with = settings.fetch(k(:with), "").split(":").map(&:to_sym)"
+B8B;*
+A7A:2Ì8@2msplit<with = settings.fetch(k(:with), "").split(":").map(&:to_sym)"
+B-B2*
+A,A12‚Á8@2mfetch<with = settings.fetch(k(:with), "").split(":").map(&:to_sym)"
+BB*
+AA2Œ”8@2ik<with = settings.fetch(k(:with), "").split(":").map(&:to_sym)"
+BB *
+AA2‘’8@2qmapBwithout = settings.fetch(k(:without), "").split(":").map(&:to_sym)"
+C>CA*
+B=B@2∏ª8@2ssplitBwithout = settings.fetch(k(:without), "").split(":").map(&:to_sym)"
+C3C8*
+B2B72≠≤8@2sfetchBwithout = settings.fetch(k(:without), "").split(":").map(&:to_sym)"
+CC!*
+BB 2ñõ8@2okBwithout = settings.fetch(k(:without), "").split(":").map(&:to_sym)"
+C"C#*
+B!B"2úù8@2Cany?if conflicting.any?"
+II*
+HH2Ù8@2µfail!Éfail!(key, value, "`#{other_key}` is current set to #{other_setting.inspect}", "the `#{conflicting.join("`, `")}` groups conflict")"
+JJ*
+I
+I2ˇÑ8@2∑inspectÉfail!(key, value, "`#{other_key}` is current set to #{other_setting.inspect}", "the `#{conflicting.join("`, `")}` groups conflict")"
+JOJV*
+INIU2√ 8@2¥joinÉfail!(key, value, "`#{other_key}` is current set to #{other_setting.inspect}", "the `#{conflicting.join("`, `")}` groups conflict")"
+JnJr*
+ImIq2‚Ê8@2†ruleprule %w[path], "relative paths are expanded relative to the current working directory" do |key, value, settings|"
+NN*
+MM
+2†§8@2Bnil?next if value.nil?"
+OO*
+NN2ß´8@2Inewpath = Pathname.new(value)"
+QQ*
+PP2≈»8@2NPathnamepath = Pathname.new(value)"
+QQ*
+PP2ºƒ8@2{	relative?Fnext if !path.relative? || !Bundler.feature_flag.path_relative_to_cwd?"
+RR *
+QQ2ÊÔ8@2ápath_relative_to_cwd?Fnext if !path.relative? || !Bundler.feature_flag.path_relative_to_cwd?"
+R:RO*
+Q9QN2âû8@2~feature_flagFnext if !path.relative? || !Bundler.feature_flag.path_relative_to_cwd?"
+R-R9*
+Q,Q82¸à8@2yBundlerFnext if !path.relative? || !Bundler.feature_flag.path_relative_to_cwd?"
+R%R,*
+Q$Q+2Ù˚8@2Nexpand_pathpath = path.expand_path"
+TT *
+SS2¥ø8@2<rootBundler.root"
+WW*
+VV2ÔÛ8@2?BundlerBundler.root"
+WW*
+VV2ÁÓ8@2QGemfileNotFoundrescue GemfileNotFound"
+XX&*
+WW%2äô8@2Oexpand_pathPathname.pwd.expand_path"
+YY**
+XX)2∏√8@2GpwdPathname.pwd.expand_path"
+YY*
+XX2¥∑8@2LPathnamePathname.pwd.expand_path"
+YY*
+XX2´≥8@2[relative_path_frompath.relative_path_from(root)"
+]])*
+\\(2Éï8@2MArgumentErrorrescue ArgumentError"
+^^$*
+]]#2≤ø8@2Lsetset(settings, key, path.to_s)"
+b	b*
+aa2Úı8@2Mto_sset(settings, key, path.to_s)"
+b!b%*
+a a$2äé8@

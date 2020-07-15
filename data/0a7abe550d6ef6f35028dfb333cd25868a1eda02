@@ -1,0 +1,119 @@
+
+(0a7abe550d6ef6f35028dfb333cd25868a1eda02;test/lib/platform/loaders/newsies_list_subscription_test.rbRuby"02ó*PlatformLoadersNewsiesListSubscriptionTestCclass PlatformLoadersNewsiesListSubscriptionTest < GitHub::TestCase"
+1*
+02Nx8@2vTestCaseCclass PlatformLoadersNewsiesListSubscriptionTest < GitHub::TestCase"
+4D*
+3C2{ã8@2tGitHubCclass PlatformLoadersNewsiesListSubscriptionTest < GitHub::TestCase"
+4:*
+392{Å8@2?fixturesfixtures do"
+*
+
+2éñ8@2Gcreate@user = create(:user)"
+*
+2¶¨8@2Mcreate@repo = create(:repository)"
+*
+2¿∆8@2M
+watch_repo@user.watch_repo(@repo)"
+		*
+
+2ﬁË8@2[	to_object&@list = Newsies::List.to_object(@repo)"
+
+
+$*
+		#2äì8@2VList&@list = Newsies::List.to_object(@repo)"
+
+
+*
+		2¸â8@2YNewsies&@list = Newsies::List.to_object(@repo)"
+
+
+*
+		2¸É8@2ktest;test "returns the subscription associated with the list" do"
+*
+2§®8@2ÑsyncTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+UY*
+TX2¥∏8@2ÇidTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+JL*
+IK2©´8@2óNewsiesListSubscriptionTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+>*
+=2Ûù8@2áLoadersTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+%*
+$2ÛÑ8@2àPlatformTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+*
+2Û˚8@2cassert_equal+assert_equal @list.id, subscription.list_id"
+*
+2æ 8@2Yid+assert_equal @list.id, subscription.list_id"
+*
+2—”8@2^list_id+assert_equal @list.id, subscription.list_id"
+)0*
+(/2‚È8@2gassert_equal/assert_equal @list.type, subscription.list_type"
+*
+2Ó˙8@2_type/assert_equal @list.type, subscription.list_type"
+*
+2ÅÖ8@2d	list_type/assert_equal @list.type, subscription.list_type"
++4*
+*32îù8@2Xtest(test "returns nil for unwatched repo" do"
+*
+2ß´8@2Lcreaterepo = create(:repository)"
+*
+2€·8@2Y	to_object$list = Newsies::List.to_object(repo)"
+#*
+"2àë8@2TList$list = Newsies::List.to_object(repo)"
+*
+2˙á8@2WNewsies$list = Newsies::List.to_object(repo)"
+*
+2˙Å8@2ÉsyncSsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, list).sync"
+TX*
+SW2ÎÔ8@2ÅidSsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, list).sync"
+JL*
+IK2·„8@2ñNewsiesListSubscriptionSsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, list).sync"
+>*
+=2´’8@2ÜLoadersSsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, list).sync"
+%*
+$2´º8@2áPlatformSsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, list).sync"
+*
+2´≥8@2M
+assert_nilassert_nil subscription"
+*
+2ıˇ8@2[test+test "returns nil for non-existent user" do"
+*
+2ñö8@2ásyncWsubscription = Platform::Loaders::NewsiesListSubscription.load("not-an-id", @list).sync"
+X\*
+W[2ôù8@2öNewsiesListSubscriptionWsubscription = Platform::Loaders::NewsiesListSubscription.load("not-an-id", @list).sync"
+>*
+=2’ˇ8@2äLoadersWsubscription = Platform::Loaders::NewsiesListSubscription.load("not-an-id", @list).sync"
+%*
+$2’Ê8@2ãPlatformWsubscription = Platform::Loaders::NewsiesListSubscription.load("not-an-id", @list).sync"
+*
+2’›8@2M
+assert_nilassert_nil subscription"
+*
+2£≠8@2_test/test "returns nil if newsies is unavailable" do"
+""*
+!!2ƒ»8@2åreturnsYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+#6#=*
+"5"<2©∞8@2ïRESPONSE_FAILUREYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+#>#]*
+"="\2±–8@2íNewsiesHelperYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+#>#K*
+"="J2±æ8@2åexpectsYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+##*
+""2áé8@2ånewsiesYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+##*
+""2ˇÜ8@2ãGitHubYGitHub.newsies.expects(:user_list_subscriptions).returns(NewsiesHelper::RESPONSE_FAILURE)"
+##*
+""
+2¯˛8@2ÑsyncTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+$U$Y*
+#T#X2¶	™	8@2ÇidTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+$J$L*
+#I#K2õ	ù	8@2óNewsiesListSubscriptionTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+$$>*
+##=2Âè	8@2áLoadersTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+$$%*
+##$2Âˆ8@2àPlatformTsubscription = Platform::Loaders::NewsiesListSubscription.load(@user.id, @list).sync"
+$$*
+##2ÂÌ8@2M
+assert_nilassert_nil subscription"
+&&*
+%%2∞	∫	8@

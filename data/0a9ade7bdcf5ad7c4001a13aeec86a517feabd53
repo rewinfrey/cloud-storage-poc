@@ -1,0 +1,18 @@
+
+(0a9ade7bdcf5ad7c4001a13aeec86a517feabd53&lib/platform/errors/immutable_value.rbRuby"02APlatformmodule Platform"
+*
+2&.8@2=Errorsmodule Errors"
+
+*
+	28>8@2_ImmutableValue'class ImmutableValue < Errors::Internal"
+*
+
+2IW8@2YInternal'class ImmutableValue < Errors::Internal"
+,*
++2Zj8@2WErrors'class ImmutableValue < Errors::Internal"
+"*
+!2Z`8@2O
+initializedef initialize(name, value)"
+*
+
+2u8@
