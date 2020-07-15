@@ -183,10 +183,6 @@ func main() {
 	// Use a pseudo-randomly generated name.
 	name := "blob-storage"
 
-	// Clean up previous runs (if needed).
-	withTiming(deleteBucketItems(svc, name), "deleteBucketItems", logfile)
-	withTiming(deleteBucket(svc, name), "deleteBucket", logfile)
-
 	// Create the bucket.
 	withTiming(createBucket(svc, name), "createBucket", logfile)
 
@@ -217,4 +213,8 @@ func main() {
 
 	// List all within a single bucket.
 	withTiming(listBucket(svc, name), "listBucket", logfile)
+
+	// Delete the bucket and its items.
+	withTiming(deleteBucketItems(svc, name), "deleteBucketItems", logfile)
+	withTiming(deleteBucket(svc, name), "deleteBucket", logfile)
 }
