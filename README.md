@@ -190,9 +190,13 @@ deleteContainer duration: 51.624311ms
 
 ### Key findings
 
-Azure blob storage performance overall is consistently under 100 ms for reads and writes. Whereas for the same blob files, AWS overall performs similarly but with a greater variance (from 50ms to 500ms).
+Azure blob storage performance overall is consistently under 100 ms for reads and writes, with most operations taking ~50 ms. 
 
-Azure blob storage's SDK has builtin retry logic for reads and is a little more fault tolerant than AWS SDK.
+AWS reads are comparable to Azure, but writes observe higher latency.
+
+Azure's delete operation is simpler and faster compared with AWS. AWS requires deleting each bucket item manually, and total time spent deleting was 1237 ms. Azure requires only a single delete operation for the container, and was significantly faster at 51 ms.
+
+Azure blob storage's SDK has builtin retry logic for reads. To see the related code, please view [`cmd/aws/main.go`](https://github.com/rewinfrey/cloud-storage-poc/blob/main/cmd/aws/main.go) and [`cmd/azure/main.go`](https://github.com/rewinfrey/cloud-storage-poc/blob/main/cmd/azure/main.go).
 
 ### Dependencies
 
