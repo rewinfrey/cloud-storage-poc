@@ -196,16 +196,20 @@ Azure blob storage's SDK has builtin retry logic for reads and is a little more 
 
 ### Dependencies
 
-Creates a session using AWS conventions and expects AWS credentials to exist in `~/.aws/credentials`.
+For the AWS test, you will need AWS account credentials stored in `~/.aws/credentials`. See the [getting started with AWS S3 guide](https://aws.amazon.com/s3/getting-started/) for more info.
 
-For the Azure test, you need to export the following env vars:
+For the Azure test, you will need to export the following env vars:
 
 ```
 AZURE_STORAGE_ACCOUNT
 AZURE_STORAGE_ACCESS_KEY
 ```
 
-Both the AWS and Azure credentials require configuration and setup of AWS and Azure portal accounts.
+Please see the [Azure blob storage quickstart guide](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-go?tabs=linux) for more info.
+
+### Data
+
+File used for the write / read tests can be found in `data`. In total 41 files encoded in binary format were used and have a range of sizes from 1K to 50K.
 
 ### Build
 
@@ -216,7 +220,8 @@ make build
 ### Run
 
 ```sh
-bin/example
+bin/aws
+bin/azure
 ```
 
 ### License
