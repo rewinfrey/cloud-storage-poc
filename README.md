@@ -209,7 +209,7 @@ Please see the [Azure blob storage quickstart guide](https://docs.microsoft.com/
 
 ### Data
 
-File used for the write / read tests can be found in `data`. In total 41 files encoded in binary format were used and have a range of sizes from 1K to 50K.
+Files used for the write / read tests can be found in `data`. In total 41 files encoded in binary format were used and have a range of sizes from 512B to 174K.
 
 ### Build
 
