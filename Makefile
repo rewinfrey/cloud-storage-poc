@@ -1,5 +1,6 @@
 APPVERSION=$(or $(shell git rev-parse HEAD 2>/dev/null),"unknown")
 AWSBIN = bin/aws
+AZUREBIN = bin/azure
 
 GO = go
 V  = 0
@@ -12,7 +13,7 @@ all:
 
 all: build
 
-build: aws
+build: aws azure
 
 BUILDFLAGS = GOFLAGS=-mod=vendor
 aws:
@@ -20,8 +21,13 @@ aws:
 		-ldflags '-X main.BuildVersion=$(APPVERSION)' \
 		-o $(AWSBIN) ./cmd/aws
 
+azure:
+	$Q $(BUILDFLAGS) $(GO) build \
+		-ldflags '-X main.BuildVersion=$(APPVERSION)' \
+		-o $(AZUREBIN) ./cmd/azure
+
 # Misc
 .PHONY: clean
 clean: ; $(info $(M) cleaning...) @ ## Clean up everything
 	$Q rm -f $(AWSBIN)
-	$Q rm -f bin/example
+	$Q rm -f $(AZUREBIN)
